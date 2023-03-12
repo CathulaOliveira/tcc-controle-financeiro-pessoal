@@ -1,1 +1,42 @@
-<p>nav works!</p>
+<mat-drawer-container class="container" autosize>
+    <mat-drawer #drawer class="sidenav" mode="side">
+        <img src="assets/img/logo.PNG" alt="Imagem de navegação">
+        <mat-nav-list class="nav-list">
+            <a mat-list-item routerLink="/">
+                <i class="material-icons">home</i>
+                Início
+            </a>
+            <a mat-list-item routerLink="/">
+                <i class="material-icons">account_balance</i>
+                Contas
+            </a>
+            <a mat-list-item routerLink="/">
+                <i class="material-icons">sell</i>
+                Categorias
+            </a>
+            <a mat-list-item routerLink="/">
+                <i class="material-icons">paid</i>
+                Transações
+            </a>
+            <a mat-list-item routerLink="/">
+                <i class="material-icons">trending_up</i>
+                Metas
+            </a>
+            <a mat-list-item routerLink="/">
+                <i class="material-icons">currency_exchange</i>
+                Fluxo de caixa
+            </a>
+            <a mat-list-item routerLink="/">
+                <i class="material-icons">logout</i>
+                Sair
+            </a>
+        </mat-nav-list>
+    </mat-drawer>
+  
+    <div class="sidenav-content">
+      <button class="menu mat-elevation-z8" (click)="drawer.toggle()" mat-icon-button>
+        <mat-icon>menu</mat-icon>
+      </button>
+    </div>
+  
+  </mat-drawer-container>
