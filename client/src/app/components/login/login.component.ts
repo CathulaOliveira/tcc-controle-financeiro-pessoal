@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
+
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
+
 import { User } from 'src/app/models/user';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -17,17 +21,30 @@ export class LoginComponent implements OnInit {
   email = new FormControl(null, Validators.email);
   password = new FormControl(null, Validators.minLength(3));
 
-  constructor() { }
+  constructor(
+    private snackBar: MatSnackBar,
+    private service: AuthService
+  ) { }
 
   ngOnInit(): void {
   }
 
+  logar() {
+    // const config = new MatSnackBarConfig();
+    // config.verticalPosition = 'top';
+    // config.horizontalPosition = 'right';
+    // config.duration = 3000;
+
+    // this.snackBar.open('Login sucess', 'Fechar', config);
+    this.service.authenticate(this.login).subscribe(resposta => {
+      this.service.sucessFullLogin(resposta.headers.get('Authorization').substring(7));
+    }, () => {
+      this.snackBar.open('Usuário e/ou senha inválidos')
+    })
+  }
+
   validaCampos(): boolean {
-    if (this.email.valid && this.password.valid) {
-      return true;
-    } else {
-      return false;
-    }
+    return this.email.valid && this.password.valid;
   }
 
 }
