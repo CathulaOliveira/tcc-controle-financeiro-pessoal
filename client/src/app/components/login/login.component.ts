@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
@@ -23,7 +24,8 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private snackBar: MatSnackBar,
-    private service: AuthService
+    private service: AuthService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -38,6 +40,7 @@ export class LoginComponent implements OnInit {
     // this.snackBar.open('Login sucess', 'Fechar', config);
     this.service.authenticate(this.login).subscribe(resposta => {
       this.service.sucessFullLogin(resposta.headers.get('Authorization').substring(7));
+      this.router.navigate(['']);
     }, () => {
       this.snackBar.open('Usuário e/ou senha inválidos')
     })
