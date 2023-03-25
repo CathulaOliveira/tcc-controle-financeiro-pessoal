@@ -1,5 +1,5 @@
 <mat-drawer-container class="container" autosize>
-    <mat-drawer #drawer class="sidenav" mode="over">
+    <mat-drawer #drawer class="sidenav" mode="side" opened>
         <img src="assets/img/logo.png" alt="Imagem de navegação">
         <mat-nav-list class="nav-list">
             <a mat-list-item routerLink="home">
@@ -34,10 +34,19 @@
     </mat-drawer>
   
     <div class="sidenav-content">
-        <app-header></app-header>
-        <button class="menu mat-elevation-z8" (click)="drawer.toggle()" mat-icon-button>
-            <mat-icon>menu</mat-icon>
-        </button>
+        <mat-toolbar color="primary">
+            <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon" (click)="drawer.toggle()">
+              <mat-icon>menu</mat-icon>
+            </button>
+            <span>Controle Financeiro pessoal</span>
+            <span class="example-spacer"></span>
+            <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+              <mat-icon>favorite</mat-icon>
+            </button>
+            <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+              <mat-icon>share</mat-icon>
+            </button>
+        </mat-toolbar>
         <router-outlet></router-outlet>
     </div>
   

@@ -57,7 +57,6 @@ import { LoginComponent } from './components/login/login.component';
     MatIconModule,
     MatListModule,
     MatCardModule,
-    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

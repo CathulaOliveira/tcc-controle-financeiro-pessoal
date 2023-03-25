@@ -5,8 +5,8 @@
 .sidenav {
     width: 13rem;
     color: white;
-    background: rgb(198,156,242);
-    background: linear-gradient(90deg, rgba(198,156,242,1) 0%, rgba(126,5,224,1) 100%);
+    /* background: rgb(198,156,242); */
+    background: rgb(103,58,183)
 }
 
 img {
@@ -26,5 +26,8 @@ img {
 .menu {
     margin: 1rem, 0, 0, 1rem;
     color: white;
-    background: linear-gradient(90deg, rgba(198,156,242,1) 0%, rgba(126,5,224,1) 100%);
 }
+
+.example-spacer {
+    flex: 1 1 auto;
+  }
