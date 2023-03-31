@@ -1,46 +1,47 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-
-import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-
-import { User } from 'src/app/models/user';
-import { AuthService } from 'src/app/services/auth.service';
+import { User } from '../models/user';
+import { UserService } from './services/user.service';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  selector: 'app-user',
+  templateUrl: './user.component.html',
+  styleUrls: ['./user.component.css']
 })
-export class LoginComponent implements OnInit {
+export class UserComponent implements OnInit {
 
   login: User = {
-    email: '',
+    displayName: '',
+    telephone: '',
+    username: '',
     password: '',
+    email: ''
   }
 
-  email = new FormControl(null, Validators.email);
   password = new FormControl(null, Validators.minLength(3));
+  email = new FormControl(null, Validators.email);
 
   constructor(
     private snackBar: MatSnackBar,
-    private service: AuthService,
+    private service: UserService,
     private router: Router
-  ) { }
+    ) { }
 
   ngOnInit(): void {
   }
 
-  logar() {
+  cadastrar() {
     // const config = new MatSnackBarConfig();
     // config.verticalPosition = 'top';
     // config.horizontalPosition = 'right';
     // config.duration = 3000;
 
     // this.snackBar.open('Login sucess', 'Fechar', config);
-    this.service.authenticate(this.login).subscribe(resposta => {
-      this.service.sucessFullLogin(resposta.headers.get('Authorization').substring(7));
-      this.router.navigate(['']);
+    this.service.save(this.login).subscribe(resposta => {
+      this.router.navigate(['/login']);
+      this.snackBar.open('Usuário cadastrado com sucesso. Por favor acesse com suas credencias');
     }, () => {
       this.snackBar.open('Usuário e/ou senha inválidos')
     })

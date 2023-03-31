@@ -22,11 +22,12 @@ import {MatCardModule} from '@angular/material/card';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavComponent } from './components/nav/nav.component';
-import { HomeComponent } from './components/home/home.component';
+import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './components/header/header.component';
-import { AccountListComponent } from './components/account/account-list/account-list.component';
-import { LoginComponent } from './components/login/login.component';
+import { AccountListComponent } from './account/account-list/account-list.component';
+import { LoginComponent } from './login/login.component';
 import { AuthInterceptorProvider } from './interceptors/auth.interceptor';
+import { UserComponent } from './user/user.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { AuthInterceptorProvider } from './interceptors/auth.interceptor';
     HomeComponent,
     HeaderComponent,
     AccountListComponent,
-    LoginComponent
+    LoginComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,

@@ -1,4 +1,7 @@
 export interface User {
-    email: String;
+    displayName: String;
+    telephone: String;
+    username: String;
     password: String;
+    email: String;
 }

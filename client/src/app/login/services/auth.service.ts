@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { API_CONFIG } from '../config/api.config';
-import { User } from '../models/user';
+import { Observable } from 'rxjs';
+import { API_CONFIG } from '../../config/api.config';
+import { User } from '../../models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -15,11 +16,8 @@ export class AuthService {
     private http:HttpClient,
   ) { }
 
-  authenticate(login: User) {
-    return this.http.post(`${API_CONFIG.baseUrl}/login`, login, {
-      observe: 'response',
-      responseType: 'text'
-    });
+  authenticate(login: User): Observable<any> {
+    return this.http.post(`${API_CONFIG.baseUrl}/login`, login);
   }
 
   sucessFullLogin(authToken: string) {
