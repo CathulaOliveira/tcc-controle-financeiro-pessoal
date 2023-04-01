@@ -17,6 +17,10 @@ export class AccountService {
     return this.http.get<Account[]>(`${API_CONFIG.baseUrl}/accounts`)
   }
 
+  findByUserLogged(): Observable<Account[]> {
+    return this.http.get<Account[]>(`${API_CONFIG.baseUrl}/accounts/find-by-user-logged`)
+  }
+
   save(account: Account): Observable<Account> {
     return this.http.put<Account>(`${API_CONFIG.baseUrl}/accounts`, account)
   }

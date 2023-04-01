@@ -31,11 +31,11 @@ export class AccountListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.findAll();
+    this.listAll();
   }
 
-  findAll() {
-    this.service.findAll().subscribe( res => {
+  listAll() {
+    this.service.findByUserLogged().subscribe( res => {
       this.ELEMENT_DATA = res;
       this.dataSource = new MatTableDataSource<Account>(this.ELEMENT_DATA);
       this.dataSource.paginator = this.paginator;
