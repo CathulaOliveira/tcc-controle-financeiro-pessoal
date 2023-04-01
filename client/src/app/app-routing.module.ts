@@ -7,6 +7,8 @@ import { LoginComponent } from './login/login.component';
 import { NavComponent } from './components/nav/nav.component';
 import { UserComponent } from './user/user.component';
 import { AccountFormComponent } from './account/account-form/account-form.component';
+import { CategoryListComponent } from './category/category-list/category-list.component';
+import { CategoryFormComponent } from './category/category-form/category-form.component';
 
 const routes: Routes = [
   {
@@ -20,6 +22,8 @@ const routes: Routes = [
       {path: 'home', component: HomeComponent},
       {path: 'account', component: AccountListComponent},
       {path: 'account-form', component: AccountFormComponent},
+      {path: 'category', component: CategoryListComponent},
+      {path: 'category-form', component: CategoryFormComponent},
     ]
   }
 ];

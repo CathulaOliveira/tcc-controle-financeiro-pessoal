@@ -18,6 +18,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatIconModule} from '@angular/material/icon';
 import {MatListModule} from '@angular/material/list';
 import {MatCardModule} from '@angular/material/card';
+import {MatDialogModule } from '@angular/material/dialog';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -29,6 +30,9 @@ import { AuthInterceptorProvider } from './interceptors/auth.interceptor';
 import { UserComponent } from './user/user.component';
 import { AccountFormComponent } from './account/account-form/account-form.component';
 import { AccountTypeOptionsPipe } from './account/models/account-type-pipe.pipe';
+import { CategoryListComponent } from './category/category-list/category-list.component';
+import { CategoryFormComponent } from './category/category-form/category-form.component';
+import { DialogComponent } from './components/dialog/dialog.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +43,10 @@ import { AccountTypeOptionsPipe } from './account/models/account-type-pipe.pipe'
     LoginComponent,
     UserComponent,
     AccountFormComponent,
-    AccountTypeOptionsPipe
+    AccountTypeOptionsPipe,
+    CategoryListComponent,
+    CategoryFormComponent,
+    DialogComponent
   ],
   imports: [
     BrowserModule,
@@ -62,6 +69,7 @@ import { AccountTypeOptionsPipe } from './account/models/account-type-pipe.pipe'
     MatIconModule,
     MatListModule,
     MatCardModule,
+    MatDialogModule,
   ],
   providers: [AuthInterceptorProvider],
   bootstrap: [AppComponent]

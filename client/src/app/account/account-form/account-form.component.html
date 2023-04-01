@@ -14,39 +14,39 @@
           required
           name="number"
           matInput >
-      </mat-form-field>
+        </mat-form-field>
 
-      <mat-form-field class="full-width" appearance="outline">
-          <mat-label>Agência</mat-label>
+        <mat-form-field class="full-width" appearance="outline">
+            <mat-label>Agência</mat-label>
+            <input 
+            formControlName="agency"
+            required
+            name="agency"
+            matInput >
+        </mat-form-field>
+
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Banco</mat-label>
           <input 
-          formControlName="agency"
+          formControlName="bank"
           required
-          name="agency"
+          name="bank"  
           matInput >
-      </mat-form-field>
+        </mat-form-field>
 
-      <mat-form-field class="full-width" appearance="outline">
-        <mat-label>Banco</mat-label>
-        <input 
-        formControlName="bank"
-        required
-        name="bank"  
-        matInput >
-      </mat-form-field>
-
-      <mat-form-field class="full-width" appearance="outline">
-        <mat-label>Tipo</mat-label>
-        <mat-select formControlName="type">
-          <mat-option *ngFor="let option of accountTypeOptions" [value]="option.value">
-            {{ option.label }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Tipo</mat-label>
+          <mat-select formControlName="type">
+            <mat-option *ngFor="let option of accountTypeOptions" [value]="option.value">
+              {{ option.label }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
       </form>
     </div>
 
     <div class="button-add">
-      <button (click)="save()" mat-fab aria-label="Salvar">
+      <button (click)="saveClick()" mat-fab aria-label="Salvar">
         <mat-icon>check</mat-icon>
       </button>
     </div>

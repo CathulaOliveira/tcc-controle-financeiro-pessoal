@@ -1,0 +1,27 @@
+<mat-card class="card">
+
+    <mat-card-header>
+      <mat-card-title>Categorias</mat-card-title>
+      <mat-card-subtitle>Nova Conta</mat-card-subtitle>
+    </mat-card-header>
+
+    <div class="container">
+      <form class="form" [formGroup]="form">
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Nome</mat-label>
+          <input 
+          formControlName="name"
+          required
+          name="name"
+          matInput >
+        </mat-form-field>
+      </form>
+    </div>
+
+    <div class="button-add">
+      <button (click)="saveClick()" mat-fab aria-label="Salvar">
+        <mat-icon>check</mat-icon>
+      </button>
+    </div>
+
+</mat-card>
