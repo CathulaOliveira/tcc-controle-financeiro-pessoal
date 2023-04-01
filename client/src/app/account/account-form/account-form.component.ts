@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Account } from 'src/app/account/models/account';
-import { User } from 'src/app/models/user';
+import { User } from 'src/app/user/models/user';
 import { AccountService } from '../services/account.service';
 import { SnackbarService } from 'src/app/services/snackbar.service';
 import { AccountType } from '../models/account-type';

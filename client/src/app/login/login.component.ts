@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { Router } from '@angular/router';
 
-import { User } from 'src/app/models/user';
+import { User } from 'src/app/user/models/user';
 import { AuthService } from 'src/app/login/services/auth.service';
 import { SnackbarService } from '../services/snackbar.service';
 
@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
   }
 
   logar() {
-    const login: User = this.form.value;
+    const login: Credential = this.form.value;
     this.service.authenticate(login).subscribe(resposta => {
       this.service.sucessFullLogin(resposta.token);
       this.router.navigate(['']);

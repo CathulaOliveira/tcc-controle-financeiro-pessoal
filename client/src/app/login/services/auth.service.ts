@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Observable } from 'rxjs';
 import { API_CONFIG } from '../../config/api.config';
-import { User } from '../../models/user';
+import { User } from '../../user/models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +16,7 @@ export class AuthService {
     private http:HttpClient,
   ) { }
 
-  authenticate(login: User): Observable<any> {
+  authenticate(login: Credential): Observable<any> {
     return this.http.post(`${API_CONFIG.baseUrl}/login`, login);
   }
 
