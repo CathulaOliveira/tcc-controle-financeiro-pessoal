@@ -1,0 +1,54 @@
+<mat-card class="card">
+
+    <mat-card-header>
+      <mat-card-title>Contas</mat-card-title>
+      <mat-card-subtitle>Nova Conta</mat-card-subtitle>
+    </mat-card-header>
+
+    <div class="container">
+      <form class="form" [formGroup]="form">
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Número</mat-label>
+          <input 
+          formControlName="number"
+          required
+          name="number"
+          matInput >
+      </mat-form-field>
+
+      <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Agência</mat-label>
+          <input 
+          formControlName="agency"
+          required
+          name="agency"
+          matInput >
+      </mat-form-field>
+
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Banco</mat-label>
+        <input 
+        formControlName="bank"
+        required
+        name="bank"  
+        matInput >
+      </mat-form-field>
+
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Tipo</mat-label>
+        <mat-select formControlName="type">
+          <mat-option *ngFor="let option of accountTypeOptions" [value]="option.value">
+            {{ option.label }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      </form>
+    </div>
+
+    <div class="button-add">
+      <button (click)="save()" mat-fab aria-label="Salvar">
+        <mat-icon>check</mat-icon>
+      </button>
+    </div>
+
+</mat-card>

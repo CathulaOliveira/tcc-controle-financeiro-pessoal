@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
-import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/login/services/auth.service';
+import { SnackbarService } from '../services/snackbar.service';
 
 @Component({
   selector: 'app-login',
@@ -14,34 +14,25 @@ import { AuthService } from 'src/app/login/services/auth.service';
 })
 export class LoginComponent implements OnInit {
 
-  login: User = {
-    displayName: '',
-    telephone: '',
-    username: '',
-    password: '',
-    email: ''
-  }
-
-  password = new FormControl(null, Validators.minLength(3));
+  form: FormGroup;
 
   constructor(
-    private snackBar: MatSnackBar,
+    private snackBar: SnackbarService,
     private service: AuthService,
     private router: Router
   ) { }
 
   ngOnInit(): void {
+    this.form = new FormGroup({
+      username: new FormControl(''),
+      password: new FormControl(null, Validators.minLength(3)),
+    });
   }
 
   logar() {
-    // const config = new MatSnackBarConfig();
-    // config.verticalPosition = 'top';
-    // config.horizontalPosition = 'right';
-    // config.duration = 3000;
-
-    // this.snackBar.open('Login sucess', 'Fechar', config);
-    this.service.authenticate(this.login).subscribe(resposta => {
-      this.service.sucessFullLogin(JSON.stringify(resposta.token));
+    const login: User = this.form.value;
+    this.service.authenticate(login).subscribe(resposta => {
+      this.service.sucessFullLogin(resposta.token);
       this.router.navigate(['']);
       this.snackBar.open('Login realizado com sucesso');
     }, () => {
@@ -50,8 +41,7 @@ export class LoginComponent implements OnInit {
   }
 
   validaCampos(): boolean {
-    // return this.email.valid && this.password.valid;
-    return true;
+    return this.form.valid;
   }
 
   cadastrar() {

@@ -1,54 +1,52 @@
 <div class="container">
-    <form class="form  mat-elevation-z8">
+    <form class="form  mat-elevation-z8" [formGroup]="form">
 
         <h1>Controle Financeiro Pessoal</h1>
 
-        <mat-form-field class="full-width" appearance="fill">
+        <mat-form-field class="full-width" appearance="outline">
             <mat-label>Nome</mat-label>
             <input 
+            formControlName="displayName"
             required
-            [(ngModel)]="login.displayName"
             name="displayName"
             matInput >
         </mat-form-field>
 
     
-        <mat-form-field class="full-width" appearance="fill">
+        <mat-form-field class="full-width" appearance="outline">
             <mat-label>Telefone</mat-label>
             <input 
+            formControlName="telephone"
             required
-            [(ngModel)]="login.telephone"
             name="telephone"
             matInput 
             placeholder="99 999999999">
         </mat-form-field>
 
-        <mat-form-field class="full-width" appearance="fill">
+        <mat-form-field class="full-width" appearance="outline">
           <mat-label>Email</mat-label>
           <input 
-          [formControl]="email"
-          required
-          [(ngModel)]="login.email" 
+          formControlName="email"
+          required 
           name="email"  
           matInput 
           placeholder="Ex. teste@teste.com">
         </mat-form-field>
 
-        <mat-form-field class="full-width" appearance="fill">
+        <mat-form-field class="full-width" appearance="outline">
           <mat-label>Acesso</mat-label>
           <input 
+          formControlName="username"
           required
-          [(ngModel)]="login.username"
           name="username"
           matInput >
         </mat-form-field>
       
-        <mat-form-field class="full-width" appearance="fill">
+        <mat-form-field class="full-width" appearance="outline">
           <mat-label>Senha</mat-label>
           <input 
-          [formControl]="password"
+          formControlName="password"
           required
-          [(ngModel)]="login.password" 
           name="password" 
           type="password" 
           matInput 

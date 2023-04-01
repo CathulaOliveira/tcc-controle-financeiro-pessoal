@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { User } from '../models/user';
+import { SnackbarService } from '../services/snackbar.service';
 import { UserService } from './services/user.service';
 
 @Component({
@@ -12,34 +12,27 @@ import { UserService } from './services/user.service';
 })
 export class UserComponent implements OnInit {
 
-  login: User = {
-    displayName: '',
-    telephone: '',
-    username: '',
-    password: '',
-    email: ''
-  }
-
-  password = new FormControl(null, Validators.minLength(3));
-  email = new FormControl(null, Validators.email);
+  form: FormGroup;
 
   constructor(
-    private snackBar: MatSnackBar,
+    private snackBar: SnackbarService,
     private service: UserService,
     private router: Router
     ) { }
 
   ngOnInit(): void {
+    this.form = new FormGroup({
+      username: new FormControl(''),
+      password: new FormControl(null, Validators.minLength(3)),
+      displayName: new FormControl(''),
+      telephone: new FormControl(''),
+      email: new FormControl(null, Validators.email),
+    });
   }
 
   cadastrar() {
-    // const config = new MatSnackBarConfig();
-    // config.verticalPosition = 'top';
-    // config.horizontalPosition = 'right';
-    // config.duration = 3000;
-
-    // this.snackBar.open('Login sucess', 'Fechar', config);
-    this.service.save(this.login).subscribe(resposta => {
+    const user: User = this.form.value;
+    this.service.save(user).subscribe(resposta => {
       this.router.navigate(['/login']);
       this.snackBar.open('Usuário cadastrado com sucesso. Por favor acesse com suas credencias');
     }, () => {
@@ -48,7 +41,7 @@ export class UserComponent implements OnInit {
   }
 
   validaCampos(): boolean {
-    return this.email.valid && this.password.valid;
+    return this.form.valid;
   }
 
 }

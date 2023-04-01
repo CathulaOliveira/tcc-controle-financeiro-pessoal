@@ -1,0 +1,23 @@
+.card {
+    width: 95%;
+    margin: .8rem auto;
+ }
+ 
+ .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+ }
+
+ mat-form-field {
+   width: 100%; 
+ }
+
+ button {
+   background-color: rgb(235, 235, 235) !important;
+}
+
+.button-add {
+   display: flex;
+   justify-content: flex-end;
+   margin-top: 1rem;
+}

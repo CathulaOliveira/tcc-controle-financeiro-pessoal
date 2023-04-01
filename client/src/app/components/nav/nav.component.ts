@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/login/services/auth.service';
+import { SnackbarService } from 'src/app/services/snackbar.service';
 
 @Component({
   selector: 'app-nav',
@@ -13,7 +13,7 @@ export class NavComponent implements OnInit {
   constructor(
     private router: Router,
     private authService: AuthService,
-    private snackBar: MatSnackBar,
+    private snackBar: SnackbarService,
   ) { }
 
   ngOnInit(): void {

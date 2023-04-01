@@ -23,21 +23,23 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavComponent } from './components/nav/nav.component';
 import { HomeComponent } from './home/home.component';
-import { HeaderComponent } from './components/header/header.component';
 import { AccountListComponent } from './account/account-list/account-list.component';
 import { LoginComponent } from './login/login.component';
 import { AuthInterceptorProvider } from './interceptors/auth.interceptor';
 import { UserComponent } from './user/user.component';
+import { AccountFormComponent } from './account/account-form/account-form.component';
+import { AccountTypeOptionsPipe } from './account/models/account-type-pipe.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavComponent,
     HomeComponent,
-    HeaderComponent,
     AccountListComponent,
     LoginComponent,
-    UserComponent
+    UserComponent,
+    AccountFormComponent,
+    AccountTypeOptionsPipe
   ],
   imports: [
     BrowserModule,
