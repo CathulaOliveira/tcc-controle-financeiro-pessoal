@@ -31,4 +31,4 @@ spring:
         persistence:
           validation:
             mode: none
-    show-sql: true
+    show-sql: false
