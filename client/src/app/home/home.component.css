@@ -1,8 +1,9 @@
 .card {
-    width: 90%;
-    margin: 1rem auto;
+    width: 95%;
+    height: 80%;
+    margin: 5rem auto .8rem auto; 
     background-color: rgb(235, 235, 235);
-}
+  }
 
 img {
     height: 20rem;

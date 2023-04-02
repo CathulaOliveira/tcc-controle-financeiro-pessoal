@@ -1,6 +1,7 @@
 .card {
-    width: 95%;
-    margin: .8rem auto;
+   width: 95%;
+   height: 80%;
+   margin: 5rem auto .8rem auto; 
  }
  
  .container {
@@ -17,6 +18,9 @@
 }
 
 .button-add {
+   position: fixed;
+   bottom: 2rem;
+   right: 2rem;
    display: flex;
    justify-content: flex-end;
    margin-top: 1rem;

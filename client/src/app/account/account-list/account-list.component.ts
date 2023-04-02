@@ -72,10 +72,10 @@ export class AccountListComponent implements OnInit {
 
   delete(id) {
     this.service.delete(id).subscribe( res => {
-      this.snackBar.open('Registro excluído com sucesso');
+      this.snackBar.open('Registro excluído com sucesso.', 'snackbar-sucess');
       this.listAll();
     }, erro => {
-      this.snackBar.open('Erro ao excluir registro.')
+      this.snackBar.open('Erro ao excluir registro.', 'snackbar-warning')
     })
   }
 

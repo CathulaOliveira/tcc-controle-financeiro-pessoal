@@ -2,7 +2,7 @@
 
     <mat-card-header>
       <mat-card-title>Contas</mat-card-title>
-      <mat-card-subtitle>Nova Conta</mat-card-subtitle>
+      <mat-card-subtitle>{{idRegistro}}</mat-card-subtitle>
     </mat-card-header>
 
     <div class="container">
@@ -14,6 +14,7 @@
           required
           name="number"
           matInput >
+          <mat-error *ngIf="form.controls['number'].invalid">Número é obrigatório</mat-error>
         </mat-form-field>
 
         <mat-form-field class="full-width" appearance="outline">

@@ -2,6 +2,10 @@
     height: 100%;
 }
 
+mat-toolbar {
+   position: fixed;
+}
+
 .sidenav {
     width: 13rem;
     color: white;
@@ -25,5 +29,11 @@ img {
 
 .spacer {
     flex: 1 1 auto;
+}
+
+@media screen and (max-width: 767px) {
+    .display-name {
+        display: none;
+    }
 }
 

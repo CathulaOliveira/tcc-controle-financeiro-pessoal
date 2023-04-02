@@ -1,6 +1,7 @@
 .card {
    width: 95%;
-   margin: .8rem auto;
+   height: 80%;
+   margin: 5rem auto .8rem auto; 
    background-color: rgb(235, 235, 235);
 }
 
@@ -13,6 +14,11 @@
 table {
    width: 100%;
 }
+
+.scroll-table {
+   height: 300px;
+   overflow-y: auto;
+ }
 
 mat-form-field {
   width: 100%; 

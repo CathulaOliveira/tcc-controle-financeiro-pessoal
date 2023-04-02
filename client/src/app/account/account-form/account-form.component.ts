@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Account } from 'src/app/account/models/account';
 import { AccountService } from '../services/account.service';
 import { SnackbarService } from 'src/app/services/snackbar.service';
@@ -20,6 +20,7 @@ export class AccountFormComponent implements OnInit, OnDestroy {
     { value: AccountType.CARTAO, label: 'Cartão' }
   ];
   private ngUnsubscribe = new Subject(); 
+  idRegistro = 'Novo registro';
 
   constructor(
     private service: AccountService,
@@ -29,10 +30,10 @@ export class AccountFormComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.form = new FormGroup({
       id: new FormControl(''),
-      number: new FormControl(''),
-      agency: new FormControl(''),
-      bank: new FormControl(''),
-      type: new FormControl('')
+      number: new FormControl(null, Validators.required),
+      agency: new FormControl(null, Validators.required),
+      bank: new FormControl(null, Validators.required),
+      type: new FormControl(null, Validators.required)
     });
     
     this.service.selectedAccount$
@@ -40,9 +41,10 @@ export class AccountFormComponent implements OnInit, OnDestroy {
     .subscribe(account => {
       if (account) {
         this.form.patchValue(account);
+        this.idRegistro = 'Id ' + account.id;
       }
     }, erro => {
-      this.snackBar.open('Erro ao carregar registro');
+      this.snackBar.open('Erro ao carregar registro.', 'snackbar-warning');
     });
   }
 
@@ -53,30 +55,34 @@ export class AccountFormComponent implements OnInit, OnDestroy {
   }
 
   saveClick() {
-    const account: Account = this.form.value;
-    if (account.id) {
-      this.update(account);
+    if (this.form.valid) {
+      const account: Account = this.form.value;
+      if (account.id) {
+        this.update(account);
+      } else {
+        this.save(account);
+      }
     } else {
-      this.save(account);
+      this.snackBar.open('Campos obrigatórios não preenchidos. Por favor, verifique.', 'snackbar-warning');
+      this.form.markAllAsTouched();
     }
-    
   }
 
   save(account: Account) {
     this.service.save(account).subscribe(res => {
-      this.snackBar.open('Registro salvo com sucesso');
+      this.snackBar.open('Registro salvo com sucesso.', 'snackbar-sucess');
       this.form.reset();
     }, erro => {
-      this.snackBar.open('Erro ao salvar registro.')
+      this.snackBar.open('Erro ao salvar registro.', 'snackbar-warning')
     });
   }
 
   update(account: Account) {
     this.service.update(account).subscribe(res => {
-      this.snackBar.open('Registro atualizado com sucesso');
+      this.snackBar.open('Registro atualizado com sucesso.', 'snackbar-sucess');
       this.form.reset();
     }, erro => {
-      this.snackBar.open('Erro ao atualizar registro.')
+      this.snackBar.open('Erro ao atualizar registro.', 'snackbar-warning')
     });
   }
 

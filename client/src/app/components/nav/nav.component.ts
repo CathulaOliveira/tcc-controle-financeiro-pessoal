@@ -23,7 +23,7 @@ export class NavComponent implements OnInit {
   logout() {
     this.router.navigate(['login']);
     this.authService.logout();
-    this.snackBar.open('Logout realizado com sucesso');
+    this.snackBar.open('Logout realizado com sucesso', 'snackbar-sucess');
   }
 
 }

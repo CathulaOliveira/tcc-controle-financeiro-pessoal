@@ -1,0 +1,14 @@
+::ng-deep .my-snackbar-class {
+    background-color: rgb(255,255,255);
+    color: rgb(74,74,74);
+}
+
+::ng-deep .snackbar-warning {
+    background-color: rgb(244,67,54);
+    color: rgb(255,255,255);
+}
+
+::ng-deep .snackbar-sucess {
+    background-color: rgb(63,81,181);
+    color: rgb(255,255,255);
+}

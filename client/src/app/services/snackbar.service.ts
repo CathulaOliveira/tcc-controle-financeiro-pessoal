@@ -17,8 +17,8 @@ export class SnackbarService {
     private snackBar: MatSnackBar
   ) { }
 
-  open(message: string, action?: string, config?: MatSnackBarConfig) {
-    const mergedConfig = { ...this.defaultConfig, ...config };
-    this.snackBar.open(message, action, mergedConfig);
+  open(message: string, classCss?: string) {
+    this.defaultConfig.panelClass = [classCss];
+    this.snackBar.open(message, null, this.defaultConfig);
   }
 }

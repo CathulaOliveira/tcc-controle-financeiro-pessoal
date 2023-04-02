@@ -14,6 +14,7 @@ export class CategoryFormComponent implements OnInit, OnDestroy {
 
   form: FormGroup;
   private ngUnsubscribe = new Subject(); 
+  idRegistro = 'Novo registro';
 
   constructor(
     private service: CategoryService,
@@ -31,9 +32,10 @@ export class CategoryFormComponent implements OnInit, OnDestroy {
     .subscribe(category => {
       if (category) {
         this.form.patchValue(category);
+        this.idRegistro = 'Id ' + category.id;
       }
     }, erro => {
-      this.snackBar.open('Erro ao carregar registro');
+      this.snackBar.open('Erro ao carregar registro.', 'snackbar-warning');
     });
   }
 
@@ -44,30 +46,34 @@ export class CategoryFormComponent implements OnInit, OnDestroy {
   }
 
   saveClick() {
-    const category: Category = this.form.value;
-    if (category.id) {
-      this.update(category);
+    if (this.form.valid) {
+      const category: Category = this.form.value;
+      if (category.id) {
+        this.update(category);
+      } else {
+        this.save(category);
+      }
     } else {
-      this.save(category);
+      this.snackBar.open('Campos obrigatórios não preenchidos. Por favor, verifique.', 'snackbar-warning');
+      this.form.markAllAsTouched();
     }
-    
   }
 
   save(category: Category) {
     this.service.save(category).subscribe(res => {
-      this.snackBar.open('Registro salvo com sucesso');
+      this.snackBar.open('Registro salvo com sucesso.', 'snackbar-sucess');
       this.form.reset();
     }, erro => {
-      this.snackBar.open('Erro ao salvar registro.')
+      this.snackBar.open('Erro ao salvar registro.', 'snackbar-warning')
     });
   }
 
   update(category: Category) {
     this.service.update(category).subscribe(res => {
-      this.snackBar.open('Registro atualizado com sucesso');
+      this.snackBar.open('Registro atualizado com sucesso.', 'snackbar-sucess');
       this.form.reset();
     }, erro => {
-      this.snackBar.open('Erro ao atualizar registro.')
+      this.snackBar.open('Erro ao atualizar registro.', 'snackbar-warning')
     });
   }
 

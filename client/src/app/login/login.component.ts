@@ -3,7 +3,6 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { Router } from '@angular/router';
 
-import { User } from 'src/app/user/models/user';
 import { AuthService } from 'src/app/login/services/auth.service';
 import { SnackbarService } from '../services/snackbar.service';
 
@@ -34,9 +33,9 @@ export class LoginComponent implements OnInit {
     this.service.authenticate(login).subscribe(resposta => {
       this.service.sucessFullLogin(resposta.token);
       this.router.navigate(['']);
-      this.snackBar.open('Login realizado com sucesso');
+      this.snackBar.open('Login realizado com sucesso.', 'snackbar-sucess');
     }, () => {
-      this.snackBar.open('Usuário e/ou senha inválidos')
+      this.snackBar.open('Usuário e/ou senha inválidos.', 'snackbar-warning')
     })
   }
 
