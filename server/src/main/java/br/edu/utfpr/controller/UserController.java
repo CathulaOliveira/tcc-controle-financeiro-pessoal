@@ -2,6 +2,7 @@ package br.edu.utfpr.controller;
 
 import br.edu.utfpr.model.User;
 import br.edu.utfpr.service.UserService;
+import br.edu.utfpr.shared.GenericResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,11 +15,11 @@ public class UserController {
 
     private final UserService userService;
 
-//    @PostMapping
-//    GenericResponse createUser(@Valid @RequestBody User user) {
-//        userService.save(user);
-//        return new GenericResponse("Registro salvo.");
-//    }
+    @PostMapping
+    GenericResponse createUser(@Valid @RequestBody User user) {
+        userService.save(user);
+        return new GenericResponse("Registro salvo.");
+    }
 
     @GetMapping("user-logged")
     public User getUserLogged() {
