@@ -21,4 +21,8 @@ export class UserService {
       responseType: 'text'
     });
   }
+
+  getUserLogged() {
+    return this.http.get<User>(`${API_CONFIG.baseUrl}/users/user-logged`);
+  }
 }

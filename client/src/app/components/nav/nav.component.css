@@ -2,10 +2,6 @@
     height: 100%;
 }
 
-mat-toolbar {
-   position: fixed;
-}
-
 .sidenav {
     width: 13rem;
     color: white;
