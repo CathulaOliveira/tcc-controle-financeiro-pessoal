@@ -163,7 +163,7 @@ public class UserControllerTest {
     @Test
     public void postUser_whenUserIsInvalid_receiveApiErrorWithValidationErrors() {
         ResponseEntity<ApiError> response = postSignup(new User(), ApiError.class);
-        assertThat(response.getBody().getValidationErrors().size()).isEqualTo(3);
+        assertThat(response.getBody().getValidationErrors().size()).isEqualTo(4);
     }
 
     @Test
@@ -192,6 +192,7 @@ public class UserControllerTest {
         user.setUsername("test-user");
         user.setDisplayName("test-display");
         user.setPassword("P4ssword");
+        user.setTelephone("46999999999");
         return user;
     }
 }
