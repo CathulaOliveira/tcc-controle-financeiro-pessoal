@@ -1,9 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CategoryService } from '../services/category.service';
 import { SnackbarService } from 'src/app/services/snackbar.service';
 import { Category } from '../models/cotegory';
 import { Subject, takeUntil } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-category-form',
@@ -19,12 +20,15 @@ export class CategoryFormComponent implements OnInit, OnDestroy {
   constructor(
     private service: CategoryService,
     private snackBar: SnackbarService,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
     this.form = new FormGroup({
       id: new FormControl(''),
-      name: new FormControl(''),
+      name: new FormControl(null, [Validators.required, 
+        Validators.minLength(2), 
+        Validators.maxLength(255)]),
     });
 
     this.service.selectedCategory$
@@ -62,7 +66,7 @@ export class CategoryFormComponent implements OnInit, OnDestroy {
   save(category: Category) {
     this.service.save(category).subscribe(res => {
       this.snackBar.open('Registro salvo com sucesso.', 'snackbar-sucess');
-      this.form.reset();
+      this.resertForm();
     }, erro => {
       this.snackBar.open('Erro ao salvar registro.', 'snackbar-warning')
     });
@@ -71,10 +75,19 @@ export class CategoryFormComponent implements OnInit, OnDestroy {
   update(category: Category) {
     this.service.update(category).subscribe(res => {
       this.snackBar.open('Registro atualizado com sucesso.', 'snackbar-sucess');
-      this.form.reset();
+      this.resertForm();
     }, erro => {
       this.snackBar.open('Erro ao atualizar registro.', 'snackbar-warning')
     });
+  }
+
+  resertForm() {
+    this.form.reset();
+    this.idRegistro = 'Novo registro';
+  }
+
+  backSearch() {
+    this.router.navigate(['category']);
   }
 
 }

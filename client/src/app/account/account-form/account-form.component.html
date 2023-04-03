@@ -3,6 +3,7 @@
     <mat-card-header>
       <mat-card-title>Contas</mat-card-title>
       <mat-card-subtitle>{{idRegistro}}</mat-card-subtitle>
+      <a class="back-search" mat-button (click)="backSearch()">Voltar a pesquisa</a>
     </mat-card-header>
 
     <div class="container">
@@ -14,7 +15,17 @@
           required
           name="number"
           matInput >
-          <mat-error *ngIf="form.controls['number'].invalid">Número é obrigatório</mat-error>
+          <mat-error *ngIf="form.get('number').hasError('required')">
+            Número é obrigatório.
+          </mat-error>
+
+          <mat-error *ngIf="form.get('number').hasError('minlength')">
+            Número deve ter pelo menos 6 caracteres.
+          </mat-error>
+
+          <mat-error *ngIf="form.get('number').hasError('maxlength')">
+            Número deve ter no máximo 12 caracteres.
+          </mat-error>
         </mat-form-field>
 
         <mat-form-field class="full-width" appearance="outline">
@@ -24,6 +35,17 @@
             required
             name="agency"
             matInput >
+            <mat-error *ngIf="form.get('agency').hasError('required')">
+              Agência é obrigatório.
+            </mat-error>
+  
+            <mat-error *ngIf="form.get('agency').hasError('minlength')">
+              Agência deve ter pelo menos 4 caracteres.
+            </mat-error>
+  
+            <mat-error *ngIf="form.get('agency').hasError('maxlength')">
+              Agência deve ter no máximo 4 caracteres.
+            </mat-error>
         </mat-form-field>
 
         <mat-form-field class="full-width" appearance="outline">
@@ -33,6 +55,17 @@
           required
           name="bank"  
           matInput >
+          <mat-error *ngIf="form.get('bank').hasError('required')">
+            Banco é obrigatório.
+          </mat-error>
+
+          <mat-error *ngIf="form.get('bank').hasError('minlength')">
+            Banco deve ter pelo menos 2 caracteres.
+          </mat-error>
+
+          <mat-error *ngIf="form.get('bank').hasError('maxlength')">
+            Banco deve ter no máximo 255 caracteres.
+          </mat-error>
         </mat-form-field>
 
         <mat-form-field class="full-width" appearance="outline">
@@ -42,6 +75,9 @@
               {{ option.label }}
             </mat-option>
           </mat-select>
+          <mat-error *ngIf="form.get('type').hasError('required')">
+            Tipo é obrigatório.
+          </mat-error>
         </mat-form-field>
       </form>
     </div>

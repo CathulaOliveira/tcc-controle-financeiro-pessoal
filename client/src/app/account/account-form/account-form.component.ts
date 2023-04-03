@@ -5,6 +5,7 @@ import { AccountService } from '../services/account.service';
 import { SnackbarService } from 'src/app/services/snackbar.service';
 import { AccountType } from '../models/account-type';
 import { Subject, takeUntil } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-account-add',
@@ -25,14 +26,21 @@ export class AccountFormComponent implements OnInit, OnDestroy {
   constructor(
     private service: AccountService,
     private snackBar: SnackbarService,
+    private router: Router,
     ) { }
 
   ngOnInit(): void {
     this.form = new FormGroup({
       id: new FormControl(''),
-      number: new FormControl(null, Validators.required),
-      agency: new FormControl(null, Validators.required),
-      bank: new FormControl(null, Validators.required),
+      number: new FormControl(null, [Validators.required, 
+        Validators.minLength(6), 
+        Validators.maxLength(12)]),
+      agency: new FormControl(null, [Validators.required, 
+        Validators.minLength(4), 
+        Validators.maxLength(4)]),
+      bank: new FormControl(null, [Validators.required, 
+        Validators.minLength(2), 
+        Validators.maxLength(255)]),
       type: new FormControl(null, Validators.required)
     });
     
@@ -71,7 +79,7 @@ export class AccountFormComponent implements OnInit, OnDestroy {
   save(account: Account) {
     this.service.save(account).subscribe(res => {
       this.snackBar.open('Registro salvo com sucesso.', 'snackbar-sucess');
-      this.form.reset();
+      this.resertForm();
     }, erro => {
       this.snackBar.open('Erro ao salvar registro.', 'snackbar-warning')
     });
@@ -80,10 +88,19 @@ export class AccountFormComponent implements OnInit, OnDestroy {
   update(account: Account) {
     this.service.update(account).subscribe(res => {
       this.snackBar.open('Registro atualizado com sucesso.', 'snackbar-sucess');
-      this.form.reset();
+      this.resertForm();
     }, erro => {
       this.snackBar.open('Erro ao atualizar registro.', 'snackbar-warning')
     });
+  }
+
+  resertForm() {
+    this.form.reset();
+    this.idRegistro = 'Novo registro';
+  }
+
+  backSearch() {
+    this.router.navigate(['category']);
   }
 
 }

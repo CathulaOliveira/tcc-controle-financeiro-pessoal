@@ -22,10 +22,18 @@ export class UserComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = new FormGroup({
-      username: new FormControl(''),
-      password: new FormControl(null, Validators.minLength(3)),
-      displayName: new FormControl(''),
-      telephone: new FormControl(''),
+      username: new FormControl('', [Validators.required, 
+        Validators.minLength(4), 
+        Validators.maxLength(255)]),
+      password: new FormControl(null, [Validators.required, 
+        Validators.minLength(6), 
+        Validators.maxLength(255), 
+        Validators.pattern("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).*$")]),
+      displayName: new FormControl('', [Validators.required,
+        Validators.minLength(4), 
+        Validators.maxLength(255)]),
+      telephone: new FormControl('', [Validators.required,
+        Validators.pattern("^[0-9]+$")]),
       email: new FormControl(null, Validators.email),
     });
   }

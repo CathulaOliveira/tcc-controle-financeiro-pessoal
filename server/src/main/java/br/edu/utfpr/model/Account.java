@@ -25,15 +25,15 @@ public class Account {
     private Long id;
 
     @NotNull
-    @Size(min = 2, max = 6)
+    @Size(min = 6, max = 12)
     private String number;
 
     @NotNull
-    @Size(min = 2, max = 6)
+    @Size(min = 4, max = 4)
     private String agency;
 
     @NotNull
-    @Size(min = 2, max = 1024)
+    @Size(min = 2, max = 255)
     private String bank;
 
     @NotNull

@@ -3,6 +3,7 @@
     <mat-card-header>
       <mat-card-title>Categorias</mat-card-title>
       <mat-card-subtitle>{{idRegistro}}</mat-card-subtitle>
+      <a class="back-search" mat-button (click)="backSearch()">Voltar a pesquisa</a>
     </mat-card-header>
 
     <div class="container">
@@ -11,9 +12,19 @@
           <mat-label>Nome</mat-label>
           <input 
           formControlName="name"
-          required
           name="name"
           matInput >
+          <mat-error *ngIf="form.get('name').hasError('required')">
+            Nome é obrigatório.
+          </mat-error>
+
+          <mat-error *ngIf="form.get('name').hasError('minlength')">
+            Nome deve ter pelo menos 2 caracteres.
+          </mat-error>
+
+          <mat-error *ngIf="form.get('name').hasError('maxlength')">
+            Nome deve ter no máximo 255 caracteres.
+          </mat-error>
         </mat-form-field>
       </form>
     </div>
