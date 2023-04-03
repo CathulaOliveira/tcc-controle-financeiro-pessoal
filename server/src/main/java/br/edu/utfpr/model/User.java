@@ -6,10 +6,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -20,10 +17,11 @@ import java.util.Collection;
 @Data
 @Entity
 @Table(name = "users")
+@SequenceGenerator(name = "users_seq", sequenceName = "users_id_seq", allocationSize = 1)
 public class User implements UserDetails {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "users_seq")
     private long id;
 
     @NotNull(message = "{utfpr.user.username.constraints.NotNull.message}")
