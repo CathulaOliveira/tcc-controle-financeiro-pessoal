@@ -19,6 +19,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatListModule} from '@angular/material/list';
 import {MatCardModule} from '@angular/material/card';
 import {MatDialogModule } from '@angular/material/dialog';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -33,6 +34,10 @@ import { AccountTypeOptionsPipe } from './account/models/account-type-pipe.pipe'
 import { CategoryListComponent } from './category/category-list/category-list.component';
 import { CategoryFormComponent } from './category/category-form/category-form.component';
 import { DialogComponent } from './components/dialog/dialog.component';
+import { GoalFormComponent } from './goal/goal-form/goal-form.component';
+import { GoalListComponent } from './goal/goal-list/goal-list.component';
+import { GoalTypeOptionsPipe } from './goal/models/goal-type-pipe.pipe';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -46,7 +51,10 @@ import { DialogComponent } from './components/dialog/dialog.component';
     AccountTypeOptionsPipe,
     CategoryListComponent,
     CategoryFormComponent,
-    DialogComponent
+    DialogComponent,
+    GoalFormComponent,
+    GoalListComponent,
+    GoalTypeOptionsPipe
   ],
   imports: [
     BrowserModule,
@@ -70,6 +78,8 @@ import { DialogComponent } from './components/dialog/dialog.component';
     MatListModule,
     MatCardModule,
     MatDialogModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   providers: [AuthInterceptorProvider],
   bootstrap: [AppComponent]

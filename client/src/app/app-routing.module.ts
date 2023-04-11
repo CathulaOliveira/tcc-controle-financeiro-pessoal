@@ -9,6 +9,8 @@ import { UserComponent } from './user/user.component';
 import { AccountFormComponent } from './account/account-form/account-form.component';
 import { CategoryListComponent } from './category/category-list/category-list.component';
 import { CategoryFormComponent } from './category/category-form/category-form.component';
+import { GoalListComponent } from './goal/goal-list/goal-list.component';
+import { GoalFormComponent } from './goal/goal-form/goal-form.component';
 
 const routes: Routes = [
   {
@@ -24,6 +26,8 @@ const routes: Routes = [
       {path: 'account-form', component: AccountFormComponent},
       {path: 'category', component: CategoryListComponent},
       {path: 'category-form', component: CategoryFormComponent},
+      {path: 'goal', component: GoalListComponent},
+      {path: 'goal-form', component: GoalFormComponent},
     ]
   }
 ];

@@ -30,7 +30,7 @@ public class Goal {
 
     @Size(max = 250)
     private String description;
-
+                                
     @NotNull
     @Enumerated(EnumType.STRING)
     private TypeGoal type;

@@ -100,7 +100,7 @@ export class AccountFormComponent implements OnInit, OnDestroy {
   }
 
   backSearch() {
-    this.router.navigate(['category']);
+    this.router.navigate(['account']);
   }
 
 }

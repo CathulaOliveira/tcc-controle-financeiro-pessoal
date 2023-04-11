@@ -20,12 +20,6 @@ export class AccountListComponent implements OnInit {
   displayedColumns: string[] = ['id', 'bank', 'type', 'action'];
   dataSource = new MatTableDataSource<Account>(this.ELEMENT_DATA);
   
-  accountTypeOptions = [
-    { value: AccountType.CONTA_CORRENTE, label: 'Conta Corrente' },
-    { value: AccountType.CONTA_POUPANCA, label: 'Conta Poupança' },
-    { value: AccountType.CARTAO, label: 'Cartão' }
-  ];
-
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(

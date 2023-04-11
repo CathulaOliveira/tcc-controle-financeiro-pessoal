@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("goal")
+@RequestMapping("goals")
 @RequiredArgsConstructor
 public class GoalController extends CrudController<Goal, Long> {
 
