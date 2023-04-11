@@ -1,0 +1,38 @@
+.card {
+    width: 95%;
+    height: 80%;
+    margin: .8rem auto; 
+    background-color: rgb(235, 235, 235);
+  }
+  
+  .container {
+     background-color: white;
+     padding-left: 1rem;
+     padding-right: 1rem;
+  }
+  
+  table {
+     width: 100%;
+  }
+ 
+  .scroll-table {
+    height: 300px;
+    overflow-y: auto;
+  }
+ 
+  mat-form-field {
+    width: 100%; 
+  }
+  
+  button {
+     background-color: rgb(235, 235, 235) !important;
+  }
+  
+ .button-add {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1rem;
+ }
