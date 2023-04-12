@@ -20,6 +20,7 @@ import {MatListModule} from '@angular/material/list';
 import {MatCardModule} from '@angular/material/card';
 import {MatDialogModule } from '@angular/material/dialog';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import {MatTabsModule} from '@angular/material/tabs';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -38,6 +39,11 @@ import { GoalFormComponent } from './goal/goal-form/goal-form.component';
 import { GoalListComponent } from './goal/goal-list/goal-list.component';
 import { GoalTypeOptionsPipe } from './goal/models/goal-type-pipe.pipe';
 import { MatNativeDateModule } from '@angular/material/core';
+import { TransactionListComponent } from './transaction/transaction-list/transaction-list.component';
+import { TransactionTypeOptionsPipe } from './transaction/models/transaction-type-pipe.pipe';
+import { TransactionFormComponent } from './transaction/transaction-form/transaction-form.component';
+import { TransactionRecurringFormComponent } from './transaction/transaction-recurring-form/transaction-recurring-form.component';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -54,7 +60,11 @@ import { MatNativeDateModule } from '@angular/material/core';
     DialogComponent,
     GoalFormComponent,
     GoalListComponent,
-    GoalTypeOptionsPipe
+    GoalTypeOptionsPipe,
+    TransactionListComponent,
+    TransactionTypeOptionsPipe,
+    TransactionFormComponent,
+    TransactionRecurringFormComponent
   ],
   imports: [
     BrowserModule,
@@ -63,6 +73,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    CommonModule,
     MatFormFieldModule,
     MatPaginatorModule,
     MatSnackBarModule,
@@ -79,7 +90,8 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatCardModule,
     MatDialogModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatTabsModule,
   ],
   providers: [AuthInterceptorProvider],
   bootstrap: [AppComponent]

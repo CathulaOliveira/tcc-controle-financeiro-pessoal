@@ -24,6 +24,9 @@ public class Account {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "account_seq")
     private Long id;
 
+    @Size(max = 250)
+    private String name;
+
     @NotNull
     @Size(min = 6, max = 12)
     private String number;

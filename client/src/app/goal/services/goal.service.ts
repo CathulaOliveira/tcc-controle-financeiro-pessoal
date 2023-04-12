@@ -14,25 +14,25 @@ export class GoalService {
 
   constructor(
     private http: HttpClient,
-    ) { }
+  ) { }
 
-    findAll(): Observable<Goal[]> {
-      return this.http.get<Goal[]>(`${API_CONFIG.baseUrl}/goals`)
-    }
-  
-    save(goal: Goal): Observable<Goal> {
-      return this.http.post<Goal>(`${API_CONFIG.baseUrl}/goals`, goal)
-    }
-  
-    update(goal: Goal): Observable<Goal> {
-      return this.http.put<Goal>(`${API_CONFIG.baseUrl}/goals`, goal)
-    }
-  
-    delete(id: number): Observable<Goal> {
-      return this.http.delete<Goal>(`${API_CONFIG.baseUrl}/goals/${id}`)
-    }
-  
-    setSelectedGoal(goal?: Goal) {
-      this.selectedGoalSubject.next(goal);
-    }
+  findAll(): Observable<Goal[]> {
+    return this.http.get<Goal[]>(`${API_CONFIG.baseUrl}/goals`)
+  }
+
+  save(goal: Goal): Observable<Goal> {
+    return this.http.post<Goal>(`${API_CONFIG.baseUrl}/goals`, goal)
+  }
+
+  update(goal: Goal): Observable<Goal> {
+    return this.http.put<Goal>(`${API_CONFIG.baseUrl}/goals`, goal)
+  }
+
+  delete(id: number): Observable<Goal> {
+    return this.http.delete<Goal>(`${API_CONFIG.baseUrl}/goals/${id}`)
+  }
+
+  setSelectedGoal(goal?: Goal) {
+    this.selectedGoalSubject.next(goal);
+  }
 }

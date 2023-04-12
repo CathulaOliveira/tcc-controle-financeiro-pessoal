@@ -32,6 +32,8 @@ export class AccountFormComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.form = new FormGroup({
       id: new FormControl(''),
+      name: new FormControl(null, [Validators.required, 
+        Validators.maxLength(255)]),
       number: new FormControl(null, [Validators.required, 
         Validators.minLength(6), 
         Validators.maxLength(12)]),

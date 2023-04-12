@@ -1,7 +1,7 @@
 <mat-card class="card">
 
     <mat-card-header>
-      <mat-card-title>Metas</mat-card-title>
+      <mat-card-title>Transações</mat-card-title>
       <mat-card-subtitle>{{idRegistro}}</mat-card-subtitle>
       <a class="back-search" mat-button (click)="backSearch()">Voltar a pesquisa</a>
     </mat-card-header>
@@ -30,13 +30,33 @@
         <mat-form-field class="full-width" appearance="outline">
           <mat-label>Tipo</mat-label>
           <mat-select formControlName="type">
-            <mat-option *ngFor="let option of goalTypeOptions" [value]="option.value">
+            <mat-option *ngFor="let option of transactionTypeOptions" [value]="option.value">
               {{ option.label }}
             </mat-option>
           </mat-select>
           <mat-error *ngIf="form.get('type').hasError('required')">
             Tipo é obrigatório.
           </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="full-width" appearance="outline">
+            <mat-label>Conta</mat-label>
+            <mat-select formControlName="accountOrigin" [compareWith]="objectComparisonFunction">
+              <mat-option *ngFor="let option of accountOptions" [value]="option">{{option.id}} - {{option.name}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.get('accountOrigin').hasError('required')">
+              Conta é obrigatório.
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="full-width" appearance="outline">
+            <mat-label>Conta destino</mat-label>
+            <mat-select formControlName="accountDestination" [compareWith]="objectComparisonFunction">
+              <mat-option *ngFor="let option of accountOptions" [value]="option">{{option.id}} - {{option.name}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.get('accountDestination').hasError('required')">
+              Conta destino é obrigatório.
+            </mat-error>
         </mat-form-field>
 
         <mat-form-field class="full-width" appearance="outline">
@@ -50,22 +70,12 @@
         </mat-form-field>
 
         <mat-form-field class="half-width" appearance="outline">
-            <mat-label>Data de início</mat-label>
-            <input matInput [matDatepicker]="picker" formControlName="startDate" [value]="form.controls['startDate'].value | date: 'dd/MM/yyyy'">
+            <mat-label>Data</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="date">
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
-            <mat-error *ngIf="form.get('startDate').hasError('required')">
-              Data de início é obrigatório.
-            </mat-error>
-        </mat-form-field>
-
-        <mat-form-field class="half-width" appearance="outline">
-            <mat-label>Data de término</mat-label>
-            <input matInput [matDatepicker]="picker1" formControlName="endDate" [value]="form.controls['endDate'].value | date: 'dd/MM/yyyy'">
-            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-            <mat-datepicker #picker1></mat-datepicker>
-            <mat-error *ngIf="form.get('endDate').hasError('required')">
-              Data de término é obrigatório.
+            <mat-error *ngIf="form.get('date').hasError('required')">
+              Data é obrigatório.
             </mat-error>
         </mat-form-field>
 
@@ -73,10 +83,12 @@
           <mat-label>Valor</mat-label>
           <input 
           formControlName="price"
-          required
           name="price"
           matInput >
         </mat-form-field>
+        <mat-error *ngIf="form.get('price').hasError('required')">
+          Valor é obrigatório.
+        </mat-error>
       </form>
     </div>
 

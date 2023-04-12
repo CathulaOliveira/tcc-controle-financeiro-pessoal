@@ -9,6 +9,21 @@
     <div class="container">
       <form class="form" [formGroup]="form">
         <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Nome</mat-label>
+          <input 
+          formControlName="name"
+          name="name"
+          matInput >
+          <mat-error *ngIf="form.get('name').hasError('required')">
+            Nome é obrigatório.
+          </mat-error>
+
+          <mat-error *ngIf="form.get('name').hasError('maxlength')">
+            Nome deve ter no máximo 255 caracteres.
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="full-width" appearance="outline">
           <mat-label>Número</mat-label>
           <input 
           formControlName="number"

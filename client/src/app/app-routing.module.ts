@@ -11,6 +11,9 @@ import { CategoryListComponent } from './category/category-list/category-list.co
 import { CategoryFormComponent } from './category/category-form/category-form.component';
 import { GoalListComponent } from './goal/goal-list/goal-list.component';
 import { GoalFormComponent } from './goal/goal-form/goal-form.component';
+import { TransactionListComponent } from './transaction/transaction-list/transaction-list.component';
+import { TransactionFormComponent } from './transaction/transaction-form/transaction-form.component';
+import { TransactionRecurringFormComponent } from './transaction/transaction-recurring-form/transaction-recurring-form.component';
 
 const routes: Routes = [
   {
@@ -28,6 +31,9 @@ const routes: Routes = [
       {path: 'category-form', component: CategoryFormComponent},
       {path: 'goal', component: GoalListComponent},
       {path: 'goal-form', component: GoalFormComponent},
+      {path: 'transaction', component: TransactionListComponent},
+      {path: 'transaction-form', component: TransactionFormComponent},
+      {path: 'transaction-recurring-form', component: TransactionRecurringFormComponent},
     ]
   }
 ];
