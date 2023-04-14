@@ -40,7 +40,7 @@ export class TransactionFormComponent implements OnInit, OnDestroy {
   transactionTypeOptions = [
     { value: TransactionType.ENTRADA, label: 'Entrada' },
     { value: TransactionType.SAIDA, label: 'Saída' },
-    { value: TransactionType.TRANSFERENCIA, label: 'Processo' }
+    { value: TransactionType.TRANSFERENCIA, label: 'Transferência entre contas' }
   ];
   categoryOptions: Category[] = [];
   accountOptions: Account[] = [];

@@ -21,6 +21,7 @@ import {MatCardModule} from '@angular/material/card';
 import {MatDialogModule } from '@angular/material/dialog';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import {MatTabsModule} from '@angular/material/tabs';
+import {MatGridListModule} from '@angular/material/grid-list';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -44,6 +45,7 @@ import { TransactionTypeOptionsPipe } from './transaction/models/transaction-typ
 import { TransactionFormComponent } from './transaction/transaction-form/transaction-form.component';
 import { TransactionRecurringFormComponent } from './transaction/transaction-recurring-form/transaction-recurring-form.component';
 import { CommonModule } from '@angular/common';
+import { CashFlowComponent } from './cash-flow/cash-flow.component';
 
 @NgModule({
   declarations: [
@@ -64,7 +66,8 @@ import { CommonModule } from '@angular/common';
     TransactionListComponent,
     TransactionTypeOptionsPipe,
     TransactionFormComponent,
-    TransactionRecurringFormComponent
+    TransactionRecurringFormComponent,
+    CashFlowComponent
   ],
   imports: [
     BrowserModule,
@@ -92,6 +95,7 @@ import { CommonModule } from '@angular/common';
     MatDatepickerModule,
     MatNativeDateModule,
     MatTabsModule,
+    MatGridListModule
   ],
   providers: [AuthInterceptorProvider],
   bootstrap: [AppComponent]
