@@ -1,0 +1,50 @@
+<mat-card class="card">
+
+    <mat-card-header>
+      <mat-card-title>Tipo de Meta</mat-card-title>
+      <mat-card-subtitle>{{idRegistro}}</mat-card-subtitle>
+      <a class="back-search" mat-button (click)="backSearch()">Voltar a pesquisa</a>
+    </mat-card-header>
+
+    <div class="container">
+      <form class="form" [formGroup]="form">
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Nome</mat-label>
+          <input 
+          formControlName="name"
+          name="name"
+          matInput >
+          <mat-error *ngIf="form.get('name').hasError('required')">
+            Nome é obrigatório.
+          </mat-error>
+
+          <mat-error *ngIf="form.get('name').hasError('minlength')">
+            Nome deve ter pelo menos 2 caracteres.
+          </mat-error>
+
+          <mat-error *ngIf="form.get('name').hasError('maxlength')">
+            Nome deve ter no máximo 255 caracteres.
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Situação</mat-label>
+          <mat-select formControlName="status">
+            <mat-option *ngFor="let option of statusOptions" [value]="option.value">
+              {{ option.label }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="form.get('status').hasError('required')">
+            Situação é obrigatório.
+          </mat-error>
+        </mat-form-field>
+      </form>
+    </div>
+
+    <div class="button-add">
+      <button (click)="saveClick()" mat-fab aria-label="Salvar">
+        <mat-icon>check</mat-icon>
+      </button>
+    </div>
+
+</mat-card>

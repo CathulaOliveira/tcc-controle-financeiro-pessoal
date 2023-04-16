@@ -47,6 +47,8 @@ import { TransactionRecurringFormComponent } from './transaction/transaction-rec
 import { CommonModule } from '@angular/common';
 import { CashFlowComponent } from './cash-flow/cash-flow.component';
 import { EnumStatusOptionsPipe } from './pipe/enum-status.pipe';
+import { TypeGoalFormComponent } from './type-goal/type-goal-form/type-goal-form.component';
+import { TypeGoalListComponent } from './type-goal/type-goal-list/type-goal-list.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +71,9 @@ import { EnumStatusOptionsPipe } from './pipe/enum-status.pipe';
     TransactionFormComponent,
     TransactionRecurringFormComponent,
     CashFlowComponent,
-    EnumStatusOptionsPipe
+    EnumStatusOptionsPipe,
+    TypeGoalFormComponent,
+    TypeGoalListComponent
   ],
   imports: [
     BrowserModule,

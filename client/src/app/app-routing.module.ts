@@ -15,6 +15,8 @@ import { TransactionListComponent } from './transaction/transaction-list/transac
 import { TransactionFormComponent } from './transaction/transaction-form/transaction-form.component';
 import { TransactionRecurringFormComponent } from './transaction/transaction-recurring-form/transaction-recurring-form.component';
 import { CashFlowComponent } from './cash-flow/cash-flow.component';
+import { TypeGoalListComponent } from './type-goal/type-goal-list/type-goal-list.component';
+import { TypeGoalFormComponent } from './type-goal/type-goal-form/type-goal-form.component';
 
 const routes: Routes = [
   {
@@ -36,6 +38,8 @@ const routes: Routes = [
       {path: 'transaction-form', component: TransactionFormComponent},
       {path: 'transaction-recurring-form', component: TransactionRecurringFormComponent},
       {path: 'cash-flow', component: CashFlowComponent},
+      {path: 'type-goal', component: TypeGoalListComponent},
+      {path: 'type-goal-form', component: TypeGoalFormComponent},
     ]
   }
 ];
