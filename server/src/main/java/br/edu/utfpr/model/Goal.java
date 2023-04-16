@@ -1,6 +1,5 @@
 package br.edu.utfpr.model;
 
-import br.edu.utfpr.enums.TypeGoal;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -30,9 +29,10 @@ public class Goal {
 
     @Size(max = 250)
     private String description;
-                                
+
     @NotNull
-    @Enumerated(EnumType.STRING)
+    @ManyToOne
+    @JoinColumn(name = "type_goal_id", referencedColumnName = "id")
     private TypeGoal type;
 
     @NotNull

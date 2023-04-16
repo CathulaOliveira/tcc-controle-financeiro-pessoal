@@ -1,7 +1,6 @@
 package br.edu.utfpr.model;
 
 import br.edu.utfpr.enums.Status;
-import br.edu.utfpr.enums.TypeGoal;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
