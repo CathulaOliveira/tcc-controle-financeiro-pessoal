@@ -38,7 +38,6 @@ import { CategoryFormComponent } from './category/category-form/category-form.co
 import { DialogComponent } from './components/dialog/dialog.component';
 import { GoalFormComponent } from './goal/goal-form/goal-form.component';
 import { GoalListComponent } from './goal/goal-list/goal-list.component';
-import { GoalTypeOptionsPipe } from './goal/models/goal-type-pipe.pipe';
 import { MatNativeDateModule } from '@angular/material/core';
 import { TransactionListComponent } from './transaction/transaction-list/transaction-list.component';
 import { TransactionTypeOptionsPipe } from './transaction/models/transaction-type-pipe.pipe';
@@ -65,7 +64,6 @@ import { TypeGoalListComponent } from './type-goal/type-goal-list/type-goal-list
     DialogComponent,
     GoalFormComponent,
     GoalListComponent,
-    GoalTypeOptionsPipe,
     TransactionListComponent,
     TransactionTypeOptionsPipe,
     TransactionFormComponent,

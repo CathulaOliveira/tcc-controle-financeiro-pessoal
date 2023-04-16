@@ -29,9 +29,9 @@
 
         <mat-form-field class="full-width" appearance="outline">
           <mat-label>Tipo</mat-label>
-          <mat-select formControlName="type">
-            <mat-option *ngFor="let option of goalTypeOptions" [value]="option.value">
-              {{ option.label }}
+          <mat-select formControlName="type" [compareWith]="objectComparisonFunction">
+            <mat-option *ngFor="let option of typeGoalOptions" [value]="option">
+              {{option.id}} - {{option.name}}
             </mat-option>
           </mat-select>
           <mat-error *ngIf="form.get('type').hasError('required')">
@@ -42,7 +42,9 @@
         <mat-form-field class="full-width" appearance="outline">
             <mat-label>Categoria</mat-label>
             <mat-select formControlName="category" [compareWith]="objectComparisonFunction">
-              <mat-option *ngFor="let option of categoryOptions" [value]="option">{{option.id}} - {{option.name}}</mat-option>
+              <mat-option *ngFor="let option of categoryOptions" [value]="option">
+                {{option.id}} - {{option.name}}
+              </mat-option>
             </mat-select>
             <mat-error *ngIf="form.get('category').hasError('required')">
               Categoria é obrigatório.

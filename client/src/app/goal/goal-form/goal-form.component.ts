@@ -9,6 +9,8 @@ import { GoalType } from '../models/goal-type';
 import { Category } from 'src/app/category/models/cotegory';
 import { CategoryService } from 'src/app/category/services/category.service';
 import { MAT_DATE_FORMATS } from '@angular/material/core';
+import { TypeGoal } from 'src/app/type-goal/models/type-goal';
+import { TypeGoalService } from 'src/app/type-goal/services/type-goal.service';
 
 export const MY_DATE_FORMATS = {
   parse: {
@@ -35,16 +37,13 @@ export class GoalFormComponent implements OnInit, OnDestroy {
   form: FormGroup;
   private ngUnsubscribe = new Subject(); 
   idRegistro = 'Novo registro';
-  goalTypeOptions = [
-    { value: GoalType.RESULTADO, label: 'Resultado' },
-    { value: GoalType.DESEMPENHO, label: 'Desempenho' },
-    { value: GoalType.PROCESSO, label: 'Processo' }
-  ];
+  typeGoalOptions: TypeGoal[] = [];
   categoryOptions: Category[] = [];
 
   constructor(
     private service: GoalService,
     private categoryService: CategoryService,
+    private typeGoalService: TypeGoalService,
     private snackBar: SnackbarService,
     private router: Router,
   ) { }
@@ -64,6 +63,7 @@ export class GoalFormComponent implements OnInit, OnDestroy {
 
     
     this.getCategoryes();
+    this.getTypeGoal();
 
     this.service.selectedGoal$
     .pipe(takeUntil(this.ngUnsubscribe))
@@ -131,6 +131,12 @@ export class GoalFormComponent implements OnInit, OnDestroy {
   getCategoryes() {
     this.categoryService.findAll().subscribe( res => {
       this.categoryOptions = res;
+    });
+  }
+
+  getTypeGoal() {
+    this.typeGoalService.findAll().subscribe( res => {
+      this.typeGoalOptions = res;
     });
   }
 

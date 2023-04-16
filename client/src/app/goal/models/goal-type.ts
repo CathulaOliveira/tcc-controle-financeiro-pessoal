@@ -1,5 +1,0 @@
-export enum GoalType {
-    RESULTADO = 'RESULTADO',
-    DESEMPENHO = 'DESEMPENHO',
-    PROCESSO = 'PROCESSO',
-}
