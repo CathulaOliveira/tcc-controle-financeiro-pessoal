@@ -5,6 +5,7 @@ import { SnackbarService } from 'src/app/services/snackbar.service';
 import { Category } from '../models/cotegory';
 import { Subject, takeUntil } from 'rxjs';
 import { Router } from '@angular/router';
+import { Status } from 'src/app/enum/status';
 
 @Component({
   selector: 'app-category-form',
@@ -16,6 +17,10 @@ export class CategoryFormComponent implements OnInit, OnDestroy {
   form: FormGroup;
   private ngUnsubscribe = new Subject(); 
   idRegistro = 'Novo registro';
+  statusOptions = [
+    { value: Status.ATIVO, label: 'Ativo' },
+    { value: Status.INATIVO, label: 'Inativo' },
+  ];
 
   constructor(
     private service: CategoryService,
@@ -29,6 +34,7 @@ export class CategoryFormComponent implements OnInit, OnDestroy {
       name: new FormControl(null, [Validators.required, 
         Validators.minLength(2), 
         Validators.maxLength(255)]),
+      status: new FormControl(null, Validators.required),
     });
 
     this.service.selectedCategory$

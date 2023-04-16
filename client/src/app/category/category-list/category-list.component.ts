@@ -16,7 +16,7 @@ import { SnackbarService } from 'src/app/services/snackbar.service';
 export class CategoryListComponent implements OnInit {
 
   ELEMENT_DATA: Category[] = [];
-  displayedColumns: string[] = ['id', 'name', 'action'];
+  displayedColumns: string[] = ['id', 'name', 'status', 'action'];
   dataSource = new MatTableDataSource<Category>(this.ELEMENT_DATA);
 
   @ViewChild(MatPaginator) paginator: MatPaginator;

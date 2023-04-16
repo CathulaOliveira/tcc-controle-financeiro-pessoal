@@ -1,5 +1,7 @@
 package br.edu.utfpr.model;
 
+import br.edu.utfpr.enums.Status;
+import br.edu.utfpr.enums.TypeGoal;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -26,4 +28,8 @@ public class Category implements Serializable {
     @Size(min = 2, max = 50)
     @Column(length = 50, nullable = false)
     private String name;
+
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private Status status;
 }

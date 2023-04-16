@@ -46,6 +46,7 @@ import { TransactionFormComponent } from './transaction/transaction-form/transac
 import { TransactionRecurringFormComponent } from './transaction/transaction-recurring-form/transaction-recurring-form.component';
 import { CommonModule } from '@angular/common';
 import { CashFlowComponent } from './cash-flow/cash-flow.component';
+import { EnumStatusOptionsPipe } from './pipe/enum-status.pipe';
 
 @NgModule({
   declarations: [
@@ -67,7 +68,8 @@ import { CashFlowComponent } from './cash-flow/cash-flow.component';
     TransactionTypeOptionsPipe,
     TransactionFormComponent,
     TransactionRecurringFormComponent,
-    CashFlowComponent
+    CashFlowComponent,
+    EnumStatusOptionsPipe
   ],
   imports: [
     BrowserModule,
