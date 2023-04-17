@@ -5,7 +5,6 @@ import { GoalService } from '../services/goal.service';
 import { SnackbarService } from 'src/app/services/snackbar.service';
 import { Router } from '@angular/router';
 import { Goal } from '../models/goal';
-import { GoalType } from '../models/goal-type';
 import { Category } from 'src/app/category/models/cotegory';
 import { CategoryService } from 'src/app/category/services/category.service';
 import { MAT_DATE_FORMATS } from '@angular/material/core';
