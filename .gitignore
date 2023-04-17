@@ -5,7 +5,8 @@
 **/dist/
 **/build/
 **/target/
-#**/lib/
+**/.idea/
+**/lib/
 **/node_modules/
 
 # dependencies
