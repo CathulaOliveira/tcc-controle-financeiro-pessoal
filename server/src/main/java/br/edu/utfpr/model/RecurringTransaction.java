@@ -1,5 +1,6 @@
 package br.edu.utfpr.model;
 
+import br.edu.utfpr.enums.PaymentStatus;
 import br.edu.utfpr.enums.TypeTransaction;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -39,7 +40,6 @@ public class RecurringTransaction {
     private Category category;
 
     @NotNull
-    @Column(nullable = false)
     private BigDecimal price = BigDecimal.ZERO;
 
     @Size(max = 250)
@@ -52,6 +52,8 @@ public class RecurringTransaction {
     private LocalDate dueDate;
 
     @NotNull
-    private Boolean paid;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "payment_status")
+    private PaymentStatus paymentStatus  = PaymentStatus.PENDENTE;
 
 }

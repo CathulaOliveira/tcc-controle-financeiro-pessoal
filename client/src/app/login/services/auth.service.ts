@@ -29,6 +29,7 @@ export class AuthService {
     if (token != null) {
       return !this.jwtService.isTokenExpired(token);
     }
+    this.logout();
     return false;
   }
 

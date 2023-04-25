@@ -24,6 +24,7 @@ public class Account {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "account_seq")
     private Long id;
 
+    @NotNull
     @Size(max = 250)
     private String name;
 
@@ -41,12 +42,12 @@ public class Account {
 
     @NotNull
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
     private TypeAccount type;
 
     @JsonIgnore
     private BigDecimal balance = BigDecimal.ZERO;
 
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     protected User user;

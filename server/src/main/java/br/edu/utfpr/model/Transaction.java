@@ -38,7 +38,6 @@ public class Transaction {
     private Category category;
 
     @NotNull
-    @Column(nullable = false)
     private BigDecimal price = BigDecimal.ZERO;
 
     @Size(max = 250)
