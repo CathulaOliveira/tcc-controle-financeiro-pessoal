@@ -30,7 +30,7 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
             TypeTransaction type,
             Long accountDestinationId
     );
-    List<Transaction> findByAccountOrigin_User_Id(
-            Long accountOriginUserId
+    List<Transaction> findByAccountOrigin_User_IdOrAccountDestination_User_Id(
+            Long accountOriginUserId, Long accountDestinationId
     );
 }

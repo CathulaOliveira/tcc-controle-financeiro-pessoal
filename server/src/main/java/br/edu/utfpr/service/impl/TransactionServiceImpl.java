@@ -90,7 +90,7 @@ public class TransactionServiceImpl
 
     public List<Transaction> findByUserLogged() {
         User userLogged = userService.getUserLogged();
-        return transactionRepository.findByAccountOrigin_User_Id(userLogged.getId());
+        return transactionRepository.findByAccountOrigin_User_IdOrAccountDestination_User_Id(userLogged.getId(), userLogged.getId());
     }
 
     // culpa do Aspect

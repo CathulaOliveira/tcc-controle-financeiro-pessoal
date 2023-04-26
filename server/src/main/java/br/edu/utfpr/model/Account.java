@@ -47,7 +47,6 @@ public class Account {
     @JsonIgnore
     private BigDecimal balance = BigDecimal.ZERO;
 
-    @NotNull
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     protected User user;
