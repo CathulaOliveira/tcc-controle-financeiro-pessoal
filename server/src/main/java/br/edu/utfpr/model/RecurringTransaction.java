@@ -42,6 +42,7 @@ public class RecurringTransaction {
     @NotNull
     private BigDecimal price = BigDecimal.ZERO;
 
+    @NotNull
     @Size(max = 250)
     private String description;
 
@@ -49,9 +50,9 @@ public class RecurringTransaction {
     @Enumerated(EnumType.STRING)
     private TypeTransaction type;
 
+    @NotNull
     private LocalDate dueDate;
 
-    @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "payment_status")
     private PaymentStatus paymentStatus  = PaymentStatus.PENDENTE;

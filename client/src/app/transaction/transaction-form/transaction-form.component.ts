@@ -56,13 +56,11 @@ export class TransactionFormComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.form = new FormGroup({
       id: new FormControl(''),
-      description: new FormControl(null, [Validators.required, 
-        Validators.minLength(2), 
-        Validators.maxLength(255)]),
+      description: new FormControl(null, [Validators.required, Validators.maxLength(250)]),
       type: new FormControl(null, Validators.required),
       category: new FormControl(null, Validators.required),
-      accountOrigin: new FormControl(null, Validators.required),
-      accountDestination: new FormControl(''),
+      accountOrigin: new FormControl(null),
+      accountDestination: new FormControl(null),
       date: new FormControl(''),
       price: new FormControl('')
     });
@@ -73,11 +71,10 @@ export class TransactionFormComponent implements OnInit, OnDestroy {
 
     this.service.selectedTransaction$
     .pipe(takeUntil(this.ngUnsubscribe))
-    .subscribe(goal => {
-      if (goal) {
-        console.log(goal);
-        this.form.patchValue(goal);
-        this.idRegistro = 'Id ' + goal.id;
+    .subscribe(transaction => {
+      if (transaction) {
+        this.form.patchValue(transaction);
+        this.idRegistro = 'Id ' + transaction.id;
       }
     }, erro => {
       this.snackBar.open('Erro ao carregar registro.', 'snackbar-warning');
@@ -92,6 +89,41 @@ export class TransactionFormComponent implements OnInit, OnDestroy {
     this.ngUnsubscribe.next(null);
     this.ngUnsubscribe.complete();
     this.service.setSelectedTransaction(null);
+  }
+
+  onSelectionChangeType(event) {
+    switch(event.value) {
+      case TransactionType.ENTRADA:
+        this.form.get('accountDestination').addValidators(Validators.required);
+        this.form.get('accountDestination').updateValueAndValidity();
+        this.form.get('accountOrigin').reset();
+        this.form.get('accountOrigin').clearValidators();
+        this.form.get('accountOrigin').updateValueAndValidity();
+        break;
+      case TransactionType.SAIDA:
+        this.form.get('accountOrigin').addValidators(Validators.required);
+        this.form.get('accountOrigin').updateValueAndValidity();
+        this.form.get('accountDestination').reset();
+        this.form.get('accountDestination').clearValidators();
+        this.form.get('accountDestination').updateValueAndValidity();
+        break;
+      case TransactionType.TRANSFERENCIA:
+        this.form.get('accountOrigin').addValidators(Validators.required);
+        this.form.get('accountOrigin').updateValueAndValidity();
+        this.form.get('accountDestination').addValidators(Validators.required);
+        this.form.get('accountDestination').updateValueAndValidity();
+        break;
+    }
+  }
+
+  disableOptionSelectedAccountOrigin(option: Account): boolean {
+    const optionSelected = this.form.get('accountOrigin').value;
+    return option?.id === optionSelected?.id;
+  }
+
+  disableOptionSelectedAccountDestination(option: Account): boolean {
+    const optionSelected = this.form.get('accountDestination').value;
+    return option?.id === optionSelected?.id;
   }
 
   saveClick() {

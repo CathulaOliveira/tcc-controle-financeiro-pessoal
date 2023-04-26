@@ -1,1 +1,97 @@
-<p>transaction-recurring-form works!</p>
+<mat-card class="card">
+
+    <mat-card-header>
+      <mat-card-title>Transação Recorrente</mat-card-title>
+      <mat-card-subtitle>{{idRegistro}}</mat-card-subtitle>
+      <a class="back-search" mat-button (click)="backSearch()">Voltar a pesquisa</a>
+    </mat-card-header>
+
+    <div class="container">
+      <form class="form" [formGroup]="form">
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Descrição</mat-label>
+          <input 
+          formControlName="description"
+          name="description"
+          matInput >
+          <mat-error *ngIf="form.get('description').hasError('required')">
+            Descrição é obrigatório.
+          </mat-error>
+
+          <mat-error *ngIf="form.get('description').hasError('maxlength')">
+            Descrição deve ter no máximo 255 caracteres.
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Tipo</mat-label>
+          <mat-select formControlName="type" (selectionChange)="onSelectionChangeType($event)">
+            <mat-option *ngFor="let option of transactionTypeOptions" [value]="option.value">
+              {{ option.label }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="form.get('type').hasError('required')">
+            Tipo é obrigatório.
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field *ngIf="form.get('type').value != 'ENTRADA'" class="full-width" appearance="outline">
+            <mat-label>Conta origem</mat-label>
+            <mat-select formControlName="accountOrigin" [compareWith]="objectComparisonFunction">
+              <mat-option *ngFor="let option of accountOptions" [value]="option">{{option.id}} - {{option.name}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.get('accountOrigin').hasError('required')">
+              Conta é obrigatório.
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field *ngIf="form.get('type').value != 'SAIDA'" class="full-width" appearance="outline">
+            <mat-label>Conta destino</mat-label>
+            <mat-select formControlName="accountDestination" [compareWith]="objectComparisonFunction">
+              <mat-option *ngFor="let option of accountOptions" [value]="option">{{option.id}} - {{option.name}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.get('accountDestination').hasError('required')">
+              Conta destino é obrigatório.
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="full-width" appearance="outline">
+            <mat-label>Categoria</mat-label>
+            <mat-select formControlName="category" [compareWith]="objectComparisonFunction">
+              <mat-option *ngFor="let option of categoryOptions" [value]="option">{{option.id}} - {{option.name}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.get('category').hasError('required')">
+              Categoria é obrigatório.
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="half-width" appearance="outline">
+            <mat-label>Data de vencimento</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="dueDate">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <mat-error *ngIf="form.get('dueDate').hasError('required')">
+              Data é obrigatório.
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="half-width" appearance="outline">
+          <mat-label>Valor</mat-label>
+          <input 
+          formControlName="price"
+          name="price"
+          matInput >
+          <mat-error *ngIf="form.get('price').hasError('required')">
+            Valor é obrigatório.
+          </mat-error>
+        </mat-form-field>
+      </form>
+    </div>
+
+    <div class="button-add">
+      <button (click)="saveClick()" mat-fab aria-label="Salvar">
+        <mat-icon>check</mat-icon>
+      </button>
+    </div>
+
+</mat-card>
