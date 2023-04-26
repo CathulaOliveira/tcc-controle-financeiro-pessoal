@@ -8,6 +8,8 @@ import { DialogComponent } from 'src/app/components/dialog/dialog.component';
 import { SnackbarService } from 'src/app/services/snackbar.service';
 import { TransactionService } from '../services/transaction.service';
 import { Transaction } from '../models/transaction';
+import { RecurringTransaction } from '../models/transaction-recurring';
+import { RecurringTransactionService } from '../services/transaction-recurring.service';
 
 @Component({
   selector: 'app-transaction-list',
@@ -16,14 +18,21 @@ import { Transaction } from '../models/transaction';
 })
 export class TransactionListComponent implements OnInit {
 
-  ELEMENT_DATA: Transaction[] = [];
-  displayedColumns: string[] = ['id', 'date', 'description', 'type',  'category', 'action'];
-  dataSource = new MatTableDataSource<Transaction>(this.ELEMENT_DATA);
+  transactions: Transaction[] = [];
+  columnsTransactions: string[] = ['id', 'date', 'type',  'category', 'accountOrigin', 'accountDestination', 'action'];
+  dataSourceTransactions = new MatTableDataSource<Transaction>(this.transactions);
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  
+  recurringTransactions: RecurringTransaction[] = [];
+  columnsRecurringTransactions: string[] = ['id', 'type',  'category', 'accountOrigin', 'accountDestination', 'action'];
+  dataSourceRecurringTransactions = new MatTableDataSource<RecurringTransaction>(this.recurringTransactions);
+
+  @ViewChild(MatPaginator) paginatorTransactions: MatPaginator;
+  @ViewChild(MatPaginator) paginatorRecurringTransactions: MatPaginator;
 
   constructor(
-    private service: TransactionService,
+    private serviceTransaction: TransactionService,
+    private serviceRecurringTransaction: RecurringTransactionService,
     private router: Router,
     public dialog: MatDialog,
     private snackBar: SnackbarService,
@@ -34,38 +43,75 @@ export class TransactionListComponent implements OnInit {
   }
 
   listAll() {
-    this.service.findAll().subscribe( res => {
-      this.ELEMENT_DATA = res;
-      this.dataSource = new MatTableDataSource<Transaction>(this.ELEMENT_DATA);
-      this.dataSource.paginator = this.paginator;
-    })
+    this.serviceTransaction.findByUserLogged().subscribe( res => {
+      this.transactions = res;
+      this.dataSourceTransactions = new MatTableDataSource<Transaction>(this.transactions);
+      this.dataSourceTransactions.paginator = this.paginatorTransactions;
+    });
+    this.serviceRecurringTransaction.findByUserLogged().subscribe( res => {
+      this.recurringTransactions = res;
+      this.dataSourceRecurringTransactions = new MatTableDataSource<RecurringTransaction>(this.recurringTransactions);
+      this.dataSourceRecurringTransactions.paginator = this.paginatorRecurringTransactions;
+    });
   }
 
-  applyFilter(event: Event) {
+  applyFilterTransaction(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+    this.dataSourceTransactions.filter = filterValue.trim().toLowerCase();
   }
 
-  new() {
+  applyFilterRecurringTransaction(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSourceRecurringTransactions.filter = filterValue.trim().toLowerCase();
+  }
+
+  newTransaction() {
     this.router.navigate(['transaction-form']);
   }
 
-  edit(item: Transaction) {
-    this.service.setSelectedTransaction(item);
+  newRecurringTransaction() {
+    this.router.navigate(['transaction-recurring-form']);
+  }
+
+  editTransaction(item: Transaction) {
+    this.serviceTransaction.setSelectedTransaction(item);
     this.router.navigate(['transaction-form']);
   }
 
-  deleteClick(item: Transaction) {
+  editRecurringTransaction(item: RecurringTransaction) {
+    this.serviceRecurringTransaction.setSelectedRecurringTransaction(item);
+    this.router.navigate(['transaction-recurring-form']);
+  }
+
+  deleteClickTransaction(item: Transaction) {
     const dialogRef = this.dialog.open(DialogComponent);
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.delete(item.id);
+        this.deleteTransaction(item.id);
       }
     });
   }
 
-  delete(id) {
-    this.service.delete(id).subscribe( res => {
+  deleteTransaction(id) {
+    this.serviceTransaction.delete(id).subscribe( res => {
+      this.snackBar.open('Registro excluído com sucesso.', 'snackbar-sucess');
+      this.listAll();
+    }, erro => {
+      this.snackBar.open('Erro ao excluir registro.', 'snackbar-warning')
+    })
+  }
+
+  deleteClickRecurringTransaction(item: RecurringTransaction) {
+    const dialogRef = this.dialog.open(DialogComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.deleteRecurringTransaction(item.id);
+      }
+    });
+  }
+
+  deleteRecurringTransaction(id) {
+    this.serviceRecurringTransaction.delete(id).subscribe( res => {
       this.snackBar.open('Registro excluído com sucesso.', 'snackbar-sucess');
       this.listAll();
     }, erro => {

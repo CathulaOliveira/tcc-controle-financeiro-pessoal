@@ -1,7 +1,7 @@
 <mat-card class="card">
 
     <mat-card-header>
-      <mat-card-title>Transações</mat-card-title>
+      <mat-card-title>Transação</mat-card-title>
       <mat-card-subtitle>{{idRegistro}}</mat-card-subtitle>
       <a class="back-search" mat-button (click)="backSearch()">Voltar a pesquisa</a>
     </mat-card-header>
@@ -29,7 +29,7 @@
 
         <mat-form-field class="full-width" appearance="outline">
           <mat-label>Tipo</mat-label>
-          <mat-select formControlName="type">
+          <mat-select formControlName="type" (selectionChange)="onSelectionChangeType($event)">
             <mat-option *ngFor="let option of transactionTypeOptions" [value]="option.value">
               {{ option.label }}
             </mat-option>
@@ -39,20 +39,20 @@
           </mat-error>
         </mat-form-field>
 
-        <mat-form-field class="full-width" appearance="outline">
+        <mat-form-field *ngIf="form.get('type').value != 'ENTRADA'" class="full-width" appearance="outline">
             <mat-label>Conta</mat-label>
             <mat-select formControlName="accountOrigin" [compareWith]="objectComparisonFunction">
-              <mat-option *ngFor="let option of accountOptions" [value]="option">{{option.id}} - {{option.name}}</mat-option>
+              <mat-option *ngFor="let option of accountOptions" [value]="option" [disabled]="disableOptionSelectedAccountDestination(option)">{{option.id}} - {{option.name}}</mat-option>
             </mat-select>
             <mat-error *ngIf="form.get('accountOrigin').hasError('required')">
               Conta é obrigatório.
             </mat-error>
         </mat-form-field>
 
-        <mat-form-field class="full-width" appearance="outline">
+        <mat-form-field *ngIf="form.get('type').value != 'SAIDA'" class="full-width" appearance="outline">
             <mat-label>Conta destino</mat-label>
             <mat-select formControlName="accountDestination" [compareWith]="objectComparisonFunction">
-              <mat-option *ngFor="let option of accountOptions" [value]="option">{{option.id}} - {{option.name}}</mat-option>
+              <mat-option *ngFor="let option of accountOptions" [value]="option" [disabled]="disableOptionSelectedAccountOrigin(option)">{{option.id}} - {{option.name}}</mat-option>
             </mat-select>
             <mat-error *ngIf="form.get('accountDestination').hasError('required')">
               Conta destino é obrigatório.

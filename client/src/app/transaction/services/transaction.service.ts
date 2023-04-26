@@ -32,6 +32,10 @@ export class TransactionService {
     return this.http.delete<Transaction>(`${API_CONFIG.baseUrl}/transactions/${id}`)
   }
 
+  findByUserLogged(): Observable<Transaction[]> {
+    return this.http.get<Transaction[]>(`${API_CONFIG.baseUrl}/transactions/find-by-user-logged`)
+  }
+
   setSelectedTransaction(transaction?: Transaction) {
     this.selectedTransactionSubject.next(transaction);
   }

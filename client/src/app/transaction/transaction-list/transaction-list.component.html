@@ -4,11 +4,11 @@
             <div class="container">
                 <mat-form-field appearance="standard">
                   <mat-label>Filtro</mat-label>
-                  <input matInput (keyup)="applyFilter($event)">
+                  <input matInput (keyup)="applyFilterTransaction($event)">
                 </mat-form-field>
             
                 <div class="scroll-table">
-                  <table mat-table [dataSource]="dataSource">
+                  <table mat-table [dataSource]="dataSourceTransactions">
               
                     <ng-container matColumnDef="id">
                       <th mat-header-cell *matHeaderCellDef> Identificador </th>
@@ -18,11 +18,6 @@
                     <ng-container matColumnDef="date">
                       <th mat-header-cell *matHeaderCellDef> Data </th>
                       <td mat-cell *matCellDef="let element"> {{element.date | date:'dd/MM/yyyy'}} </td>
-                    </ng-container>
-              
-                    <ng-container matColumnDef="description">
-                      <th mat-header-cell *matHeaderCellDef> Descrição </th>
-                      <td mat-cell *matCellDef="let element"> {{element.description}} </td>
                     </ng-container>
           
                     <ng-container matColumnDef="type">
@@ -34,29 +29,40 @@
                       <th mat-header-cell *matHeaderCellDef> Categoria </th>
                       <td mat-cell *matCellDef="let element">{{element.category.id}} - {{element.category.name}} </td>
                     </ng-container>
+
+                    <ng-container matColumnDef="accountOrigin">
+                      <th mat-header-cell *matHeaderCellDef> Conta origem </th>
+                      <td mat-cell *matCellDef="let element">{{element.accountOrigin?.id}} - {{element.accountOrigin?.name}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="accountDestination">
+                      <th mat-header-cell *matHeaderCellDef> Conta destino </th>
+                      <td mat-cell *matCellDef="let element">{{element.accountDestination?.id}} - {{element.accountDestination?.name}} </td>
+                    </ng-container>
               
                     <ng-container matColumnDef="action">
                       <th mat-header-cell *matHeaderCellDef> Ações </th>
                       <td mat-cell *matCellDef="let element" class="mat-column-flex"> 
-                        <button (click)="edit(element)" mat-icon-button color="primary">
+                        <button (click)="editTransaction(element)" mat-icon-button color="primary">
                           <mat-icon>edit</mat-icon>
                         </button>  
-                        <button (click)="deleteClick(element)" mat-icon-button color="primary">
+                        <button (click)="deleteClickTransaction(element)" mat-icon-button color="primary">
                           <mat-icon>delete</mat-icon>
                         </button>  
                       </td>
                     </ng-container>
               
                     <colgroup>
-                      <col matColumnDef="id1" style="width: 15%;">
-                      <col matColumnDef="date2" style="width: 15%;">
-                      <col matColumnDef="description2" style="width: 20%;">
+                      <col matColumnDef="id1" style="width: 12%;">
+                      <col matColumnDef="date2" style="width: 12%;">
                       <col matColumnDef="type2" style="width: 20%;">
-                      <col matColumnDef="category2" style="width: 20%;">
+                      <col matColumnDef="category2" style="width: 15%;">
+                      <col matColumnDef="accountOrigin2" style="width: 15%;">
+                      <col matColumnDef="accountDestination2" style="width: 15%;">
                     </colgroup>
               
-                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    <tr mat-header-row *matHeaderRowDef="columnsTransactions"></tr>
+                    <tr mat-row *matRowDef="let row; columns: columnsTransactions;"></tr>
                   </table>
                 </div>
             
@@ -66,7 +72,7 @@
                 </mat-paginator>
               </div>
               <div class="button-add">
-                <button (click)="new()" mat-fab aria-label="Novo">
+                <button (click)="newTransaction()" mat-fab aria-label="Novo">
                   <mat-icon>add</mat-icon>
                 </button>
               </div>
@@ -75,25 +81,15 @@
             <div class="container">
                 <mat-form-field appearance="standard">
                   <mat-label>Filtro</mat-label>
-                  <input matInput (keyup)="applyFilter($event)">
+                  <input matInput (keyup)="applyFilterRecurringTransaction($event)">
                 </mat-form-field>
             
                 <div class="scroll-table">
-                  <table mat-table [dataSource]="dataSource">
+                  <table mat-table [dataSource]="dataSourceRecurringTransactions">
               
                     <ng-container matColumnDef="id">
                       <th mat-header-cell *matHeaderCellDef> Identificador </th>
                       <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="date">
-                      <th mat-header-cell *matHeaderCellDef> Data </th>
-                      <td mat-cell *matCellDef="let element"> {{element.date | date:'dd/MM/yyyy'}} </td>
-                    </ng-container>
-              
-                    <ng-container matColumnDef="description">
-                      <th mat-header-cell *matHeaderCellDef> Descrição </th>
-                      <td mat-cell *matCellDef="let element"> {{element.description}} </td>
                     </ng-container>
           
                     <ng-container matColumnDef="type">
@@ -105,14 +101,24 @@
                       <th mat-header-cell *matHeaderCellDef> Categoria </th>
                       <td mat-cell *matCellDef="let element">{{element.category.id}} - {{element.category.name}} </td>
                     </ng-container>
+
+                    <ng-container matColumnDef="accountOrigin">
+                      <th mat-header-cell *matHeaderCellDef> Conta origem </th>
+                      <td mat-cell *matCellDef="let element">{{element.accountOrigin?.id}} - {{element.accountOrigin?.name}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="accountDestination">
+                      <th mat-header-cell *matHeaderCellDef> Conta destino </th>
+                      <td mat-cell *matCellDef="let element">{{element.accountDestination?.id}} - {{element.accountDestination?.name}} </td>
+                    </ng-container>
               
                     <ng-container matColumnDef="action">
                       <th mat-header-cell *matHeaderCellDef> Ações </th>
                       <td mat-cell *matCellDef="let element" class="mat-column-flex"> 
-                        <button (click)="edit(element)" mat-icon-button color="primary">
+                        <button (click)="editRecurringTransaction(element)" mat-icon-button color="primary">
                           <mat-icon>edit</mat-icon>
                         </button>  
-                        <button (click)="deleteClick(element)" mat-icon-button color="primary">
+                        <button (click)="deleteClickRecurringTransaction(element)" mat-icon-button color="primary">
                           <mat-icon>delete</mat-icon>
                         </button>  
                       </td>
@@ -120,14 +126,14 @@
               
                     <colgroup>
                       <col matColumnDef="id1" style="width: 15%;">
-                      <col matColumnDef="date2" style="width: 15%;">
-                      <col matColumnDef="description2" style="width: 20%;">
                       <col matColumnDef="type2" style="width: 20%;">
                       <col matColumnDef="category2" style="width: 20%;">
+                      <col matColumnDef="accountOrigin2" style="width: 15%;">
+                      <col matColumnDef="accountDestination2" style="width: 15%;">
                     </colgroup>
               
-                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    <tr mat-header-row *matHeaderRowDef="columnsRecurringTransactions"></tr>
+                    <tr mat-row *matRowDef="let row; columns: columnsRecurringTransactions;"></tr>
                   </table>
                 </div>
             
@@ -137,7 +143,7 @@
                 </mat-paginator>
               </div>
               <div class="button-add">
-                <button (click)="new()" mat-fab aria-label="Novo">
+                <button (click)="newRecurringTransaction()" mat-fab aria-label="Novo">
                   <mat-icon>add</mat-icon>
                 </button>
               </div>
