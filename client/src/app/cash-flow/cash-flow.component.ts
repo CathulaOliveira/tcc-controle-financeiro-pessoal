@@ -1,10 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Transaction } from '../transaction/models/transaction';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
-import { TransactionService } from '../transaction/services/transaction.service';
 import { MatDialog } from '@angular/material/dialog';
-import { SnackbarService } from '../services/snackbar.service';
+import { RecurringTransaction } from '../transaction/models/transaction-recurring';
+import { RecurringTransactionService } from '../transaction/services/transaction-recurring.service';
 
 @Component({
   selector: 'app-cash-flow',
@@ -13,16 +12,15 @@ import { SnackbarService } from '../services/snackbar.service';
 })
 export class CashFlowComponent implements OnInit {
 
-  ELEMENT_DATA: Transaction[] = [];
+  ELEMENT_DATA: RecurringTransaction[] = [];
   displayedColumns: string[] = ['id', 'date', 'description', 'type', 'category', 'price', 'status'];
-  dataSource = new MatTableDataSource<Transaction>(this.ELEMENT_DATA);
+  dataSource = new MatTableDataSource<RecurringTransaction>(this.ELEMENT_DATA);
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(
-    private service: TransactionService,
+    private service: RecurringTransactionService,
     public dialog: MatDialog,
-    private snackBar: SnackbarService,
   ) { }
 
   ngOnInit(): void {
@@ -32,7 +30,7 @@ export class CashFlowComponent implements OnInit {
   listAll() {
     this.service.findAll().subscribe( res => {
       this.ELEMENT_DATA = res;
-      this.dataSource = new MatTableDataSource<Transaction>(this.ELEMENT_DATA);
+      this.dataSource = new MatTableDataSource<RecurringTransaction>(this.ELEMENT_DATA);
       this.dataSource.paginator = this.paginator;
     })
   }

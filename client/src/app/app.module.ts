@@ -48,6 +48,7 @@ import { CashFlowComponent } from './cash-flow/cash-flow.component';
 import { EnumStatusOptionsPipe } from './pipe/enum-status.pipe';
 import { TypeGoalFormComponent } from './type-goal/type-goal-form/type-goal-form.component';
 import { TypeGoalListComponent } from './type-goal/type-goal-list/type-goal-list.component';
+import { PaymentStatusOptionsPipe } from './transaction/models/payment-status-pipe.pipe';
 
 @NgModule({
   declarations: [
@@ -71,7 +72,8 @@ import { TypeGoalListComponent } from './type-goal/type-goal-list/type-goal-list
     CashFlowComponent,
     EnumStatusOptionsPipe,
     TypeGoalFormComponent,
-    TypeGoalListComponent
+    TypeGoalListComponent,
+    PaymentStatusOptionsPipe
   ],
   imports: [
     BrowserModule,
