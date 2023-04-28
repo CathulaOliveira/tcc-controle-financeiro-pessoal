@@ -49,6 +49,7 @@ import { EnumStatusOptionsPipe } from './pipe/enum-status.pipe';
 import { TypeGoalFormComponent } from './type-goal/type-goal-form/type-goal-form.component';
 import { TypeGoalListComponent } from './type-goal/type-goal-list/type-goal-list.component';
 import { PaymentStatusOptionsPipe } from './transaction/models/payment-status-pipe.pipe';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -101,7 +102,8 @@ import { PaymentStatusOptionsPipe } from './transaction/models/payment-status-pi
     MatDatepickerModule,
     MatNativeDateModule,
     MatTabsModule,
-    MatGridListModule
+    MatGridListModule,
+    MatTooltipModule
   ],
   providers: [AuthInterceptorProvider],
   bootstrap: [AppComponent]

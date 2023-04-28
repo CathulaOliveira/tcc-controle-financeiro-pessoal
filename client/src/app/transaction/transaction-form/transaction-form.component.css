@@ -1,6 +1,6 @@
 .card {
     width: 95%;
-    height: 80%;
+    height: auto;
     margin: .8rem auto; 
   }
   
@@ -35,4 +35,9 @@
     margin-top: 1rem;
     height: 2rem;
     font-size: small;
- }
+}
+
+.ajuda {
+   font-size: 16px;
+   color: rgb(123,120,124);
+}

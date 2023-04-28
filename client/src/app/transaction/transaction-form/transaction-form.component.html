@@ -40,43 +40,43 @@
         </mat-form-field>
 
         <mat-form-field *ngIf="form.get('type').value != 'ENTRADA'" class="full-width" appearance="outline">
-            <mat-label>Conta</mat-label>
-            <mat-select formControlName="accountOrigin" [compareWith]="objectComparisonFunction">
-              <mat-option *ngFor="let option of accountOptions" [value]="option" [disabled]="disableOptionSelectedAccountDestination(option)">{{option.id}} - {{option.name}}</mat-option>
-            </mat-select>
-            <mat-error *ngIf="form.get('accountOrigin').hasError('required')">
-              Conta é obrigatório.
-            </mat-error>
+          <mat-label>Conta</mat-label>
+          <mat-select formControlName="accountOrigin" [compareWith]="objectComparisonFunction">
+            <mat-option *ngFor="let option of accountOptions" [value]="option" [disabled]="disableOptionSelectedAccountDestination(option)">{{option.id}} - {{option.name}}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="form.get('accountOrigin').hasError('required')">
+            Conta é obrigatório.
+          </mat-error>
         </mat-form-field>
 
         <mat-form-field *ngIf="form.get('type').value != 'SAIDA'" class="full-width" appearance="outline">
-            <mat-label>Conta destino</mat-label>
-            <mat-select formControlName="accountDestination" [compareWith]="objectComparisonFunction">
-              <mat-option *ngFor="let option of accountOptions" [value]="option" [disabled]="disableOptionSelectedAccountOrigin(option)">{{option.id}} - {{option.name}}</mat-option>
-            </mat-select>
-            <mat-error *ngIf="form.get('accountDestination').hasError('required')">
-              Conta destino é obrigatório.
-            </mat-error>
+          <mat-label>Conta destino</mat-label>
+          <mat-select formControlName="accountDestination" [compareWith]="objectComparisonFunction">
+            <mat-option *ngFor="let option of accountOptions" [value]="option" [disabled]="disableOptionSelectedAccountOrigin(option)">{{option.id}} - {{option.name}}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="form.get('accountDestination').hasError('required')">
+            Conta destino é obrigatório.
+          </mat-error>
         </mat-form-field>
 
         <mat-form-field class="full-width" appearance="outline">
-            <mat-label>Categoria</mat-label>
-            <mat-select formControlName="category" [compareWith]="objectComparisonFunction">
-              <mat-option *ngFor="let option of categoryOptions" [value]="option">{{option.id}} - {{option.name}}</mat-option>
-            </mat-select>
-            <mat-error *ngIf="form.get('category').hasError('required')">
-              Categoria é obrigatório.
-            </mat-error>
+          <mat-label>Categoria</mat-label>
+          <mat-select formControlName="category" [compareWith]="objectComparisonFunction">
+            <mat-option *ngFor="let option of categoryOptions" [value]="option">{{option.id}} - {{option.name}}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="form.get('category').hasError('required')">
+            Categoria é obrigatório.
+          </mat-error>
         </mat-form-field>
 
         <mat-form-field class="half-width" appearance="outline">
-            <mat-label>Data</mat-label>
-            <input matInput [matDatepicker]="picker" formControlName="date">
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-            <mat-error *ngIf="form.get('date').hasError('required')">
-              Data é obrigatório.
-            </mat-error>
+          <mat-label>Data</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="date">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+          <mat-error *ngIf="form.get('date').hasError('required')">
+            Data é obrigatório.
+          </mat-error>
         </mat-form-field>
 
         <mat-form-field class="half-width" appearance="outline">
@@ -85,10 +85,44 @@
           formControlName="price"
           name="price"
           matInput >
+          <mat-error *ngIf="form.get('price').hasError('required')">
+            Valor é obrigatório.
+          </mat-error>
         </mat-form-field>
-        <mat-error *ngIf="form.get('price').hasError('required')">
-          Valor é obrigatório.
-        </mat-error>
+
+        <div>
+          <mat-checkbox (selectionChange)="onSelectionChangeIsRecurringTransaction($event)" formControlName="isRecurringTransaction">
+            É uma Transação Recorrente
+            <mat-icon class="ajuda" matTooltip="Clique para vincular uma Transação Recorrente">help_outline</mat-icon>
+          </mat-checkbox>
+        </div>
+
+        <mat-form-field *ngIf="form.get('isRecurringTransaction').value" class="full-width" appearance="outline">
+          <mat-label>Transação recorrente</mat-label>
+          <mat-select formControlName="recurringTransaction" [compareWith]="objectComparisonFunction">
+            <mat-option *ngFor="let option of recurringTransactionOptions" [value]="option">{{option.id}} - {{option.description}}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="form.get('recurringTransaction').hasError('required')">
+            Transação recorrente é obrigatório.
+          </mat-error>
+        </mat-form-field>
+      
+        <div>
+          <mat-checkbox (selectionChange)="onSelectionChangeIsGoal($event)" formControlName="isGoal">
+            Pertence a uma Meta
+            <mat-icon class="ajuda" matTooltip="Clique para vincular uma Meta">help_outline</mat-icon>
+          </mat-checkbox>
+        </div>
+
+        <mat-form-field *ngIf="form.get('isGoal').value" class="full-width" appearance="outline">
+          <mat-label>Meta</mat-label>
+          <mat-select formControlName="goal" [compareWith]="objectComparisonFunction">
+            <mat-option *ngFor="let option of goalOptions" [value]="option">{{option.id}} - {{option.description}}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="form.get('goal').hasError('required')">
+            Meta é obrigatório.
+          </mat-error>
+        </mat-form-field>
       </form>
     </div>
 

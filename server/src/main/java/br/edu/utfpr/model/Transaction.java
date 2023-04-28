@@ -49,4 +49,20 @@ public class Transaction {
     @NotNull
     @Enumerated(EnumType.STRING)
     private TypeTransaction type;
+
+    @NotNull
+    @Column(name = "is_goal")
+    private Boolean isGoal;
+
+    @ManyToOne
+    @JoinColumn(name = "goal_id", referencedColumnName = "id")
+    private Goal goal;
+
+    @NotNull
+    @Column(name = "is_recurring_transaction")
+    private Boolean isRecurringTransaction;
+
+    @ManyToOne
+    @JoinColumn(name = "recurring_transaction_id", referencedColumnName = "id")
+    private RecurringTransaction recurringTransaction;
 }

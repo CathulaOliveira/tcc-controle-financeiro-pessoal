@@ -33,7 +33,7 @@ export class GoalListComponent implements OnInit {
   }
 
   listAll() {
-    this.service.findAll().subscribe( res => {
+    this.service.findByUserLogged().subscribe( res => {
       this.ELEMENT_DATA = res;
       this.dataSource = new MatTableDataSource<Goal>(this.ELEMENT_DATA);
       this.dataSource.paginator = this.paginator;

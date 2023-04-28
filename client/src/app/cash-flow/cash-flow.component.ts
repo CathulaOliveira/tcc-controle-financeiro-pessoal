@@ -28,7 +28,7 @@ export class CashFlowComponent implements OnInit {
   }
 
   listAll() {
-    this.service.findAll().subscribe( res => {
+    this.service.findByUserLogged().subscribe( res => {
       this.ELEMENT_DATA = res;
       this.dataSource = new MatTableDataSource<RecurringTransaction>(this.ELEMENT_DATA);
       this.dataSource.paginator = this.paginator;

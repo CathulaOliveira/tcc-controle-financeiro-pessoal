@@ -11,6 +11,10 @@ import { Router } from '@angular/router';
 import { Category } from 'src/app/category/models/cotegory';
 import { Account } from 'src/app/account/models/account';
 import { AccountService } from 'src/app/account/services/account.service';
+import { RecurringTransaction } from '../models/transaction-recurring';
+import { Goal } from 'src/app/goal/models/goal';
+import { RecurringTransactionService } from '../services/transaction-recurring.service';
+import { GoalService } from 'src/app/goal/services/goal.service';
 
 export const MY_DATE_FORMATS = {
   parse: {
@@ -44,11 +48,15 @@ export class TransactionFormComponent implements OnInit, OnDestroy {
   ];
   categoryOptions: Category[] = [];
   accountOptions: Account[] = [];
+  recurringTransactionOptions: RecurringTransaction[] = [];
+  goalOptions: Goal[] = [];
 
   constructor(
     private service: TransactionService,
     private categoryService: CategoryService,
     private accountService: AccountService,
+    private recurringTransactionService: RecurringTransactionService,
+    private goalService: GoalService,
     private snackBar: SnackbarService,
     private router: Router,
     ) { }
@@ -61,13 +69,19 @@ export class TransactionFormComponent implements OnInit, OnDestroy {
       category: new FormControl(null, Validators.required),
       accountOrigin: new FormControl(null),
       accountDestination: new FormControl(null),
-      date: new FormControl(''),
-      price: new FormControl('')
+      date: new FormControl(null, Validators.required),
+      price: new FormControl(null, Validators.required),
+      isRecurringTransaction: new FormControl(false, Validators.required),
+      recurringTransaction: new FormControl(null),
+      isGoal: new FormControl(false, Validators.required),
+      goal: new FormControl(null)
     });
 
     
     this.getCategoryes();
     this.getAccounts();
+    this.getRecurringTransactions();
+    this.getGoals();
 
     this.service.selectedTransaction$
     .pipe(takeUntil(this.ngUnsubscribe))
@@ -96,15 +110,15 @@ export class TransactionFormComponent implements OnInit, OnDestroy {
       case TransactionType.ENTRADA:
         this.form.get('accountDestination').addValidators(Validators.required);
         this.form.get('accountDestination').updateValueAndValidity();
-        this.form.get('accountOrigin').reset();
         this.form.get('accountOrigin').clearValidators();
+        this.form.get('accountOrigin').reset();
         this.form.get('accountOrigin').updateValueAndValidity();
         break;
       case TransactionType.SAIDA:
         this.form.get('accountOrigin').addValidators(Validators.required);
         this.form.get('accountOrigin').updateValueAndValidity();
-        this.form.get('accountDestination').reset();
         this.form.get('accountDestination').clearValidators();
+        this.form.get('accountDestination').reset();
         this.form.get('accountDestination').updateValueAndValidity();
         break;
       case TransactionType.TRANSFERENCIA:
@@ -113,6 +127,28 @@ export class TransactionFormComponent implements OnInit, OnDestroy {
         this.form.get('accountDestination').addValidators(Validators.required);
         this.form.get('accountDestination').updateValueAndValidity();
         break;
+    }
+  }
+
+  onSelectionChangeIsRecurringTransaction(event) {
+    if(event.value) {
+      this.form.get('recurringTransaction').addValidators(Validators.required);
+      this.form.get('recurringTransaction').updateValueAndValidity();
+    } else {
+      this.form.get('recurringTransaction').clearValidators();
+      this.form.get('recurringTransaction').reset();
+      this.form.get('recurringTransaction').updateValueAndValidity();
+    }
+  }
+
+  onSelectionChangeIsGoal(event) {
+    if(event.value) {
+      this.form.get('goal').addValidators(Validators.required);
+      this.form.get('goal').updateValueAndValidity();
+    } else {
+      this.form.get('goal').clearValidators();
+      this.form.get('goal').reset();
+      this.form.get('goal').updateValueAndValidity();
     }
   }
 
@@ -176,6 +212,18 @@ export class TransactionFormComponent implements OnInit, OnDestroy {
   getAccounts() {
     this.accountService.findByUserLogged().subscribe( res => {
       this.accountOptions = res;
+    });
+  }
+
+  getRecurringTransactions() {
+    this.recurringTransactionService.findByUserLogged().subscribe( res => {
+      this.recurringTransactionOptions = res;
+    });
+  }
+
+  getGoals() {
+    this.goalService.findByUserLogged().subscribe( res => {
+      this.goalOptions = res;
     });
   }
 
