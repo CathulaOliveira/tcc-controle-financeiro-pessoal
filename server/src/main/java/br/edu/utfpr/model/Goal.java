@@ -23,7 +23,6 @@ public class Goal {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "goal_seq")
     private Long id;
 
-    @NotNull
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     protected User user;

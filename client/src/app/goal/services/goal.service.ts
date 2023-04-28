@@ -32,6 +32,10 @@ export class GoalService {
     return this.http.delete<Goal>(`${API_CONFIG.baseUrl}/goals/${id}`)
   }
 
+  findByUserLogged(): Observable<Goal[]> {
+    return this.http.get<Goal[]>(`${API_CONFIG.baseUrl}/goals/find-by-user-logged`)
+  }
+
   setSelectedGoal(goal?: Goal) {
     this.selectedGoalSubject.next(goal);
   }
