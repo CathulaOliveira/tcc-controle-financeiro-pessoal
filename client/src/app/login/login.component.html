@@ -24,7 +24,7 @@
           placeholder="Ex. 123">
         </mat-form-field>
 
-        <button (click)="logar()" [disabled]="!validaCampos()" class="full-width mat-elevation-z4" mat-stroked-button color="primary">Login</button>
-        <button (click)="cadastrar()" class="full-width mat-elevation-z4 button" mat-stroked-button color="primary">Cadastre-se</button>
+        <button (click)="login()" [disabled]="!validate()" class="full-width mat-elevation-z4" mat-stroked-button color="primary">Login</button>
+        <button (click)="new()" class="full-width mat-elevation-z4 button" mat-stroked-button color="primary">Cadastre-se</button>
       </form>
 </div>

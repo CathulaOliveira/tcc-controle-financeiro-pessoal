@@ -18,12 +18,8 @@
             Nome é obrigatório.
           </mat-error>
 
-          <mat-error *ngIf="form.get('name').hasError('minlength')">
-            Nome deve ter pelo menos 2 caracteres.
-          </mat-error>
-
           <mat-error *ngIf="form.get('name').hasError('maxlength')">
-            Nome deve ter no máximo 255 caracteres.
+            Nome deve ter no máximo 250 caracteres.
           </mat-error>
         </mat-form-field>
 
