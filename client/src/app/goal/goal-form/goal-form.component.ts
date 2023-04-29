@@ -64,7 +64,7 @@ export class GoalFormComponent implements OnInit, OnDestroy {
         this.idRegistro = 'Id ' + goal.id;
       }
     }, erro => {
-      this.snackBar.open('Erro ao carregar registro.', 'snackbar-warning');
+      this.snackBar.open('Erro ao carregar registro. ' + erro.message, 'snackbar-warning');
     });
   }
 
@@ -97,7 +97,7 @@ export class GoalFormComponent implements OnInit, OnDestroy {
       this.snackBar.open('Registro salvo com sucesso.', 'snackbar-sucess');
       this.resertForm();
     }, erro => {
-      this.snackBar.open('Erro ao salvar registro.', 'snackbar-warning')
+      this.snackBar.open('Erro ao salvar registro. ' + erro.message, 'snackbar-warning')
     });
   }
 
@@ -106,7 +106,7 @@ export class GoalFormComponent implements OnInit, OnDestroy {
       this.snackBar.open('Registro atualizado com sucesso.', 'snackbar-sucess');
       this.resertForm();
     }, erro => {
-      this.snackBar.open('Erro ao atualizar registro.', 'snackbar-warning')
+      this.snackBar.open('Erro ao atualizar registro. ' + erro.message, 'snackbar-warning')
     });
   }
 
@@ -122,12 +122,16 @@ export class GoalFormComponent implements OnInit, OnDestroy {
   getCategoryes() {
     this.categoryService.findAll().subscribe( res => {
       this.categoryOptions = res;
+    }, erro => {
+      this.snackBar.open('Erro ao listar Categorias. ' + erro.message, 'snackbar-warning');
     });
   }
 
   getTypeGoal() {
     this.typeGoalService.findAll().subscribe( res => {
       this.typeGoalOptions = res;
+    }, erro => {
+      this.snackBar.open('Erro ao listar Tipos de Metas. ' + erro.message, 'snackbar-warning');
     });
   }
 

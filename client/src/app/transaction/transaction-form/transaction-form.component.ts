@@ -85,7 +85,7 @@ export class TransactionFormComponent implements OnInit, OnDestroy {
         this.idRegistro = 'Id ' + transaction.id;
       }
     }, erro => {
-      this.snackBar.open('Erro ao carregar registro.', 'snackbar-warning');
+      this.snackBar.open('Erro ao carregar registro. ' + erro.message, 'snackbar-warning');
     });
   }
 
@@ -185,7 +185,7 @@ export class TransactionFormComponent implements OnInit, OnDestroy {
       this.snackBar.open('Registro salvo com sucesso.', 'snackbar-sucess');
       this.resertForm();
     }, erro => {
-      this.snackBar.open('Erro ao salvar registro.', 'snackbar-warning')
+      this.snackBar.open('Erro ao salvar registro. ' + erro.message, 'snackbar-warning')
     });
   }
 
@@ -194,7 +194,7 @@ export class TransactionFormComponent implements OnInit, OnDestroy {
       this.snackBar.open('Registro atualizado com sucesso.', 'snackbar-sucess');
       this.resertForm();
     }, erro => {
-      this.snackBar.open('Erro ao atualizar registro.', 'snackbar-warning')
+      this.snackBar.open('Erro ao atualizar registro. ' + erro.message, 'snackbar-warning')
     });
   }
 
@@ -210,24 +210,32 @@ export class TransactionFormComponent implements OnInit, OnDestroy {
   getCategoryes() {
     this.categoryService.findAll().subscribe( res => {
       this.categoryOptions = res;
+    }, erro => {
+      this.snackBar.open('Erro ao listar Categorias. ' + erro.message, 'snackbar-warning')
     });
   }
 
   getAccounts() {
     this.accountService.findByUserLogged().subscribe( res => {
       this.accountOptions = res;
+    }, erro => {
+      this.snackBar.open('Erro ao listar Contas. ' + erro.message, 'snackbar-warning')
     });
   }
 
   getRecurringTransactions() {
     this.recurringTransactionService.findByUserLogged().subscribe( res => {
       this.recurringTransactionOptions = res;
+    }, erro => {
+      this.snackBar.open('Erro ao listar Transações Recorrentes. ' + erro.message, 'snackbar-warning')
     });
   }
 
   getGoals() {
     this.goalService.findByUserLogged().subscribe( res => {
       this.goalOptions = res;
+    }, erro => {
+      this.snackBar.open('Erro ao listar Metas. ' + erro.message, 'snackbar-warning')
     });
   }
 

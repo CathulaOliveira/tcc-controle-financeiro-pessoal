@@ -38,7 +38,9 @@ export class AccountListComponent implements OnInit {
       this.ELEMENT_DATA = res;
       this.dataSource = new MatTableDataSource<Account>(this.ELEMENT_DATA);
       this.dataSource.paginator = this.paginator;
-    })
+    }, erro => {
+      this.snackBar.open('Erro ao listar registros. ' + erro.message, 'snackbar-warning');
+    });
   }
 
   applyFilter(event: Event) {
@@ -69,7 +71,7 @@ export class AccountListComponent implements OnInit {
       this.snackBar.open('Registro excluído com sucesso.', 'snackbar-sucess');
       this.listAll();
     }, erro => {
-      this.snackBar.open('Erro ao excluir registro.', 'snackbar-warning')
+      this.snackBar.open('Erro ao excluir registro. ' + erro.message, 'snackbar-warning')
     })
   }
 

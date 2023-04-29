@@ -42,8 +42,8 @@ export class LoginComponent implements OnInit {
       this.service.sucessFullLogin(resposta.token);
       this.router.navigate(['']);
       this.snackBar.open('Login realizado com sucesso.', 'snackbar-sucess');
-    }, () => {
-      this.snackBar.open('Usuário e/ou senha inválidos.', 'snackbar-warning')
+    }, erro => {
+      this.snackBar.open('Erro ao realizar login.' + erro.message, 'snackbar-warning')
     })
   }
 

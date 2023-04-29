@@ -4,6 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
 import { RecurringTransaction } from '../transaction/models/transaction-recurring';
 import { RecurringTransactionService } from '../transaction/services/transaction-recurring.service';
+import { SnackbarService } from '../services/snackbar.service';
 
 @Component({
   selector: 'app-cash-flow',
@@ -21,6 +22,7 @@ export class CashFlowComponent implements OnInit {
   constructor(
     private service: RecurringTransactionService,
     public dialog: MatDialog,
+    private snackBar: SnackbarService,
   ) { }
 
   ngOnInit(): void {
@@ -32,7 +34,9 @@ export class CashFlowComponent implements OnInit {
       this.ELEMENT_DATA = res;
       this.dataSource = new MatTableDataSource<RecurringTransaction>(this.ELEMENT_DATA);
       this.dataSource.paginator = this.paginator;
-    })
+    }, erro => {
+      this.snackBar.open('Erro ao listar registros. ' + erro.message, 'snackbar-warning');
+    });
   }
 
   applyFilter(event: Event) {

@@ -37,6 +37,8 @@ export class CategoryListComponent implements OnInit {
       this.ELEMENT_DATA = res;
       this.dataSource = new MatTableDataSource<Category>(this.ELEMENT_DATA);
       this.dataSource.paginator = this.paginator;
+    }, erro => {
+      this.snackBar.open('Erro ao listar registros. ' + erro.message, 'snackbar-warning');
     })
   }
 
@@ -68,7 +70,7 @@ export class CategoryListComponent implements OnInit {
       this.snackBar.open('Registro excluído com sucesso.', 'snackbar-sucess');
       this.listAll();
     }, erro => {
-      this.snackBar.open('Erro ao excluir registro.', 'snackbar-warning')
+      this.snackBar.open('Erro ao excluir registro. ' + erro.message, 'snackbar-warning')
     })
   }
 

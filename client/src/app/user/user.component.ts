@@ -47,8 +47,8 @@ export class UserComponent implements OnInit {
     this.service.save(user).subscribe(resposta => {
       this.router.navigate(['/login']);
       this.snackBar.open('Usuário cadastrado com sucesso. Por favor acesse com suas credencias', 'snackbar-sucess');
-    }, () => {
-      this.snackBar.open('Usuário e/ou senha inválidos', 'snackbar-warning')
+    }, erro => {
+      this.snackBar.open('Erro ao salvar registro' + erro.message, 'snackbar-warning')
     })
   }
 

@@ -46,11 +46,15 @@ export class TransactionListComponent implements OnInit {
       this.transactions = res;
       this.dataSourceTransactions = new MatTableDataSource<Transaction>(this.transactions);
       this.dataSourceTransactions.paginator = this.paginatorTransactions;
+    }, erro => {
+      this.snackBar.open('Erro ao listar registros. ' + erro.message, 'snackbar-warning')
     });
     this.serviceRecurringTransaction.findByUserLogged().subscribe( res => {
       this.recurringTransactions = res;
       this.dataSourceRecurringTransactions = new MatTableDataSource<RecurringTransaction>(this.recurringTransactions);
       this.dataSourceRecurringTransactions.paginator = this.paginatorRecurringTransactions;
+    }, erro => {
+      this.snackBar.open('Erro ao listar registros. ' + erro.message, 'snackbar-warning')
     });
   }
 
@@ -96,7 +100,7 @@ export class TransactionListComponent implements OnInit {
       this.snackBar.open('Registro excluído com sucesso.', 'snackbar-sucess');
       this.listAll();
     }, erro => {
-      this.snackBar.open('Erro ao excluir registro.', 'snackbar-warning')
+      this.snackBar.open('Erro ao excluir registro. ' + erro.message, 'snackbar-warning')
     })
   }
 
@@ -114,7 +118,7 @@ export class TransactionListComponent implements OnInit {
       this.snackBar.open('Registro excluído com sucesso.', 'snackbar-sucess');
       this.listAll();
     }, erro => {
-      this.snackBar.open('Erro ao excluir registro.', 'snackbar-warning')
+      this.snackBar.open('Erro ao excluir registro. ' + erro.message, 'snackbar-warning')
     })
   }
 

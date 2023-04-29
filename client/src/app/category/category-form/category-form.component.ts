@@ -54,7 +54,7 @@ export class CategoryFormComponent implements OnInit, OnDestroy {
         this.idRegistro = 'Id ' + category.id;
       }
     }, erro => {
-      this.snackBar.open('Erro ao carregar registro.', 'snackbar-warning');
+      this.snackBar.open('Erro ao carregar registro. ' + erro.message, 'snackbar-warning');
     });
   }
 
@@ -83,7 +83,7 @@ export class CategoryFormComponent implements OnInit, OnDestroy {
       this.snackBar.open('Registro salvo com sucesso.', 'snackbar-sucess');
       this.resertForm();
     }, erro => {
-      this.snackBar.open('Erro ao salvar registro.', 'snackbar-warning')
+      this.snackBar.open('Erro ao salvar registro. ' + erro.message, 'snackbar-warning')
     });
   }
 
@@ -92,7 +92,7 @@ export class CategoryFormComponent implements OnInit, OnDestroy {
       this.snackBar.open('Registro atualizado com sucesso.', 'snackbar-sucess');
       this.resertForm();
     }, erro => {
-      this.snackBar.open('Erro ao atualizar registro.', 'snackbar-warning')
+      this.snackBar.open('Erro ao atualizar registro. ' + erro.message, 'snackbar-warning')
     });
   }
 
