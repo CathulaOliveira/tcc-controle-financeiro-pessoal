@@ -24,8 +24,7 @@ public class TypeGoal implements Serializable {
     private Long id;
 
     @NotNull
-    @Size(min = 2, max = 50)
-    @Column(length = 50)
+    @Size(max = 250)
     private String name;
 
     @NotNull

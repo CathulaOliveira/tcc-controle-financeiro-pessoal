@@ -29,14 +29,23 @@ export class TypeGoalFormComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
+    this.createForm();  
+    this.getItemSelected();
+  }
+
+  ngOnDestroy(): void {
+    this.resetItemSelected();
+  }
+
+  createForm() {
     this.form = new FormGroup({
       id: new FormControl(''),
-      name: new FormControl(null, [Validators.required, 
-        Validators.minLength(2), 
-        Validators.maxLength(255)]),
+      name: new FormControl(null, [Validators.required, Validators.maxLength(255)]),
       status: new FormControl(null, Validators.required),
     });
+  }
 
+  getItemSelected() {
     this.service.selectedTypeGoal$
     .pipe(takeUntil(this.ngUnsubscribe))
     .subscribe(typeGoal => {
@@ -49,7 +58,7 @@ export class TypeGoalFormComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy(): void {
+  resetItemSelected() {
     this.ngUnsubscribe.next(null);
     this.ngUnsubscribe.complete();
     this.service.setSelectedTypeGoal(null);

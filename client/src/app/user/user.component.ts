@@ -21,6 +21,10 @@ export class UserComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
+    this.createForm();
+  }
+
+  createForm() {
     this.form = new FormGroup({
       username: new FormControl('', [Validators.required, 
         Validators.minLength(4), 
@@ -38,7 +42,7 @@ export class UserComponent implements OnInit {
     });
   }
 
-  cadastrar() {
+  save() {
     const user: User = this.form.value;
     this.service.save(user).subscribe(resposta => {
       this.router.navigate(['/login']);
@@ -48,7 +52,7 @@ export class UserComponent implements OnInit {
     })
   }
 
-  validaCampos(): boolean {
+  validate(): boolean {
     return this.form.valid;
   }
 

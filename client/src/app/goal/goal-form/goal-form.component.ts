@@ -11,25 +11,10 @@ import { MAT_DATE_FORMATS } from '@angular/material/core';
 import { TypeGoal } from 'src/app/type-goal/models/type-goal';
 import { TypeGoalService } from 'src/app/type-goal/services/type-goal.service';
 
-export const MY_DATE_FORMATS = {
-  parse: {
-    dateInput: 'LL',
-  },
-  display: {
-    dateInput: 'DD/MM/YYYY',
-    monthYearLabel: 'MMM YYYY',
-    dateA11yLabel: 'LL',
-    monthYearA11yLabel: 'MMMM YYYY',
-  },
-};
-
 @Component({
   selector: 'app-goal-form',
   templateUrl: './goal-form.component.html',
   styleUrls: ['./goal-form.component.css'],
-  providers: [
-    { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS },
-  ],
 })
 export class GoalFormComponent implements OnInit, OnDestroy {
 
@@ -48,22 +33,29 @@ export class GoalFormComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    this.form = new FormGroup({
-      id: new FormControl(''),
-      description: new FormControl(null, [Validators.required, 
-        Validators.minLength(2), 
-        Validators.maxLength(255)]),
-      type: new FormControl(null, Validators.required),
-      category: new FormControl(null, Validators.required),
-      startDate: new FormControl(''),
-      endDate: new FormControl(''),
-      price: new FormControl('')
-    });
-
-    
+    this.createForm();
     this.getCategoryes();
     this.getTypeGoal();
+    this.getItemSelected();
+  }
 
+  ngOnDestroy(): void {
+    this.resetItemSelected();
+  }
+
+  createForm() {
+    this.form = new FormGroup({
+      id: new FormControl(''),
+      description: new FormControl(null, [Validators.required, Validators.maxLength(250)]),
+      type: new FormControl(null, Validators.required),
+      category: new FormControl(null, Validators.required),
+      startDate: new FormControl(null),
+      endDate: new FormControl(null),
+      price: new FormControl(null)
+    });
+  }
+
+  getItemSelected() {
     this.service.selectedGoal$
     .pipe(takeUntil(this.ngUnsubscribe))
     .subscribe(goal => {
@@ -76,14 +68,14 @@ export class GoalFormComponent implements OnInit, OnDestroy {
     });
   }
 
-  public objectComparisonFunction = function( option, value ) : boolean {
-    return option?.id === value?.id;
-  }
-
-  ngOnDestroy(): void {
+  resetItemSelected() {
     this.ngUnsubscribe.next(null);
     this.ngUnsubscribe.complete();
     this.service.setSelectedGoal(null);
+  }
+
+  objectComparisonFunction = function( option, value ) : boolean {
+    return option?.id === value?.id;
   }
 
   saveClick() {

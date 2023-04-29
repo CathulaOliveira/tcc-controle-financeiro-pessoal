@@ -30,10 +30,19 @@ export class AccountFormComponent implements OnInit, OnDestroy {
     ) { }
 
   ngOnInit(): void {
+    this.createForm();
+    this.getItemSelected();
+  }
+
+  ngOnDestroy(): void {
+    this.resetItemSelected();
+  }
+
+  createForm() {
     this.form = new FormGroup({
       id: new FormControl(''),
       name: new FormControl(null, [Validators.required, 
-        Validators.maxLength(255)]),
+        Validators.maxLength(250)]),
       number: new FormControl(null, [Validators.required, 
         Validators.minLength(6), 
         Validators.maxLength(12)]),
@@ -45,7 +54,9 @@ export class AccountFormComponent implements OnInit, OnDestroy {
         Validators.maxLength(255)]),
       type: new FormControl(null, Validators.required)
     });
-    
+  }
+
+  getItemSelected() {
     this.service.selectedAccount$
     .pipe(takeUntil(this.ngUnsubscribe))
     .subscribe(account => {
@@ -58,7 +69,7 @@ export class AccountFormComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy(): void {
+  resetItemSelected() {
     this.ngUnsubscribe.next(null);
     this.ngUnsubscribe.complete();
     this.service.setSelectedAccount(null);

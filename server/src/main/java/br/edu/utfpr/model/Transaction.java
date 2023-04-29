@@ -40,6 +40,7 @@ public class Transaction {
     @NotNull
     private BigDecimal price = BigDecimal.ZERO;
 
+    @NotNull
     @Size(max = 250)
     private String description;
 

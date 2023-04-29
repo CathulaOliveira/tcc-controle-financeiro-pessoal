@@ -29,14 +29,23 @@ export class CategoryFormComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
+    this.createForm();
+    this.getItemSelected();
+  }
+
+  ngOnDestroy(): void {
+    this.resetItemSelected();
+  }
+
+  createForm() {
     this.form = new FormGroup({
       id: new FormControl(''),
-      name: new FormControl(null, [Validators.required, 
-        Validators.minLength(2), 
-        Validators.maxLength(255)]),
+      name: new FormControl(null, [Validators.required, Validators.maxLength(250)]),
       status: new FormControl(null, Validators.required),
     });
+  }
 
+  getItemSelected() {
     this.service.selectedCategory$
     .pipe(takeUntil(this.ngUnsubscribe))
     .subscribe(category => {
@@ -49,7 +58,7 @@ export class CategoryFormComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy(): void {
+  resetItemSelected() {
     this.ngUnsubscribe.next(null);
     this.ngUnsubscribe.complete();
     this.service.setSelectedCategory(null);

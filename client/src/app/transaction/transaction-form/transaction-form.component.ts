@@ -16,25 +16,10 @@ import { Goal } from 'src/app/goal/models/goal';
 import { RecurringTransactionService } from '../services/transaction-recurring.service';
 import { GoalService } from 'src/app/goal/services/goal.service';
 
-export const MY_DATE_FORMATS = {
-  parse: {
-    dateInput: 'LL',
-  },
-  display: {
-    dateInput: 'dd/MM/yyyy',
-    monthYearLabel: 'MMM YYYY',
-    dateA11yLabel: 'LL',
-    monthYearA11yLabel: 'MMMM YYYY',
-  },
-};
-
 @Component({
   selector: 'app-transaction-form',
   templateUrl: './transaction-form.component.html',
   styleUrls: ['./transaction-form.component.css'],
-  providers: [
-    { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }
-  ],
 })
 export class TransactionFormComponent implements OnInit, OnDestroy {
 
@@ -62,6 +47,19 @@ export class TransactionFormComponent implements OnInit, OnDestroy {
     ) { }
 
   ngOnInit(): void {
+    this.createForm();
+    this.getCategoryes();
+    this.getAccounts();
+    this.getRecurringTransactions();
+    this.getGoals();
+    this.getItemSelected();
+  }
+
+  ngOnDestroy(): void {
+    this.resetItemSelected();
+  }
+
+  createForm() {
     this.form = new FormGroup({
       id: new FormControl(''),
       description: new FormControl(null, [Validators.required, Validators.maxLength(250)]),
@@ -76,13 +74,9 @@ export class TransactionFormComponent implements OnInit, OnDestroy {
       isGoal: new FormControl(false, Validators.required),
       goal: new FormControl(null)
     });
+  }
 
-    
-    this.getCategoryes();
-    this.getAccounts();
-    this.getRecurringTransactions();
-    this.getGoals();
-
+  getItemSelected() {
     this.service.selectedTransaction$
     .pipe(takeUntil(this.ngUnsubscribe))
     .subscribe(transaction => {
@@ -95,61 +89,58 @@ export class TransactionFormComponent implements OnInit, OnDestroy {
     });
   }
 
-  public objectComparisonFunction = function( option, value ) : boolean {
-    return option?.id === value?.id;
-  }
-
-  ngOnDestroy(): void {
+  resetItemSelected() {
     this.ngUnsubscribe.next(null);
     this.ngUnsubscribe.complete();
     this.service.setSelectedTransaction(null);
   }
 
+  objectComparisonFunction = function( option, value ) : boolean {
+    return option?.id === value?.id;
+  }
+
   onSelectionChangeType(event) {
     switch(event.value) {
       case TransactionType.ENTRADA:
-        this.form.get('accountDestination').addValidators(Validators.required);
-        this.form.get('accountDestination').updateValueAndValidity();
-        this.form.get('accountOrigin').clearValidators();
-        this.form.get('accountOrigin').reset();
-        this.form.get('accountOrigin').updateValueAndValidity();
+        this.addValidatorsField('accountDestination');
+        this.resetField('accountOrigin');
         break;
       case TransactionType.SAIDA:
-        this.form.get('accountOrigin').addValidators(Validators.required);
-        this.form.get('accountOrigin').updateValueAndValidity();
-        this.form.get('accountDestination').clearValidators();
-        this.form.get('accountDestination').reset();
-        this.form.get('accountDestination').updateValueAndValidity();
+        this.addValidatorsField('accountOrigin');
+        this.resetField('accountDestination');
         break;
       case TransactionType.TRANSFERENCIA:
-        this.form.get('accountOrigin').addValidators(Validators.required);
-        this.form.get('accountOrigin').updateValueAndValidity();
-        this.form.get('accountDestination').addValidators(Validators.required);
-        this.form.get('accountDestination').updateValueAndValidity();
+        this.addValidatorsField('accountOrigin');
+        this.addValidatorsField('accountDestination');
         break;
     }
   }
 
   onSelectionChangeIsRecurringTransaction(event) {
     if(event.value) {
-      this.form.get('recurringTransaction').addValidators(Validators.required);
-      this.form.get('recurringTransaction').updateValueAndValidity();
+      this.addValidatorsField('recurringTransaction');
     } else {
-      this.form.get('recurringTransaction').clearValidators();
-      this.form.get('recurringTransaction').reset();
-      this.form.get('recurringTransaction').updateValueAndValidity();
+      this.resetField('recurringTransaction');
     }
   }
 
   onSelectionChangeIsGoal(event) {
     if(event.value) {
-      this.form.get('goal').addValidators(Validators.required);
-      this.form.get('goal').updateValueAndValidity();
+      this.addValidatorsField('goal');
     } else {
-      this.form.get('goal').clearValidators();
-      this.form.get('goal').reset();
-      this.form.get('goal').updateValueAndValidity();
+      this.resetField('goal');
     }
+  }
+
+  resetField(fieldName: string) {
+    this.form.get(fieldName).clearValidators();
+    this.form.get(fieldName).reset();
+    this.form.get(fieldName).updateValueAndValidity();
+  }
+
+  addValidatorsField(fieldName: string) {
+    this.form.get(fieldName).addValidators(Validators.required);
+    this.form.get(fieldName).updateValueAndValidity();
   }
 
   disableOptionSelectedAccountOrigin(option: Account): boolean {

@@ -21,7 +21,6 @@ export class TransactionListComponent implements OnInit {
   transactions: Transaction[] = [];
   columnsTransactions: string[] = ['id', 'date', 'description', 'type',  'category', 'accountOrigin', 'accountDestination', 'action'];
   dataSourceTransactions = new MatTableDataSource<Transaction>(this.transactions);
-
   
   recurringTransactions: RecurringTransaction[] = [];
   columnsRecurringTransactions: string[] = ['id', 'description', 'type',  'category', 'accountOrigin', 'accountDestination', 'action'];

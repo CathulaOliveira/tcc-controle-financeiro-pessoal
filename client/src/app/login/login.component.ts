@@ -22,6 +22,10 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.createForm();
+  }
+
+  createForm() {
     this.form = new FormGroup({
       username: new FormControl(null, [Validators.required, 
         Validators.minLength(4), 
@@ -32,7 +36,7 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  logar() {
+  login() {
     const login: Credential = this.form.value;
     this.service.authenticate(login).subscribe(resposta => {
       this.service.sucessFullLogin(resposta.token);
@@ -43,11 +47,11 @@ export class LoginComponent implements OnInit {
     })
   }
 
-  validaCampos(): boolean {
+  validate(): boolean {
     return this.form.valid;
   }
 
-  cadastrar() {
+  new() {
     this.router.navigate(['user']);
   }
 
