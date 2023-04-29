@@ -117,7 +117,7 @@ export class TransactionFormComponent implements OnInit, OnDestroy {
   }
 
   onSelectionChangeIsRecurringTransaction(event) {
-    if(event.value) {
+    if(event.checked) {
       this.addValidatorsField('recurringTransaction');
     } else {
       this.resetField('recurringTransaction');
@@ -125,10 +125,23 @@ export class TransactionFormComponent implements OnInit, OnDestroy {
   }
 
   onSelectionChangeIsGoal(event) {
-    if(event.value) {
+    if(event.checked) {
       this.addValidatorsField('goal');
     } else {
       this.resetField('goal');
+    }
+  }
+
+  onSelectionChangeTrasactionRecurring(event) {
+    if (event.value) {
+      const recurringTransaction: RecurringTransaction = event.value
+      this.form.get('description').setValue(recurringTransaction.description);
+      this.form.get('type').setValue(recurringTransaction.type);
+      this.form.get('category').setValue(recurringTransaction.category);
+      this.form.get('accountOrigin').setValue(recurringTransaction.accountOrigin);
+      this.form.get('accountDestination').setValue(recurringTransaction.accountDestination);
+      this.form.get('date').setValue(recurringTransaction.dueDate);
+      this.form.get('price').setValue(recurringTransaction.price);
     }
   }
 

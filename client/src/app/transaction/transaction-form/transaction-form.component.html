@@ -8,6 +8,23 @@
 
     <div class="container">
       <form class="form" [formGroup]="form">
+        <div>
+          <mat-checkbox (change)="onSelectionChangeIsRecurringTransaction($event)" formControlName="isRecurringTransaction">
+            É uma Transação Recorrente
+            <mat-icon class="ajuda" matTooltip="Clique para vincular uma Transação Recorrente e o sistema preenchera os campos automaticamente">help_outline</mat-icon>
+          </mat-checkbox>
+        </div>
+
+        <mat-form-field *ngIf="form.get('isRecurringTransaction').value" class="full-width" appearance="outline">
+          <mat-label>Transação recorrente</mat-label>
+          <mat-select formControlName="recurringTransaction" [compareWith]="objectComparisonFunction" (selectionChange)="onSelectionChangeTrasactionRecurring($event)">
+            <mat-option *ngFor="let option of recurringTransactionOptions" [value]="option">{{option.id}} - {{option.description}}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="form.get('recurringTransaction').hasError('required')">
+            Transação recorrente é obrigatório.
+          </mat-error>
+        </mat-form-field>
+
         <mat-form-field class="full-width" appearance="outline">
           <mat-label>Descrição</mat-label>
           <input 
@@ -66,7 +83,7 @@
         </mat-form-field>
 
         <mat-form-field class="half-width" appearance="outline">
-          <mat-label>Data</mat-label>
+          <mat-label>Data de pagamento</mat-label>
           <input matInput [matDatepicker]="picker" formControlName="date">
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
@@ -85,26 +102,9 @@
             Valor é obrigatório.
           </mat-error>
         </mat-form-field>
-
-        <div>
-          <mat-checkbox (selectionChange)="onSelectionChangeIsRecurringTransaction($event)" formControlName="isRecurringTransaction">
-            É uma Transação Recorrente
-            <mat-icon class="ajuda" matTooltip="Clique para vincular uma Transação Recorrente">help_outline</mat-icon>
-          </mat-checkbox>
-        </div>
-
-        <mat-form-field *ngIf="form.get('isRecurringTransaction').value" class="full-width" appearance="outline">
-          <mat-label>Transação recorrente</mat-label>
-          <mat-select formControlName="recurringTransaction" [compareWith]="objectComparisonFunction">
-            <mat-option *ngFor="let option of recurringTransactionOptions" [value]="option">{{option.id}} - {{option.description}}</mat-option>
-          </mat-select>
-          <mat-error *ngIf="form.get('recurringTransaction').hasError('required')">
-            Transação recorrente é obrigatório.
-          </mat-error>
-        </mat-form-field>
       
         <div>
-          <mat-checkbox (selectionChange)="onSelectionChangeIsGoal($event)" formControlName="isGoal">
+          <mat-checkbox (change)="onSelectionChangeIsGoal($event)" formControlName="isGoal">
             Pertence a uma Meta
             <mat-icon class="ajuda" matTooltip="Clique para vincular uma Meta">help_outline</mat-icon>
           </mat-checkbox>
