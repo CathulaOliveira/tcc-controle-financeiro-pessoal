@@ -22,7 +22,6 @@ img {
     margin-right: .6rem;
 }
 
-
 .spacer {
     flex: 1 1 auto;
 }
@@ -33,3 +32,6 @@ img {
     }
 }
 
+.mat-menu-panel {
+    margin-top: 8px;
+}

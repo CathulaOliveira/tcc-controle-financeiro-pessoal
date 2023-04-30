@@ -30,7 +30,6 @@ import { HomeComponent } from './home/home.component';
 import { AccountListComponent } from './account/account-list/account-list.component';
 import { LoginComponent } from './login/login.component';
 import { AuthInterceptorProvider } from './interceptors/auth.interceptor';
-import { UserComponent } from './user/user.component';
 import { AccountFormComponent } from './account/account-form/account-form.component';
 import { AccountTypeOptionsPipe } from './account/models/account-type-pipe.pipe';
 import { CategoryListComponent } from './category/category-list/category-list.component';
@@ -50,6 +49,9 @@ import { TypeGoalFormComponent } from './type-goal/type-goal-form/type-goal-form
 import { TypeGoalListComponent } from './type-goal/type-goal-list/type-goal-list.component';
 import { PaymentStatusOptionsPipe } from './transaction/models/payment-status-pipe.pipe';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatMenuModule } from '@angular/material/menu';
+import { UserRegisterComponent } from './user/user-register/user-register.component';
+import { UserProfileComponent } from './user/user-profile/user-profile.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +60,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     HomeComponent,
     AccountListComponent,
     LoginComponent,
-    UserComponent,
+    UserRegisterComponent,
     AccountFormComponent,
     AccountTypeOptionsPipe,
     CategoryListComponent,
@@ -74,7 +76,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     EnumStatusOptionsPipe,
     TypeGoalFormComponent,
     TypeGoalListComponent,
-    PaymentStatusOptionsPipe
+    PaymentStatusOptionsPipe,
+    UserProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -103,7 +106,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatNativeDateModule,
     MatTabsModule,
     MatGridListModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatMenuModule
   ],
   providers: [AuthInterceptorProvider],
   bootstrap: [AppComponent]

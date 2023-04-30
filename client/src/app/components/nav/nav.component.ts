@@ -27,6 +27,7 @@ export class NavComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.router.navigate(['home']);
     this.getDisplayNameUserLogged();
+    this.setDisplayName();
   }
 
   ngAfterViewInit() {
@@ -44,13 +45,23 @@ export class NavComponent implements OnInit, AfterViewInit {
       if (res && res.displayName) {
         this.displayName = res.displayName;
       }
-    })
+    });
+  }
+
+  setDisplayName() {
+    this.userService.displayName$.subscribe(newValue => {
+      this.displayName = newValue;
+    });
   }
 
   logout() {
     this.router.navigate(['login']);
     this.authService.logout();
     this.snackBar.open('Logout realizado com sucesso', 'snackbar-sucess');
+  }
+
+  profile() {
+    this.router.navigate(['user-profile']);
   }
 
 }

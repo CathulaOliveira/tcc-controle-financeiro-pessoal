@@ -1,0 +1,112 @@
+<mat-card class="card">
+
+  <mat-card-header>
+    <mat-card-title>Perfil</mat-card-title>
+  </mat-card-header>
+
+  <div class="container">
+    <form class="form" [formGroup]="form">
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Nome</mat-label>
+        <input 
+        formControlName="displayName"
+        name="displayName"
+        matInput >
+        <mat-error *ngIf="form.get('displayName').hasError('required')">
+          Nome é obrigatório.
+        </mat-error>
+
+        <mat-error *ngIf="form.get('displayName').hasError('minlength')">
+          Nome deve ter pelo menos 4 caracteres.
+        </mat-error>
+
+        <mat-error *ngIf="form.get('displayName').hasError('maxlength')">
+          Nome deve ter no máximo 255 caracteres.
+        </mat-error>
+      </mat-form-field>
+
+
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Telefone</mat-label>
+        <input 
+        formControlName="telephone"
+        name="telephone"
+        matInput 
+        type="number"
+        placeholder="99 9 9999-9999">
+        <mat-error *ngIf="form.get('telephone').hasError('required')">
+          Telefone é obrigatório.
+        </mat-error>
+
+        <mat-error *ngIf="form.get('telephone').hasError('pattern')">
+          Telefone inválido.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Email</mat-label>
+        <input 
+        formControlName="email"
+        name="email"  
+        matInput 
+        type="email"
+        placeholder="Ex. teste@teste.com">
+        <mat-error *ngIf="form.get('email').hasError('email')">
+          Email inválido.
+        </mat-error>
+
+      </mat-form-field>
+
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Acesso</mat-label>
+        <input 
+        formControlName="username"
+        name="username"
+        matInput >
+        <mat-error *ngIf="form.get('username').hasError('required')">
+          Acesso é obrigatório.
+        </mat-error>
+
+        <mat-error *ngIf="form.get('username').hasError('minlength')">
+          Acesso deve ter pelo menos 4 caracteres.
+        </mat-error>
+
+        <mat-error *ngIf="form.get('username').hasError('maxlength')">
+          Acesso deve ter no máximo 255 caracteres.
+        </mat-error>
+      </mat-form-field>
+    
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Senha</mat-label>
+        <input 
+        formControlName="password"
+        name="password" 
+        type="password" 
+        matInput 
+        placeholder="Ex. Teste123">
+        <mat-error *ngIf="form.get('password').hasError('required')">
+          Senha é obrigatória.
+        </mat-error>
+
+        <mat-error *ngIf="form.get('password').hasError('minlength')">
+          Senha deve ter pelo menos 6 caracteres.
+        </mat-error>
+
+        <mat-error *ngIf="form.get('password').hasError('maxlength')">
+          Senha deve ter no máximo 255 caracteres.
+        </mat-error>
+        
+        <mat-error *ngIf="form.get('password').hasError('pattern')">
+          Senha deve conter pelo menos uma letra maiúscula, uma letra minúscula e um número.
+        </mat-error>
+      </mat-form-field>
+    </form>
+  </div>
+
+  <div class="button-add">
+    <button (click)="save()" mat-fab matTooltip="Salvar">
+      <mat-icon>check</mat-icon>
+    </button>
+  </div>
+
+</mat-card>

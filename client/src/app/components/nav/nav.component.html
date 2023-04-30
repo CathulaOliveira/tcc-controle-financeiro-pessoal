@@ -30,10 +30,6 @@
                 <i class="material-icons">currency_exchange</i>
                 Fluxo de caixa
             </a>
-            <a mat-list-item (click)="logout()">
-                <i class="material-icons">logout</i>
-                Sair
-            </a>
         </mat-nav-list>
     </mat-drawer>
   
@@ -43,10 +39,14 @@
         </button>
         <span>Controle Financeiro pessoal</span>
         <span class="spacer"></span>
-        <button mat-icon-button class="example-icon favorite-icon" aria-label="Conta">
+        <button mat-icon-button class="example-icon favorite-icon" aria-label="Conta" [matMenuTriggerFor]="menuOpcoes">
             <mat-icon>person</mat-icon>
         </button>
         <span class="display-name">{{displayName}}</span>
+        <mat-menu #menuOpcoes="matMenu">
+            <button mat-menu-item (click)="profile()">Perfil</button>
+            <button mat-menu-item (click)="logout()">Sair</button>
+          </mat-menu>
     </mat-toolbar>
 
     <router-outlet></router-outlet>

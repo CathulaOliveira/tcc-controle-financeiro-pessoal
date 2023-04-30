@@ -5,7 +5,6 @@ import { AccountListComponent } from './account/account-list/account-list.compon
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { NavComponent } from './components/nav/nav.component';
-import { UserComponent } from './user/user.component';
 import { AccountFormComponent } from './account/account-form/account-form.component';
 import { CategoryListComponent } from './category/category-list/category-list.component';
 import { CategoryFormComponent } from './category/category-form/category-form.component';
@@ -17,13 +16,15 @@ import { TransactionRecurringFormComponent } from './transaction/transaction-rec
 import { CashFlowComponent } from './cash-flow/cash-flow.component';
 import { TypeGoalListComponent } from './type-goal/type-goal-list/type-goal-list.component';
 import { TypeGoalFormComponent } from './type-goal/type-goal-form/type-goal-form.component';
+import { UserRegisterComponent } from './user/user-register/user-register.component';
+import { UserProfileComponent } from './user/user-profile/user-profile.component';
 
 const routes: Routes = [
   {
     path: 'login', component: LoginComponent
   },
   {
-    path: 'user', component: UserComponent
+    path: 'user', component: UserRegisterComponent
   },
   {
     path: '', component: NavComponent, canActivate: [AuthGuard], children: [
@@ -40,6 +41,7 @@ const routes: Routes = [
       {path: 'cash-flow', component: CashFlowComponent},
       {path: 'type-goal', component: TypeGoalListComponent},
       {path: 'type-goal-form', component: TypeGoalFormComponent},
+      {path: 'user-profile', component: UserProfileComponent},
     ]
   }
 ];

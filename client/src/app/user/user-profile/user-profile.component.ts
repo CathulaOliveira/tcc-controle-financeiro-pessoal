@@ -1,31 +1,31 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { User } from './models/user';
-import { SnackbarService } from '../services/snackbar.service';
-import { UserService } from './services/user.service';
+import { UserService } from '../services/user.service';
+import { SnackbarService } from 'src/app/services/snackbar.service';
+import { User } from '../models/user';
 
 @Component({
-  selector: 'app-user',
-  templateUrl: './user.component.html',
-  styleUrls: ['./user.component.css']
+  selector: 'app-user-profile',
+  templateUrl: './user-profile.component.html',
+  styleUrls: ['./user-profile.component.css']
 })
-export class UserComponent implements OnInit {
+export class UserProfileComponent implements OnInit {
 
   form: FormGroup;
 
   constructor(
-    private snackBar: SnackbarService,
     private service: UserService,
-    private router: Router
-    ) { }
+    private snackBar: SnackbarService,
+  ) { }
 
   ngOnInit(): void {
     this.createForm();
+    this.getUser(); 
   }
 
   createForm() {
     this.form = new FormGroup({
+      id: new FormControl(null),
       username: new FormControl('', [Validators.required, 
         Validators.minLength(4), 
         Validators.maxLength(255)]),
@@ -42,13 +42,21 @@ export class UserComponent implements OnInit {
     });
   }
 
+  getUser() {
+    this.service.getUserLogged().subscribe(res => {
+      if (res) {
+        this.form.patchValue(res);
+      }
+    });
+  }
+
   save() {
     const user: User = this.form.value;
     this.service.save(user).subscribe(resposta => {
-      this.router.navigate(['/login']);
-      this.snackBar.open('Usuário cadastrado com sucesso. Por favor acesse com suas credencias', 'snackbar-sucess');
+      this.setDisplayName(user.displayName);
+      this.snackBar.open('Usuário atualizado com sucesso', 'snackbar-sucess');
     }, erro => {
-      this.snackBar.open('Erro ao salvar registro' + erro.message, 'snackbar-warning')
+      this.snackBar.open('Erro ao atualizar registro' + erro.message, 'snackbar-warning')
     })
   }
 
@@ -56,4 +64,7 @@ export class UserComponent implements OnInit {
     return this.form.valid;
   }
 
+  setDisplayName(displayName) {
+    this.service.displayName = displayName;
+  }
 }
