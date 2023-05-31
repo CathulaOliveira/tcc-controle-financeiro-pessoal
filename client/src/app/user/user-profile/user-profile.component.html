@@ -32,8 +32,8 @@
         formControlName="telephone"
         name="telephone"
         matInput 
-        type="number"
-        placeholder="99 9 9999-9999">
+        placeholder="(99) 99999-9999"
+        phoneMask>
         <mat-error *ngIf="form.get('telephone').hasError('required')">
           Telefone é obrigatório.
         </mat-error>

@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../services/user.service';
 import { SnackbarService } from 'src/app/services/snackbar.service';
 import { User } from '../models/user';
+import { PhoneMaskDirective } from 'src/app/utils/phone-mask.directive';
 
 @Component({
   selector: 'app-user-profile',
@@ -12,6 +13,8 @@ import { User } from '../models/user';
 export class UserProfileComponent implements OnInit {
 
   form: FormGroup;
+
+  @ViewChild(PhoneMaskDirective) phoneMaskDirective: PhoneMaskDirective;
 
   constructor(
     private service: UserService,
@@ -29,15 +32,13 @@ export class UserProfileComponent implements OnInit {
       username: new FormControl('', [Validators.required, 
         Validators.minLength(4), 
         Validators.maxLength(255)]),
-      password: new FormControl(null, [Validators.required, 
-        Validators.minLength(6), 
+      password: new FormControl(null, [Validators.minLength(6), 
         Validators.maxLength(255), 
         Validators.pattern("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).*$")]),
       displayName: new FormControl('', [Validators.required,
         Validators.minLength(4), 
         Validators.maxLength(255)]),
-      telephone: new FormControl('', [Validators.required,
-        Validators.pattern("^[0-9]+$")]),
+      telephone: new FormControl('', [Validators.required]),
       email: new FormControl(null, Validators.email),
     });
   }
@@ -46,13 +47,17 @@ export class UserProfileComponent implements OnInit {
     this.service.getUserLogged().subscribe(res => {
       if (res) {
         this.form.patchValue(res);
+        this.form.get('telephone').setValue(this.phoneMaskDirective.format(res.telephone));
+        this.form.get('password').setValue(null);
       }
     });
   }
 
   save() {
     const user: User = this.form.value;
-    this.service.save(user).subscribe(resposta => {
+    let telephone = this.form.get('telephone').value.replace(/[)(-\s]/g, '');
+    user.telephone = telephone;
+    this.service.update(user).subscribe(resposta => {
       this.setDisplayName(user.displayName);
       this.snackBar.open('Usuário atualizado com sucesso', 'snackbar-sucess');
     }, erro => {

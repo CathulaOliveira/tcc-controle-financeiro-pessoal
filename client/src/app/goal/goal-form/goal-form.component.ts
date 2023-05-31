@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, AfterViewInit, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subject, takeUntil } from 'rxjs';
 import { GoalService } from '../services/goal.service';
@@ -7,7 +7,6 @@ import { Router } from '@angular/router';
 import { Goal } from '../models/goal';
 import { Category } from 'src/app/category/models/cotegory';
 import { CategoryService } from 'src/app/category/services/category.service';
-import { MAT_DATE_FORMATS } from '@angular/material/core';
 import { TypeGoal } from 'src/app/type-goal/models/type-goal';
 import { TypeGoalService } from 'src/app/type-goal/services/type-goal.service';
 
@@ -23,13 +22,14 @@ export class GoalFormComponent implements OnInit, OnDestroy {
   idRegistro = 'Novo registro';
   typeGoalOptions: TypeGoal[] = [];
   categoryOptions: Category[] = [];
-
+  
   constructor(
     private service: GoalService,
     private categoryService: CategoryService,
     private typeGoalService: TypeGoalService,
     private snackBar: SnackbarService,
     private router: Router,
+    private cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit(): void {
@@ -95,7 +95,7 @@ export class GoalFormComponent implements OnInit, OnDestroy {
   save(goal: Goal) {
     this.service.save(goal).subscribe(res => {
       this.snackBar.open('Registro salvo com sucesso.', 'snackbar-sucess');
-      this.resertForm();
+      this.backSearch();
     }, erro => {
       this.snackBar.open('Erro ao salvar registro. ' + erro.message, 'snackbar-warning')
     });
@@ -104,15 +104,10 @@ export class GoalFormComponent implements OnInit, OnDestroy {
   update(goal: Goal) {
     this.service.update(goal).subscribe(res => {
       this.snackBar.open('Registro atualizado com sucesso.', 'snackbar-sucess');
-      this.resertForm();
+      this.backSearch();
     }, erro => {
       this.snackBar.open('Erro ao atualizar registro. ' + erro.message, 'snackbar-warning')
     });
-  }
-
-  resertForm() {
-    this.form.reset();
-    this.idRegistro = 'Novo registro';
   }
 
   backSearch() {

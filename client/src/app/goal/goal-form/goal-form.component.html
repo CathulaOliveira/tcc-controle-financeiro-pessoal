@@ -49,7 +49,11 @@
 
         <mat-form-field class="half-width" appearance="outline">
             <mat-label>Data de início</mat-label>
-            <input matInput [matDatepicker]="picker" formControlName="startDate" [value]="form.controls['startDate'].value | date: 'dd/MM/yyyy'">
+            <input 
+              matInput 
+              [matDatepicker]="picker" 
+              formControlName="startDate"
+              >
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
             <mat-error *ngIf="form.get('startDate').hasError('required')">
@@ -59,7 +63,11 @@
 
         <mat-form-field class="half-width" appearance="outline">
             <mat-label>Data de término</mat-label>
-            <input matInput [matDatepicker]="picker1" formControlName="endDate" [value]="form.controls['endDate'].value | date: 'dd/MM/yyyy'">
+            <input 
+              matInput 
+              [matDatepicker]="picker1" 
+              formControlName="endDate" 
+              >
             <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
             <mat-datepicker #picker1></mat-datepicker>
             <mat-error *ngIf="form.get('endDate').hasError('required')">
@@ -71,9 +79,9 @@
           <mat-label>Valor</mat-label>
           <input 
           formControlName="price"
-          required
           name="price"
-          matInput >
+          matInput
+          placeholder="100,00">
         </mat-form-field>
       </form>
     </div>

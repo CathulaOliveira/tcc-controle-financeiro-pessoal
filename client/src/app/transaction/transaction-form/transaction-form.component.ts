@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subject, takeUntil } from 'rxjs';
-import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { TransactionType } from '../models/transaction-type';
 import { Transaction } from '../models/transaction';
 import { TransactionService } from '../services/transaction.service';
@@ -35,7 +34,7 @@ export class TransactionFormComponent implements OnInit, OnDestroy {
   accountOptions: Account[] = [];
   recurringTransactionOptions: RecurringTransaction[] = [];
   goalOptions: Goal[] = [];
-
+  
   constructor(
     private service: TransactionService,
     private categoryService: CategoryService,
@@ -169,6 +168,8 @@ export class TransactionFormComponent implements OnInit, OnDestroy {
   saveClick() {
     if (this.form.valid) {
       const transaction: Transaction = this.form.value;
+      const price = this.form.get('price').value.replace('R$ ', '')
+      transaction.price = parseFloat(price);
       if (transaction.id) {
         this.update(transaction);
       } else {
@@ -183,7 +184,7 @@ export class TransactionFormComponent implements OnInit, OnDestroy {
   save(transaction: Transaction) {
     this.service.save(transaction).subscribe(res => {
       this.snackBar.open('Registro salvo com sucesso.', 'snackbar-sucess');
-      this.resertForm();
+      this.backSearch();
     }, erro => {
       this.snackBar.open('Erro ao salvar registro. ' + erro.message, 'snackbar-warning')
     });
@@ -192,15 +193,10 @@ export class TransactionFormComponent implements OnInit, OnDestroy {
   update(transaction: Transaction) {
     this.service.update(transaction).subscribe(res => {
       this.snackBar.open('Registro atualizado com sucesso.', 'snackbar-sucess');
-      this.resertForm();
+      this.backSearch();
     }, erro => {
       this.snackBar.open('Erro ao atualizar registro. ' + erro.message, 'snackbar-warning')
     });
-  }
-
-  resertForm() {
-    this.form.reset();
-    this.idRegistro = 'Novo registro';
   }
 
   backSearch() {

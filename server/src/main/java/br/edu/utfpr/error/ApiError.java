@@ -3,6 +3,7 @@ package br.edu.utfpr.error;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.http.HttpStatus;
 
 import java.util.Date;
 import java.util.Map;
@@ -28,5 +29,8 @@ public class ApiError {
         this.status = status;
         this.message = message;
         this.url = url;
+    }
+
+    public ApiError(HttpStatus badRequest, String message) {
     }
 }

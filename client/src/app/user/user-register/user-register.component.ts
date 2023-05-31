@@ -36,8 +36,7 @@ export class UserRegisterComponent implements OnInit {
       displayName: new FormControl('', [Validators.required,
         Validators.minLength(4), 
         Validators.maxLength(255)]),
-      telephone: new FormControl('', [Validators.required,
-        Validators.pattern("^[0-9]+$")]),
+      telephone: new FormControl('', [Validators.required]),
       email: new FormControl(null, Validators.email),
     });
   }
@@ -48,7 +47,7 @@ export class UserRegisterComponent implements OnInit {
       this.router.navigate(['/login']);
       this.snackBar.open('Usuário cadastrado com sucesso. Por favor acesse com suas credencias', 'snackbar-sucess');
     }, erro => {
-      this.snackBar.open('Erro ao salvar registro' + erro.message, 'snackbar-warning')
+      this.snackBar.open('Erro ao salvar registro. ' + erro.error, 'snackbar-warning')
     })
   }
 

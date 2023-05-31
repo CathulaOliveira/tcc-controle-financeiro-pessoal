@@ -1,6 +1,5 @@
 package br.edu.utfpr.model;
 
-import br.edu.utfpr.annotation.UniqueUsername;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -26,7 +25,6 @@ public class User implements UserDetails {
 
     @NotNull(message = "{utfpr.user.username.constraints.NotNull.message}")
     @Size(min = 4, max = 255, message = "O tamanho deve ser entre {min} e {max}")
-    @UniqueUsername
     private String username;
 
     @NotNull

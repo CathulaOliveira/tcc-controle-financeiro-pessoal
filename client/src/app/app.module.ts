@@ -37,7 +37,7 @@ import { CategoryFormComponent } from './category/category-form/category-form.co
 import { DialogComponent } from './components/dialog/dialog.component';
 import { GoalFormComponent } from './goal/goal-form/goal-form.component';
 import { GoalListComponent } from './goal/goal-list/goal-list.component';
-import { MatNativeDateModule } from '@angular/material/core';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
 import { TransactionListComponent } from './transaction/transaction-list/transaction-list.component';
 import { TransactionTypeOptionsPipe } from './transaction/models/transaction-type-pipe.pipe';
 import { TransactionFormComponent } from './transaction/transaction-form/transaction-form.component';
@@ -52,6 +52,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatMenuModule } from '@angular/material/menu';
 import { UserRegisterComponent } from './user/user-register/user-register.component';
 import { UserProfileComponent } from './user/user-profile/user-profile.component';
+import { PhoneMaskDirective } from './utils/phone-mask.directive';
+import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS, MAT_MOMENT_DATE_FORMATS } from '@angular/material-moment-adapter';
 
 @NgModule({
   declarations: [
@@ -77,7 +79,8 @@ import { UserProfileComponent } from './user/user-profile/user-profile.component
     TypeGoalFormComponent,
     TypeGoalListComponent,
     PaymentStatusOptionsPipe,
-    UserProfileComponent
+    UserProfileComponent,
+    PhoneMaskDirective,
   ],
   imports: [
     BrowserModule,
@@ -107,9 +110,17 @@ import { UserProfileComponent } from './user/user-profile/user-profile.component
     MatTabsModule,
     MatGridListModule,
     MatTooltipModule,
-    MatMenuModule
+    MatMenuModule,
   ],
-  providers: [AuthInterceptorProvider],
+  providers: [AuthInterceptorProvider,  
+    {provide: MAT_DATE_LOCALE, useValue: 'pt-BR'}, 
+    {
+      provide: DateAdapter,
+      useClass: MomentDateAdapter,
+      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
+    },
+    {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS},
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

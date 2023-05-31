@@ -1,10 +1,9 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, AfterViewInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subject, takeUntil } from 'rxjs';
 import { TransactionType } from '../models/transaction-type';
 import { Category } from 'src/app/category/models/cotegory';
 import { Account } from 'src/app/account/models/account';
-import { TransactionService } from '../services/transaction.service';
 import { CategoryService } from 'src/app/category/services/category.service';
 import { AccountService } from 'src/app/account/services/account.service';
 import { SnackbarService } from 'src/app/services/snackbar.service';
@@ -29,7 +28,7 @@ export class TransactionRecurringFormComponent implements OnInit, OnDestroy {
   ];
   categoryOptions: Category[] = [];
   accountOptions: Account[] = [];
-
+  
   constructor(
     private service: RecurringTransactionService,
     private categoryService: CategoryService,
@@ -131,24 +130,19 @@ export class TransactionRecurringFormComponent implements OnInit, OnDestroy {
   save(transaction: RecurringTransaction) {
     this.service.save(transaction).subscribe(res => {
       this.snackBar.open('Registro salvo com sucesso.', 'snackbar-sucess');
-      this.resertForm();
+      this.backSearch();
     }, erro => {
-      this.snackBar.open('Erro ao salvar registro. ' + erro.message, 'snackbar-warning')
+      this.snackBar.open('Erro ao salvar registro. ' + erro.message, 'snackbar-warning');
     });
   }
 
   update(transaction: RecurringTransaction) {
     this.service.update(transaction).subscribe(res => {
       this.snackBar.open('Registro atualizado com sucesso.', 'snackbar-sucess');
-      this.resertForm();
+      this.backSearch();
     }, erro => {
-      this.snackBar.open('Erro ao atualizar registro. ' + erro.message, 'snackbar-warning')
+      this.snackBar.open('Erro ao atualizar registro. ' + erro.message, 'snackbar-warning');
     });
-  }
-
-  resertForm() {
-    this.form.reset();
-    this.idRegistro = 'Novo registro';
   }
 
   backSearch() {
@@ -159,7 +153,7 @@ export class TransactionRecurringFormComponent implements OnInit, OnDestroy {
     this.categoryService.findAll().subscribe( res => {
       this.categoryOptions = res;
     }, erro => {
-      this.snackBar.open('Erro ao listar Categorias. ' + erro.message, 'snackbar-warning')
+      this.snackBar.open('Erro ao listar Categorias. ' + erro.message, 'snackbar-warning');
     });
   }
 
@@ -167,7 +161,7 @@ export class TransactionRecurringFormComponent implements OnInit, OnDestroy {
     this.accountService.findByUserLogged().subscribe( res => {
       this.accountOptions = res;
     }, erro => {
-      this.snackBar.open('Erro ao listar Contas. ' + erro.message, 'snackbar-warning')
+      this.snackBar.open('Erro ao listar Contas. ' + erro.message, 'snackbar-warning');
     });
   }
 

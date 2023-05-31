@@ -41,7 +41,7 @@ export class TypeGoalFormComponent implements OnInit, OnDestroy {
     this.form = new FormGroup({
       id: new FormControl(''),
       name: new FormControl(null, [Validators.required, Validators.maxLength(255)]),
-      status: new FormControl(null, Validators.required),
+      status: new FormControl(Status.ATIVO, Validators.required),
     });
   }
 

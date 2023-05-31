@@ -41,7 +41,7 @@ export class CategoryFormComponent implements OnInit, OnDestroy {
     this.form = new FormGroup({
       id: new FormControl(''),
       name: new FormControl(null, [Validators.required, Validators.maxLength(250)]),
-      status: new FormControl(null, Validators.required),
+      status: new FormControl(Status.ATIVO, Validators.required),
     });
   }
 
@@ -81,7 +81,7 @@ export class CategoryFormComponent implements OnInit, OnDestroy {
   save(category: Category) {
     this.service.save(category).subscribe(res => {
       this.snackBar.open('Registro salvo com sucesso.', 'snackbar-sucess');
-      this.resertForm();
+      this.backSearch();
     }, erro => {
       this.snackBar.open('Erro ao salvar registro. ' + erro.message, 'snackbar-warning')
     });
@@ -90,15 +90,10 @@ export class CategoryFormComponent implements OnInit, OnDestroy {
   update(category: Category) {
     this.service.update(category).subscribe(res => {
       this.snackBar.open('Registro atualizado com sucesso.', 'snackbar-sucess');
-      this.resertForm();
+      this.backSearch();
     }, erro => {
       this.snackBar.open('Erro ao atualizar registro. ' + erro.message, 'snackbar-warning')
     });
-  }
-
-  resertForm() {
-    this.form.reset();
-    this.idRegistro = 'Novo registro';
   }
 
   backSearch() {

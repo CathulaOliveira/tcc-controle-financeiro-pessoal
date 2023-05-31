@@ -80,7 +80,8 @@
           <input 
           formControlName="price"
           name="price"
-          matInput >
+          matInput
+          placeholder="100,00">
           <mat-error *ngIf="form.get('price').hasError('required')">
             Valor é obrigatório.
           </mat-error>
