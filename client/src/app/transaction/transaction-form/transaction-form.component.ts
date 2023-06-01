@@ -168,8 +168,6 @@ export class TransactionFormComponent implements OnInit, OnDestroy {
   saveClick() {
     if (this.form.valid) {
       const transaction: Transaction = this.form.value;
-      const price = this.form.get('price').value.replace('R$ ', '')
-      transaction.price = parseFloat(price);
       if (transaction.id) {
         this.update(transaction);
       } else {

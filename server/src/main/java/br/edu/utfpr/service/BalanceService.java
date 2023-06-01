@@ -14,56 +14,70 @@ public class BalanceService {
     private final AccountService accountService;
 
     public void atualizarSaldoContaEmInclusaoDeTranferencia(Transaction transaction) {
-        if (transaction.getAccountOrigin() != null && transaction.getType() != null) {
-            Account accountOrigin = accountService.findOne(transaction.getAccountOrigin().getId());
+        if (transaction.getType() != null) {
+            Account accountOrigin = null;
             Account accountDestination = null;
+            if (transaction.getAccountOrigin() != null && transaction.getAccountOrigin().getId() != null) {
+                accountOrigin  = accountService.findOne(transaction.getAccountOrigin().getId());
+            }
             if (transaction.getAccountDestination() != null && transaction.getAccountDestination().getId() != null) {
                 accountDestination = accountService.findOne(transaction.getAccountDestination().getId());
             }
             switch (transaction.getType()) {
-                case ENTRADA:
-                    somaSaldoConta(transaction, accountOrigin);
-                    break;
-                case SAIDA:
+                case ENTRADA -> {
+                    assert accountDestination != null;
+                    somaSaldoConta(transaction, accountDestination);
+                    accountService.save(accountDestination);
+                }
+                case SAIDA -> {
+                    assert accountOrigin != null;
                     subtraiSaldoConta(transaction, accountOrigin);
-                    break;
-                case TRANSFERENCIA:
-                    if (transaction.getAccountDestination() != null) {
-                        subtraiSaldoConta(transaction, accountOrigin);
-                        somaSaldoConta(transaction, accountDestination);
-                        accountService.save(accountDestination);
-                    }
-                    break;
+                    accountService.save(accountOrigin);
+                }
+                case TRANSFERENCIA -> {
+                    assert accountOrigin != null;
+                    subtraiSaldoConta(transaction, accountOrigin);
+                    accountService.save(accountOrigin);
+                    assert accountDestination != null;
+                    somaSaldoConta(transaction, accountDestination);
+                    accountService.save(accountDestination);
+                }
             }
-            accountService.save(accountOrigin);
         } else {
             System.out.println("NÃO FOI POSSIVEL ATUALIZAR O SALDO DA CONTA");
         }
     }
 
     public void atualizarSaldoContaEmExclusaoDeTranferencia(Transaction transaction) {
-        if (transaction.getAccountOrigin() != null && transaction.getType() != null) {
-            Account accountOrigin = accountService.findOne(transaction.getAccountOrigin().getId());
+        if (transaction.getType() != null) {
+            Account accountOrigin = null;
             Account accountDestination = null;
+            if (transaction.getAccountOrigin() != null && transaction.getAccountOrigin().getId() != null) {
+                accountOrigin = accountService.findOne(transaction.getAccountOrigin().getId());
+            }
             if (transaction.getAccountDestination() != null && transaction.getAccountDestination().getId() != null) {
                 accountDestination = accountService.findOne(transaction.getAccountDestination().getId());
             }
             switch (transaction.getType()) {
-                case ENTRADA:
-                    subtraiSaldoConta(transaction, accountOrigin);
-                    break;
-                case SAIDA:
+                case ENTRADA -> {
+                    assert accountDestination != null;
+                    subtraiSaldoConta(transaction, accountDestination);
+                    accountService.save(accountDestination);
+                }
+                case SAIDA -> {
+                    assert accountOrigin != null;
                     somaSaldoConta(transaction, accountOrigin);
-                    break;
-                case TRANSFERENCIA:
-                    if (transaction.getAccountDestination() != null) {
-                        somaSaldoConta(transaction, accountOrigin);
-                        subtraiSaldoConta(transaction, accountDestination);
-                        accountService.save(accountDestination);
-                    }
-                    break;
+                    accountService.save(accountOrigin);
+                }
+                case TRANSFERENCIA -> {
+                    assert accountOrigin != null;
+                    somaSaldoConta(transaction, accountOrigin);
+                    accountService.save(accountOrigin);
+                    assert accountDestination != null;
+                    subtraiSaldoConta(transaction, accountDestination);
+                    accountService.save(accountDestination);
+                }
             }
-            accountService.save(accountOrigin);
         } else {
             System.out.println("NÃO FOI POSSIVEL ATUALIZAR O SALDO DA CONTA");
         }

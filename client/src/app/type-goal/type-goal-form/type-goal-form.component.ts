@@ -6,6 +6,7 @@ import { TypeGoalService } from '../services/type-goal.service';
 import { SnackbarService } from 'src/app/services/snackbar.service';
 import { Router } from '@angular/router';
 import { TypeGoal } from '../models/type-goal';
+import { TransactionType } from 'src/app/transaction/models/transaction-type';
 
 @Component({
   selector: 'app-type-goal-form',
@@ -20,6 +21,10 @@ export class TypeGoalFormComponent implements OnInit, OnDestroy {
   statusOptions = [
     { value: Status.ATIVO, label: 'Ativo' },
     { value: Status.INATIVO, label: 'Inativo' },
+  ];
+  typeOptions = [
+    { value: TransactionType.ENTRADA, label: 'Entrada' },
+    { value: TransactionType.SAIDA, label: 'Saída' },
   ];
 
   constructor(
@@ -41,6 +46,7 @@ export class TypeGoalFormComponent implements OnInit, OnDestroy {
     this.form = new FormGroup({
       id: new FormControl(''),
       name: new FormControl(null, [Validators.required, Validators.maxLength(255)]),
+      type: new FormControl(null, Validators.required),
       status: new FormControl(Status.ATIVO, Validators.required),
     });
   }

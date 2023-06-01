@@ -43,6 +43,8 @@ export class UserRegisterComponent implements OnInit {
 
   save() {
     const user: User = this.form.value;
+    let telephone = this.form.get('telephone').value.replace(/[)(-\s]/g, '');
+    user.telephone = telephone;
     this.service.save(user).subscribe(resposta => {
       this.router.navigate(['/login']);
       this.snackBar.open('Usuário cadastrado com sucesso. Por favor acesse com suas credencias', 'snackbar-sucess');

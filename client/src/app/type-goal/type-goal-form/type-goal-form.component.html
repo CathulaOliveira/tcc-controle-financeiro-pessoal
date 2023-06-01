@@ -24,6 +24,18 @@
         </mat-form-field>
 
         <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Tipo</mat-label>
+          <mat-select formControlName="type">
+            <mat-option *ngFor="let option of typeOptions" [value]="option.value">
+              {{ option.label }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="form.get('type').hasError('required')">
+            Tipo é obrigatório.
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="full-width" appearance="outline">
           <mat-label>Situação</mat-label>
           <mat-select formControlName="status">
             <mat-option *ngFor="let option of statusOptions" [value]="option.value">

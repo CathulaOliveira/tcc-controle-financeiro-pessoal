@@ -46,4 +46,6 @@ public class Goal {
     private LocalDate endDate;
 
     private BigDecimal price;
+
+    private BigDecimal progress;
 }

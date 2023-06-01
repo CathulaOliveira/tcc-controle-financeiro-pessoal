@@ -1,6 +1,7 @@
 package br.edu.utfpr.model;
 
 import br.edu.utfpr.enums.Status;
+import br.edu.utfpr.enums.TypeTransaction;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -26,6 +27,10 @@ public class TypeGoal implements Serializable {
     @NotNull
     @Size(max = 250)
     private String name;
+
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private TypeTransaction type;
 
     @NotNull
     @Enumerated(EnumType.STRING)
