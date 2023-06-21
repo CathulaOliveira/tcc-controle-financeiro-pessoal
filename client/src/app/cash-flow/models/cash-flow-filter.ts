@@ -1,0 +1,9 @@
+import { Account } from "src/app/account/models/account";
+import { TransactionType } from "src/app/transaction/models/transaction-type";
+
+export interface CashFlowFilter {
+    month: number;
+    year: number;
+    account: Account;
+    type: TransactionType;
+}
