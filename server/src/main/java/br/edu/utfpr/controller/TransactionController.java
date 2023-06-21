@@ -1,6 +1,6 @@
 package br.edu.utfpr.controller;
 
-import br.edu.utfpr.filter.FilterBalance;
+import br.edu.utfpr.filter.CashFlowFilter;
 import br.edu.utfpr.model.Transaction;
 import br.edu.utfpr.service.CrudService;
 import br.edu.utfpr.service.impl.TransactionServiceImpl;
@@ -23,17 +23,17 @@ public class TransactionController extends CrudController<Transaction, Long> {
     }
 
     @PostMapping("calcular-total-entradas")
-    public BigDecimal calcularTotalEntradas(@RequestBody FilterBalance filter) {
+    public BigDecimal calcularTotalEntradas(@RequestBody CashFlowFilter filter) {
         return this.transactionService.calculateEntryByFilterBalance(filter);
     }
 
     @PostMapping("calcular-total-saidas")
-    public BigDecimal calcularTotalSaidas(@RequestBody FilterBalance filter) {
+    public BigDecimal calcularTotalSaidas(@RequestBody CashFlowFilter filter) {
         return this.transactionService.calculateOutputByFilterBalance(filter);
     }
 
     @PostMapping("find-by-account")
-    public List<Transaction> findByAccount(@RequestBody FilterBalance filter) {
+    public List<Transaction> findByAccount(@RequestBody CashFlowFilter filter) {
         return this.transactionService.listTransactionsByFilterBalance(filter);
     }
 

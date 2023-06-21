@@ -13,8 +13,10 @@ table {
     width: 100%;
 }
 
+
+/* tamanho da grid alterar aqui para ajustar a tela */
 .scroll-table {
-    height: 235px;
+    height: 250px;
     overflow-y: auto;
 }
 
@@ -34,4 +36,26 @@ mat-form-field {
 
 .rotate-90 {
   transform: rotate(90deg);
+}
+
+.half-width {
+    width: 35%;
+    margin-right: 2rem;
+}
+
+.quarter-width {
+    width: 20%;
+    margin-right: 2rem;
+}
+
+.icon-entradas {
+    color: green;
+}
+
+.icon-saidas {
+    color: red;
+}
+
+.icon-saldo {
+    color: blue;
 }

@@ -1,4 +1,4 @@
 export enum PaymentStatus {
-    EFETUADO = 'Efetuado',
-    PENDENTE = 'Pendente',
+    EFETUADO = 'EFETUADO',
+    PENDENTE = 'PENDENTE',
 }

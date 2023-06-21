@@ -6,10 +6,41 @@
 
     <mat-card-content>
         <div class="table-container container-color">
-            <mat-form-field appearance="standard">
-                <mat-label>Filtro</mat-label>
-                <input matInput (keyup)="applyFilter($event)">
-            </mat-form-field>
+            <form class="form" [formGroup]="form">
+                <mat-form-field appearance="standard">
+                    <mat-label>Filtro</mat-label>
+                    <input matInput (keyup)="applyFilter($event)">
+                </mat-form-field>
+
+                <mat-form-field  class="half-width" appearance="fill">
+                    <mat-label>Mês e ano</mat-label>
+                    <input formControlName="date" matInput [matDatepicker]="dp">
+                    <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+                    <mat-datepicker #dp
+                                    startView="multi-year"
+                                    panelClass="example-month-picker">
+                                    (monthSelected)="setMonthAndYear($event, dp)"
+                    </mat-datepicker>
+                </mat-form-field>  
+                
+                <mat-form-field class="half-width" appearance="fill">
+                    <mat-label>Conta</mat-label>
+                    <mat-select formControlName="account" [compareWith]="objectComparisonFunction">
+                        <mat-option *ngFor="let option of accountOptions" [value]="option">
+                            {{option.id}} - {{option.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field class="quarter-width" appearance="fill">
+                    <mat-label>Tipo</mat-label>
+                    <mat-select formControlName="type">
+                        <mat-option *ngFor="let option of typeOptions" [value]="option.value">
+                            {{ option.label }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </form>
         
             <div class="scroll-table">
                 <table mat-table [dataSource]="dataSource">
@@ -71,41 +102,41 @@
         </div>  
         <div class="list-container container-color">
             <mat-list>
-                <mat-grid-list cols="2" rowHeight="30px">
+                <mat-grid-list cols="3" rowHeight="30px">
                     <mat-grid-tile>
                         <mat-list-item>
                             Entradas previstas
-                            <mat-icon fontIcon="arrow_upward"></mat-icon>
-                        </mat-list-item>
-                    </mat-grid-tile>
-                    <mat-grid-tile>
-                        <mat-list-item>
-                            Entradas realizadas
-                            <mat-icon fontIcon="arrow_upward"></mat-icon>
+                            <mat-icon fontIcon="arrow_upward" class="icon-entradas"></mat-icon>
                         </mat-list-item>
                     </mat-grid-tile>
                     <mat-grid-tile>
                         <mat-list-item>
                             Saídas previstas
-                            <mat-icon fontIcon="arrow_downward"></mat-icon>
+                            <mat-icon fontIcon="arrow_downward" class="icon-saidas"></mat-icon>
+                        </mat-list-item>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <mat-list-item>
+                            Total saldo previsto
+                            <mat-icon fontIcon="import_export" class="icon-saldo"></mat-icon>
+                        </mat-list-item>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <mat-list-item>
+                            Entradas realizadas
+                            <mat-icon fontIcon="arrow_upward" class="icon-entradas"></mat-icon>
                         </mat-list-item>
                     </mat-grid-tile>
                     <mat-grid-tile>
                         <mat-list-item>
                             Saídas realizadas 
-                            <mat-icon fontIcon="arrow_downward"></mat-icon>
+                            <mat-icon fontIcon="arrow_downward" class="icon-saidas"></mat-icon>
                         </mat-list-item>
                     </mat-grid-tile>
                     <mat-grid-tile>
                         <mat-list-item>
-                            Total balanço previsto
-                            <mat-icon fontIcon="import_export"></mat-icon>
-                        </mat-list-item>
-                    </mat-grid-tile>
-                    <mat-grid-tile>
-                        <mat-list-item>
-                            Total balanço realizado
-                            <mat-icon fontIcon="import_export"></mat-icon>
+                            Total saldo realizado
+                            <mat-icon fontIcon="import_export" class="icon-saldo"></mat-icon>
                         </mat-list-item>
                     </mat-grid-tile>
                   </mat-grid-list>

@@ -51,6 +51,7 @@ public class RecurringTransaction {
     private TypeTransaction type;
 
     @NotNull
+    @Column(name = "due_date")
     private LocalDate dueDate;
 
     @Enumerated(EnumType.STRING)

@@ -1,7 +1,7 @@
 package br.edu.utfpr.service.impl;
 
 import br.edu.utfpr.enums.TypeTransaction;
-import br.edu.utfpr.filter.FilterBalance;
+import br.edu.utfpr.filter.CashFlowFilter;
 import br.edu.utfpr.model.Transaction;
 import br.edu.utfpr.model.User;
 import br.edu.utfpr.repository.TransactionRepository;
@@ -12,9 +12,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -32,65 +30,63 @@ public class TransactionServiceImpl
         return this.transactionRepository;
     }
 
-    public BigDecimal calculateEntryByFilterBalance(FilterBalance filter) {
+    public BigDecimal calculateEntryByFilterBalance(CashFlowFilter filter) {
         List<Transaction> listTransactions = new ArrayList<>();
-        LocalDate dateStart = LocalDate.of(Integer.parseInt(filter.getYear()), Integer.parseInt(filter.getMonth()), 1);
-        LocalDate dateFinish = LocalDate.of(Integer.parseInt(filter.getYear()), Integer.parseInt(filter.getMonth())+1, 1);
         listTransactions.addAll(transactionRepository.findByDateBetweenAndTypeAndAccountOrigin_Id(
-                dateStart,
-                dateFinish,
+                filter.getDateStart(),
+                filter.getDateFinish(),
                 TypeTransaction.ENTRADA,
-                Long.parseLong(filter.getAccountId())
+                filter.getAccount().getId()
         ));
         listTransactions.addAll(transactionRepository.findByDateBetweenAndTypeAndAccountDestination_Id(
-                dateStart,
-                dateFinish,
+                filter.getDateStart(),
+                filter.getDateFinish(),
                 TypeTransaction.TRANSFERENCIA,
-                Long.parseLong(filter.getAccountId())
+                filter.getAccount().getId()
         ));
         return listTransactions.stream().map(Transaction::getPrice).reduce(BigDecimal.ZERO,BigDecimal::add);
     }
 
-    public BigDecimal calculateOutputByFilterBalance(FilterBalance filter) {
+    public BigDecimal calculateOutputByFilterBalance(CashFlowFilter filter) {
         List<Transaction> listTransactions = new ArrayList<>();
-        LocalDate dateStart = LocalDate.of(Integer.parseInt(filter.getYear()), Integer.parseInt(filter.getMonth()), 1);
-        LocalDate dateFinish = LocalDate.of(Integer.parseInt(filter.getYear()), Integer.parseInt(filter.getMonth())+1, 1);
         listTransactions.addAll(transactionRepository.findByDateBetweenAndTypeAndAccountOrigin_Id(
-                dateStart,
-                dateFinish,
+                filter.getDateStart(),
+                filter.getDateFinish(),
                 TypeTransaction.SAIDA,
-                Long.parseLong(filter.getAccountId())
+                filter.getAccount().getId()
         ));
         listTransactions.addAll(transactionRepository.findByDateBetweenAndTypeAndAccountOrigin_Id(
-                dateStart,
-                dateFinish,
+                filter.getDateStart(),
+                filter.getDateFinish(),
                 TypeTransaction.TRANSFERENCIA,
-                Long.parseLong(filter.getAccountId())
+                filter.getAccount().getId()
         ));
         return listTransactions.stream().map(Transaction::getPrice).reduce(BigDecimal.ZERO,BigDecimal::add);
     }
 
-    public List<Transaction> listTransactionsByFilterBalance(FilterBalance filter) {
-        LocalDate dateStart = LocalDate.of(Integer.parseInt(filter.getYear()), Integer.parseInt(filter.getMonth()), 1);
-        LocalDate dateFinish = LocalDate.of(Integer.parseInt(filter.getYear()), Integer.parseInt(filter.getMonth())+1, 1);
+    public List<Transaction> listTransactionsByFilterBalance(CashFlowFilter filter) {
         List<Transaction> listTransactions = new ArrayList<>();
         listTransactions.addAll(transactionRepository.findByDateBetweenAndAccountOrigin_Id(
-                dateStart,
-                dateFinish,
-                Long.parseLong(filter.getAccountId())
+                filter.getDateStart(),
+                filter.getDateFinish(),
+                filter.getAccount().getId()
         ));
         listTransactions.addAll(transactionRepository.findByDateBetweenAndAccountDestination_Id(
-                dateStart,
-                dateFinish,
-                Long.parseLong(filter.getAccountId())
+                filter.getDateStart(),
+                filter.getDateFinish(),
+                filter.getAccount().getId()
         ));
-        Collections.sort(listTransactions, Comparator.comparing(Transaction::getDate));
+        listTransactions.sort(Comparator.comparing(Transaction::getDate));
         return listTransactions;
     }
 
     public List<Transaction> findByUserLogged() {
         User userLogged = userService.getUserLogged();
         return transactionRepository.findByAccountOrigin_User_IdOrAccountDestination_User_Id(userLogged.getId(), userLogged.getId());
+    }
+
+    public Transaction findByRecurringTransaction(Long id) {
+        return transactionRepository.findByRecurringTransaction_Id(id);
     }
 
     // culpa do Aspect

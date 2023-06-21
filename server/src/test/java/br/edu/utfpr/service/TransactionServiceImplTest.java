@@ -2,7 +2,7 @@ package br.edu.utfpr.service;
 
 import br.edu.utfpr.enums.TypeAccount;
 import br.edu.utfpr.enums.TypeTransaction;
-import br.edu.utfpr.filter.FilterBalance;
+import br.edu.utfpr.filter.CashFlowFilter;
 import br.edu.utfpr.model.Account;
 import br.edu.utfpr.model.Category;
 import br.edu.utfpr.model.Transaction;
@@ -81,10 +81,10 @@ public class TransactionServiceImplTest {
                         .type(TypeTransaction.ENTRADA)
                         .build();
         underTest.save(transaction);
-        FilterBalance filter = new FilterBalance();
+        CashFlowFilter filter = new CashFlowFilter();
         filter.setMonth(""+LocalDate.now().getMonthValue());
         filter.setYear(""+LocalDate.now().getYear());
-        filter.setAccountId(""+accountOrigin.getId());
+        filter.setAccount(accountOrigin);
         BigDecimal totalEntry = underTest.calculateEntryByFilterBalance(filter);
         assertThat(totalEntry).isEqualByComparingTo(new BigDecimal(100.00));
     }
@@ -104,10 +104,10 @@ public class TransactionServiceImplTest {
                         .type(TypeTransaction.SAIDA)
                         .build();
         underTest.save(transaction);
-        FilterBalance filter = new FilterBalance();
+        CashFlowFilter filter = new CashFlowFilter();
         filter.setMonth(""+LocalDate.now().getMonthValue());
         filter.setYear(""+LocalDate.now().getYear());
-        filter.setAccountId(""+accountOrigin.getId());
+        filter.setAccount(accountOrigin);
         BigDecimal totalOutput = underTest.calculateOutputByFilterBalance(filter);
         assertThat(totalOutput).isEqualByComparingTo(new BigDecimal(50.00));
     }
@@ -141,10 +141,10 @@ public class TransactionServiceImplTest {
                         .build();
         underTest.save(transactionOutput);
 
-        FilterBalance filter = new FilterBalance();
+        CashFlowFilter filter = new CashFlowFilter();
         filter.setMonth(""+LocalDate.now().getMonthValue());
         filter.setYear(""+LocalDate.now().getYear());
-        filter.setAccountId(""+accountOriginEntry.getId());
+        filter.setAccount(accountOriginEntry);
         List<Transaction> transactionsAccountEntry = underTest.listTransactionsByFilterBalance(filter);
         assertThat(transactionsAccountEntry.size()).isEqualTo(1);
     }
