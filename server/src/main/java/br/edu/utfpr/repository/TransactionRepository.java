@@ -8,31 +8,27 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface TransactionRepository extends JpaRepository<Transaction, Long> {
-    List<Transaction> findByDateBetweenAndAccountOrigin_Id(
+    List<Transaction> findByDateBetweenAndAccountOrigin_IdInOrAndAccountDestination_IdIn(
             LocalDate dateStart,
             LocalDate dateFinish,
-            Long accountOriginId
+            List<Long> accountOriginIds,
+            List<Long> accountDestinationIds
     );
-    List<Transaction> findByDateBetweenAndAccountDestination_Id(
+    List<Transaction> findByDateBetweenAndTypeInAndAccountOrigin_IdIn(
             LocalDate dateStart,
             LocalDate dateFinish,
-            Long accountDestinationId
+            List<TypeTransaction> type,
+            List<Long> accountOriginIds
     );
-    List<Transaction> findByDateBetweenAndTypeAndAccountOrigin_Id(
+    List<Transaction> findByDateBetweenAndTypeInAndAccountDestination_IdIn(
             LocalDate dateStart,
             LocalDate dateFinish,
-            TypeTransaction type,
-            Long accountOriginId
-    );
-    List<Transaction> findByDateBetweenAndTypeAndAccountDestination_Id(
-            LocalDate dateStart,
-            LocalDate dateFinish,
-            TypeTransaction type,
-            Long accountDestinationId
+            List<TypeTransaction> type,
+            List<Long> accountDestinationIds
     );
     List<Transaction> findByAccountOrigin_User_IdOrAccountDestination_User_Id(
             Long accountOriginUserId, Long accountDestinationId
     );
 
-    Transaction findByRecurringTransaction_Id(Long id);
+    Transaction findByRecurringTransaction_IdAndDateBetween(Long id, LocalDate dateStart, LocalDate dateFinish);
 }

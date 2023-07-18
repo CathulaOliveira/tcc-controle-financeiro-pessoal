@@ -4,6 +4,6 @@ import { TransactionType } from "src/app/transaction/models/transaction-type";
 export interface CashFlowFilter {
     month: number;
     year: number;
-    account: Account;
+    account: number[];
     type: TransactionType;
 }

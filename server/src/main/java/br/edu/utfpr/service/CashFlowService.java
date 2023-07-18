@@ -3,63 +3,53 @@ package br.edu.utfpr.service;
 import br.edu.utfpr.enums.PaymentStatus;
 import br.edu.utfpr.filter.CashFlowFilter;
 import br.edu.utfpr.model.*;
+import br.edu.utfpr.service.impl.AccountServiceImpl;
+import br.edu.utfpr.service.impl.RecurringTransactionServiceImpl;
 import br.edu.utfpr.service.impl.TransactionServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
 public class CashFlowService {
 
-    @PersistenceContext
-    private EntityManager entityManager;
-
-    private final UserService userService;
+    private final AccountServiceImpl accountService;
     private final TransactionServiceImpl transactionService;
+    private final RecurringTransactionServiceImpl recurringTransactionService;
 
     public CashFlow getCashFlow(CashFlowFilter filter) {
-        User userLogged = userService.getUserLogged();
-
         CashFlow cashFlow = new CashFlow();
-
-        List<RecurringTransaction> transactions = getTransactions(filter, userLogged);
-        cashFlow.setTransactions(transactions);
-        getStatusTransactions(transactions);
 
         this.tratarParametros(filter);
 
-        cashFlow.setTotalEntradasRealizadas(transactionService.calculateEntryByFilterBalance(filter));
-        cashFlow.setTotalSaidasRealizadas(transactionService.calculateOutputByFilterBalance(filter));
+        List<RecurringTransaction> transactions = recurringTransactionService.findByCashFlowFilter(filter);
+        getStatusTransactions(transactions, filter);
+        cashFlow.setTransactions(transactions);
+
+        BigDecimal totalEntradasPrevistas = recurringTransactionService.calculateEntryByFilterBalance(filter);
+        BigDecimal totalEntradasRealizadas = transactionService.calculateEntryByFilterBalance(filter);
+        BigDecimal totalSaidasPrevistas = recurringTransactionService.calculateOutputByFilterBalance(filter);
+        BigDecimal totalSaidasRealizadas = transactionService.calculateOutputByFilterBalance(filter);
+
+        cashFlow.setTotalEntradasPrevistas(totalEntradasPrevistas);
+        cashFlow.setTotalEntradasRealizadas(totalEntradasRealizadas);
+        cashFlow.setTotalSaidasPrevistas(totalSaidasPrevistas);
+        cashFlow.setTotalSaidasRealizadas(totalSaidasRealizadas);
+        cashFlow.setTotalSaldoPrevisto(totalEntradasPrevistas.subtract(totalSaidasPrevistas));
+        cashFlow.setTotalSaldoRealizado(totalEntradasRealizadas.subtract(totalSaidasRealizadas));
 
         return cashFlow;
     }
 
-    private List<RecurringTransaction> getTransactions(CashFlowFilter filter, User userLogged) {
-        String sql = """
-                SELECT rt.* FROM recurring_transaction rt
-                left join account ao on rt.account_origin_id = ao.id 
-                left join account ad on rt.account_destination_id = ad.id
-                """;
-        sql += " where ao.user_id = " + userLogged.getId() + " or ad.user_id = " + userLogged.getId();
-
-        if (filter.getType() != null) {
-            sql += " and rt.type = '" + filter.getType().name() + "'";
-        }
-        if (filter.getAccount() != null) {
-            sql += " and (ao.id = " + filter.getAccount().getId() + " or ad.id = " + filter.getAccount().getId() + ")";
-        }
-        return entityManager.createNativeQuery(sql, RecurringTransaction.class).getResultList();
-    }
-
-    private void getStatusTransactions(List<RecurringTransaction> transactions) {
+    private void getStatusTransactions(List<RecurringTransaction> transactions, CashFlowFilter filter) {
         if (transactions != null) {
             transactions.forEach(recurringTransaction -> {
-                Transaction transaction = transactionService.findByRecurringTransaction(recurringTransaction.getId());
+                Transaction transaction = transactionService.findByRecurringTransactionAndDateBetween(recurringTransaction.getId(), filter);
                 if (transaction != null) {
                     recurringTransaction.setPaymentStatus(PaymentStatus.EFETUADO);
                 } else {
@@ -85,10 +75,15 @@ public class CashFlowService {
         }
 
         filter.setDateStart(LocalDate.of(year, month, 1));
-        filter.setDateFinish(LocalDate.of(year, month+1, 1));
+        LocalDate dateFinish = LocalDate.of(year, month+1, 1);
+        filter.setDateFinish(dateFinish.minusDays(1l));
 
-        if (filter.getAccount() == null) {
-            filter.setAccount(new Account());
+        if (filter.getAccounts() == null) {
+            List<Long> accounts = accountService.findByUserLogged()
+                    .stream()
+                    .map(Account::getId)
+                    .collect(Collectors.toList());
+            filter.setAccounts(accounts);
         }
     }
 }

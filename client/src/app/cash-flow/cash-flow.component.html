@@ -12,7 +12,8 @@
                     <input matInput (keyup)="applyFilter($event)">
                 </mat-form-field>
 
-                <mat-form-field  class="half-width" appearance="fill">
+                <mat-icon fontIcon="arrow_left" (click)="prevMonth()"></mat-icon>
+                <mat-form-field class="date-width" appearance="fill">
                     <mat-label>Mês e ano</mat-label>
                     <input formControlName="date" matInput [matDatepicker]="dp">
                     <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
@@ -22,6 +23,7 @@
                                     (monthSelected)="setMonthAndYear($event, dp)"
                     </mat-datepicker>
                 </mat-form-field>  
+                <mat-icon fontIcon="arrow_right" class="date-margin" (click)="nextMonth()"></mat-icon>
                 
                 <mat-form-field class="half-width" appearance="fill">
                     <mat-label>Conta</mat-label>
@@ -107,36 +109,42 @@
                         <mat-list-item>
                             Entradas previstas
                             <mat-icon fontIcon="arrow_upward" class="icon-entradas"></mat-icon>
+                            {{cashFlow?.totalEntradasPrevistas}}
                         </mat-list-item>
                     </mat-grid-tile>
                     <mat-grid-tile>
                         <mat-list-item>
                             Saídas previstas
                             <mat-icon fontIcon="arrow_downward" class="icon-saidas"></mat-icon>
+                            {{cashFlow?.totalSaidasPrevistas}}
                         </mat-list-item>
                     </mat-grid-tile>
                     <mat-grid-tile>
                         <mat-list-item>
                             Total saldo previsto
                             <mat-icon fontIcon="import_export" class="icon-saldo"></mat-icon>
+                            {{cashFlow?.totalSaldoPrevisto}}
                         </mat-list-item>
                     </mat-grid-tile>
                     <mat-grid-tile>
                         <mat-list-item>
                             Entradas realizadas
                             <mat-icon fontIcon="arrow_upward" class="icon-entradas"></mat-icon>
+                            {{cashFlow?.totalEntradasRealizadas}}
                         </mat-list-item>
                     </mat-grid-tile>
                     <mat-grid-tile>
                         <mat-list-item>
                             Saídas realizadas 
                             <mat-icon fontIcon="arrow_downward" class="icon-saidas"></mat-icon>
+                            {{cashFlow?.totalSaidasRealizadas}}
                         </mat-list-item>
                     </mat-grid-tile>
                     <mat-grid-tile>
                         <mat-list-item>
                             Total saldo realizado
                             <mat-icon fontIcon="import_export" class="icon-saldo"></mat-icon>
+                            {{cashFlow?.totalSaldoRealizado}}
                         </mat-list-item>
                     </mat-grid-tile>
                   </mat-grid-list>

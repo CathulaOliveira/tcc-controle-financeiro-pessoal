@@ -3,5 +3,9 @@ import { RecurringTransaction } from "src/app/transaction/models/transaction-rec
 export interface CashFlow {
     transactions: RecurringTransaction[];
     totalEntradasPrevistas: number;
+    totalEntradasRealizadas: number;
     totalSaidasPrevistas: number;
+    totalSaidasRealizadas: number;
+    totalSaldoPrevisto: number;
+    totalSaldoRealizado: number;
 }

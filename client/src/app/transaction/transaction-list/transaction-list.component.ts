@@ -19,11 +19,11 @@ import { RecurringTransactionService } from '../services/transaction-recurring.s
 export class TransactionListComponent implements OnInit {
 
   transactions: Transaction[] = [];
-  columnsTransactions: string[] = ['id', 'date', 'description', 'type',  'category', 'accountOrigin', 'accountDestination', 'action'];
+  columnsTransactions: string[] = ['id', 'date', 'description', 'type',  'category', 'accountOrigin', 'accountDestination', 'price', 'action'];
   dataSourceTransactions = new MatTableDataSource<Transaction>(this.transactions);
   
   recurringTransactions: RecurringTransaction[] = [];
-  columnsRecurringTransactions: string[] = ['id', 'description', 'type',  'category', 'accountOrigin', 'accountDestination', 'action'];
+  columnsRecurringTransactions: string[] = ['id', 'description', 'type',  'category', 'accountOrigin', 'accountDestination', 'price', 'action'];
   dataSourceRecurringTransactions = new MatTableDataSource<RecurringTransaction>(this.recurringTransactions);
 
   @ViewChild(MatPaginator) paginatorTransactions: MatPaginator;

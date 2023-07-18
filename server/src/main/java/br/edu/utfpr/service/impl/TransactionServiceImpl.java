@@ -32,49 +32,34 @@ public class TransactionServiceImpl
 
     public BigDecimal calculateEntryByFilterBalance(CashFlowFilter filter) {
         List<Transaction> listTransactions = new ArrayList<>();
-        listTransactions.addAll(transactionRepository.findByDateBetweenAndTypeAndAccountOrigin_Id(
-                filter.getDateStart(),
-                filter.getDateFinish(),
-                TypeTransaction.ENTRADA,
-                filter.getAccount().getId()
+        listTransactions.addAll(transactionRepository.findByDateBetweenAndTypeInAndAccountDestination_IdIn(
+            filter.getDateStart(),
+            filter.getDateFinish(),
+            List.of(TypeTransaction.ENTRADA, TypeTransaction.TRANSFERENCIA),
+            filter.getAccounts()
         ));
-        listTransactions.addAll(transactionRepository.findByDateBetweenAndTypeAndAccountDestination_Id(
-                filter.getDateStart(),
-                filter.getDateFinish(),
-                TypeTransaction.TRANSFERENCIA,
-                filter.getAccount().getId()
-        ));
+
         return listTransactions.stream().map(Transaction::getPrice).reduce(BigDecimal.ZERO,BigDecimal::add);
     }
 
     public BigDecimal calculateOutputByFilterBalance(CashFlowFilter filter) {
         List<Transaction> listTransactions = new ArrayList<>();
-        listTransactions.addAll(transactionRepository.findByDateBetweenAndTypeAndAccountOrigin_Id(
+        listTransactions.addAll(transactionRepository.findByDateBetweenAndTypeInAndAccountOrigin_IdIn(
                 filter.getDateStart(),
                 filter.getDateFinish(),
-                TypeTransaction.SAIDA,
-                filter.getAccount().getId()
-        ));
-        listTransactions.addAll(transactionRepository.findByDateBetweenAndTypeAndAccountOrigin_Id(
-                filter.getDateStart(),
-                filter.getDateFinish(),
-                TypeTransaction.TRANSFERENCIA,
-                filter.getAccount().getId()
+                List.of(TypeTransaction.SAIDA, TypeTransaction.TRANSFERENCIA),
+                filter.getAccounts()
         ));
         return listTransactions.stream().map(Transaction::getPrice).reduce(BigDecimal.ZERO,BigDecimal::add);
     }
 
     public List<Transaction> listTransactionsByFilterBalance(CashFlowFilter filter) {
         List<Transaction> listTransactions = new ArrayList<>();
-        listTransactions.addAll(transactionRepository.findByDateBetweenAndAccountOrigin_Id(
+        listTransactions.addAll(transactionRepository.findByDateBetweenAndAccountOrigin_IdInOrAndAccountDestination_IdIn(
                 filter.getDateStart(),
                 filter.getDateFinish(),
-                filter.getAccount().getId()
-        ));
-        listTransactions.addAll(transactionRepository.findByDateBetweenAndAccountDestination_Id(
-                filter.getDateStart(),
-                filter.getDateFinish(),
-                filter.getAccount().getId()
+                filter.getAccounts(),
+                filter.getAccounts()
         ));
         listTransactions.sort(Comparator.comparing(Transaction::getDate));
         return listTransactions;
@@ -85,8 +70,8 @@ public class TransactionServiceImpl
         return transactionRepository.findByAccountOrigin_User_IdOrAccountDestination_User_Id(userLogged.getId(), userLogged.getId());
     }
 
-    public Transaction findByRecurringTransaction(Long id) {
-        return transactionRepository.findByRecurringTransaction_Id(id);
+    public Transaction findByRecurringTransactionAndDateBetween(Long id, CashFlowFilter filter) {
+        return transactionRepository.findByRecurringTransaction_IdAndDateBetween(id, filter.getDateStart(), filter.getDateFinish());
     }
 
     // culpa do Aspect

@@ -84,7 +84,7 @@ public class TransactionServiceImplTest {
         CashFlowFilter filter = new CashFlowFilter();
         filter.setMonth(""+LocalDate.now().getMonthValue());
         filter.setYear(""+LocalDate.now().getYear());
-        filter.setAccount(accountOrigin);
+        filter.setAccounts(List.of(accountOrigin.getId()));
         BigDecimal totalEntry = underTest.calculateEntryByFilterBalance(filter);
         assertThat(totalEntry).isEqualByComparingTo(new BigDecimal(100.00));
     }
@@ -107,7 +107,7 @@ public class TransactionServiceImplTest {
         CashFlowFilter filter = new CashFlowFilter();
         filter.setMonth(""+LocalDate.now().getMonthValue());
         filter.setYear(""+LocalDate.now().getYear());
-        filter.setAccount(accountOrigin);
+        filter.setAccounts(List.of(accountOrigin.getId()));
         BigDecimal totalOutput = underTest.calculateOutputByFilterBalance(filter);
         assertThat(totalOutput).isEqualByComparingTo(new BigDecimal(50.00));
     }
@@ -144,7 +144,7 @@ public class TransactionServiceImplTest {
         CashFlowFilter filter = new CashFlowFilter();
         filter.setMonth(""+LocalDate.now().getMonthValue());
         filter.setYear(""+LocalDate.now().getYear());
-        filter.setAccount(accountOriginEntry);
+        filter.setAccounts(List.of(accountOriginEntry.getId()));
         List<Transaction> transactionsAccountEntry = underTest.listTransactionsByFilterBalance(filter);
         assertThat(transactionsAccountEntry.size()).isEqualTo(1);
     }
@@ -160,6 +160,7 @@ public class TransactionServiceImplTest {
     private Account createAccountValid() {
         Account account =
                 Account.builder()
+                        .id(1l)
                         .number("123")
                         .agency("12")
                         .bank("Teste")

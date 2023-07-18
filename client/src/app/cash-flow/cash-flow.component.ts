@@ -5,7 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { RecurringTransaction } from '../transaction/models/transaction-recurring';
 import { RecurringTransactionService } from '../transaction/services/transaction-recurring.service';
 import { SnackbarService } from '../services/snackbar.service';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import * as moment from 'moment';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter } from '@angular/material-moment-adapter';
@@ -16,6 +16,7 @@ import { TransactionType } from '../transaction/models/transaction-type';
 import { CashFlowService } from './services/cash-flow.service';
 import { CashFlowFilter } from './models/cash-flow-filter';
 import { Transaction } from '../transaction/models/transaction';
+import { CashFlow } from './models/cash-flow';
 
 // See the Moment.js docs for the meaning of these formats:
 // https://momentjs.com/docs/#/displaying/format/
@@ -51,6 +52,7 @@ export const MY_FORMATS = {
 export class CashFlowComponent implements OnInit {
 
   form: FormGroup;
+  cashFlow: CashFlow = null;
   ELEMENT_DATA: RecurringTransaction[] = [];
   displayedColumns: string[] = ['id', 'date', 'description', 'type', 'category', 'price', 'status'];
   dataSource = new MatTableDataSource<RecurringTransaction>(this.ELEMENT_DATA);
@@ -71,7 +73,7 @@ export class CashFlowComponent implements OnInit {
     public dialog: MatDialog,
     private snackBar: SnackbarService,
     private accountService: AccountService,
-    private cashFlow: CashFlowService
+    private cashFlowService: CashFlowService
   ) { }
 
   ngOnInit(): void {
@@ -83,7 +85,7 @@ export class CashFlowComponent implements OnInit {
 
   createForm() {
     this.form = new FormGroup({
-      date: new FormControl(''),
+      date: new FormControl(new Date(), Validators.required),
       account: new FormControl(null),
       type: new FormControl(null),
     });
@@ -103,13 +105,13 @@ export class CashFlowComponent implements OnInit {
       type: null
     };
     if (values != null) {
-      filter.month = values.date?._i?.month;
+      filter.month = values.date?._i?.month + 1;
       filter.year = values.date?._i?.year;
-      filter.account = values.account;
+      filter.account = [values.account?.id];
       filter.type = values.type;
     }
-    this.cashFlow.findFilter(filter).subscribe( res => {
-      console.log(res);
+    this.cashFlowService.findFilter(filter).subscribe( res => {
+      this.cashFlow = res;
       this.ELEMENT_DATA = res.transactions;
       this.dataSource = new MatTableDataSource<RecurringTransaction>(this.ELEMENT_DATA);
       this.dataSource.paginator = this.paginator;
@@ -141,5 +143,17 @@ export class CashFlowComponent implements OnInit {
 
   objectComparisonFunction = function( option, value ) : boolean {
     return option?.id === value?.id;
+  }
+
+  prevMonth() {
+    console.log(this.form.get('date').value);
+  }
+
+  nextMonth() {
+    console.log(this.form.get('date').value);
+  }
+
+  formatter(value: number): string {
+    return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(value);
   }
 }

@@ -44,6 +44,11 @@
                       <th mat-header-cell *matHeaderCellDef> Conta destino </th>
                       <td mat-cell *matCellDef="let element">{{element.accountDestination?.id}} - {{element.accountDestination?.name}} </td>
                     </ng-container>
+
+                    <ng-container matColumnDef="price">
+                      <th mat-header-cell *matHeaderCellDef> Valor </th>
+                      <td mat-cell *matCellDef="let element">{{element.price}} </td>
+                    </ng-container>
               
                     <ng-container matColumnDef="action">
                       <th mat-header-cell *matHeaderCellDef> Ações </th>
@@ -60,11 +65,12 @@
                     <colgroup>
                       <col matColumnDef="id1" style="width: 10%;">
                       <col matColumnDef="date2" style="width: 10%;">
-                      <col matColumnDef="description2" style="width: 12%;">
-                      <col matColumnDef="type2" style="width: 15%;">
-                      <col matColumnDef="category2" style="width: 12%;">
-                      <col matColumnDef="accountOrigin2" style="width: 15%;">
-                      <col matColumnDef="accountDestination2" style="width: 15%;">
+                      <col matColumnDef="description2" style="width: 10%;">
+                      <col matColumnDef="type2" style="width: 10%;">
+                      <col matColumnDef="category2" style="width: 13%;">
+                      <col matColumnDef="accountOrigin2" style="width: 13%;">
+                      <col matColumnDef="accountDestination2" style="width: 13%;">
+                      <col matColumnDef="price2" style="width: 10%;">
                     </colgroup>
               
                     <tr mat-header-row *matHeaderRowDef="columnsTransactions"></tr>
@@ -122,6 +128,11 @@
                       <th mat-header-cell *matHeaderCellDef> Conta destino </th>
                       <td mat-cell *matCellDef="let element">{{element.accountDestination?.id}} - {{element.accountDestination?.name}} </td>
                     </ng-container>
+
+                    <ng-container matColumnDef="price">
+                      <th mat-header-cell *matHeaderCellDef> Valor </th>
+                      <td mat-cell *matCellDef="let element">{{element.price}} </td>
+                    </ng-container>
               
                     <ng-container matColumnDef="action">
                       <th mat-header-cell *matHeaderCellDef> Ações </th>
@@ -135,13 +146,14 @@
                       </td>
                     </ng-container>
               
-                    <colgroup>
+                    <colgroup>                      
                       <col matColumnDef="id1" style="width: 10%;">
                       <col matColumnDef="description2" style="width: 15%;">
-                      <col matColumnDef="type2" style="width: 15%;">
+                      <col matColumnDef="type2" style="width: 12%;">
                       <col matColumnDef="category2" style="width: 15%;">
-                      <col matColumnDef="accountOrigin2" style="width: 15%;">
-                      <col matColumnDef="accountDestination2" style="width: 15%;">
+                      <col matColumnDef="accountOrigin2" style="width: 13%;">
+                      <col matColumnDef="accountDestination2" style="width: 13%;">
+                      <col matColumnDef="price2" style="width: 10%;">
                     </colgroup>
               
                     <tr mat-header-row *matHeaderRowDef="columnsRecurringTransactions"></tr>

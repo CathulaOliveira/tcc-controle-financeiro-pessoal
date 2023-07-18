@@ -48,6 +48,14 @@ mat-form-field {
     margin-right: 2rem;
 }
 
+.date-width {
+    width: 20%;
+}
+
+.date-margin {
+    margin-right: 2rem;
+}
+
 .icon-entradas {
     color: green;
 }
