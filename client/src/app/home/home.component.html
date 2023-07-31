@@ -1,13 +1,38 @@
 <mat-card class="card mat-elevation-z8">
-    <mat-card-header>
-      <mat-card-title>Controle financeiro pessoal</mat-card-title>
-      <mat-card-subtitle>Teste</mat-card-subtitle>
-    </mat-card-header>
-    <img mat-card-image src="assets/img/em_construcao.jpg" alt="Photo of a Shiba Inu">
+        <form class="form" [formGroup]="form">
+            <mat-icon fontIcon="arrow_left" (click)="prevMonth()"></mat-icon>
+            <mat-form-field class="date-width" appearance="outline">
+                <mat-label>Mês e ano</mat-label>
+                <input formControlName="date" matInput [matDatepicker]="dp">
+                <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+                <mat-datepicker #dp
+                                startView="multi-year"
+                                panelClass="example-month-picker">
+                                (monthSelected)="setMonthAndYear($event, dp)"
+                </mat-datepicker>
+            </mat-form-field>  
+            <mat-icon fontIcon="arrow_right" class="date-margin" (click)="nextMonth()"></mat-icon>
+            
+            <mat-form-field class="half-width" appearance="outline">
+                <mat-label>Conta</mat-label>
+                <mat-select formControlName="account" [compareWith]="objectComparisonFunction">
+                    <mat-option *ngFor="let option of accountOptions" [value]="option">
+                        {{option.id}} - {{option.name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="quarter-width" appearance="outline">
+                <mat-label>Tipo</mat-label>
+                <mat-select formControlName="type">
+                    <mat-option *ngFor="let option of typeOptions" [value]="option.value">
+                        {{ option.label }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </form>
     <mat-card-content>
-      <p>
-        Este é um sistema web desenvolvido para facilitar o controle de finanças pessoais.
-      </p>
+      <app-charts></app-charts>
     </mat-card-content>
-  </mat-card>
+</mat-card>
   

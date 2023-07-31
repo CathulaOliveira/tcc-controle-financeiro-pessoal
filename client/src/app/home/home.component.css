@@ -1,6 +1,6 @@
 .card {
     width: 95%;
-    height: 80%;
+    /* height: 80%; */
     margin: .8rem auto; 
     background-color: rgb(235, 235, 235);
   }
@@ -9,4 +9,22 @@ img {
     height: 20rem;
     width: 50%;
     margin-left: 15rem;
+}
+
+.half-width {
+  width: 35%;
+  margin-right: 2rem;
+}
+
+.quarter-width {
+  width: 30%;
+  margin-right: 2rem;
+}
+
+.date-width {
+  width: 20%;
+}
+
+.date-margin {
+  margin-right: 2rem;
 }

@@ -54,6 +54,7 @@ import { UserRegisterComponent } from './user/user-register/user-register.compon
 import { UserProfileComponent } from './user/user-profile/user-profile.component';
 import { PhoneMaskDirective } from './utils/phone-mask.directive';
 import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS, MAT_MOMENT_DATE_FORMATS } from '@angular/material-moment-adapter';
+import { ChartsComponent } from './charts/charts.component';
 
 @NgModule({
   declarations: [
@@ -81,6 +82,7 @@ import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS, MAT_MOMENT_DATE_FOR
     PaymentStatusOptionsPipe,
     UserProfileComponent,
     PhoneMaskDirective,
+    ChartsComponent,
   ],
   imports: [
     BrowserModule,

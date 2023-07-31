@@ -15,8 +15,8 @@ import { AccountService } from '../account/services/account.service';
 import { TransactionType } from '../transaction/models/transaction-type';
 import { CashFlowService } from './services/cash-flow.service';
 import { CashFlowFilter } from './models/cash-flow-filter';
-import { Transaction } from '../transaction/models/transaction';
 import { CashFlow } from './models/cash-flow';
+import { subMonths, addMonths  } from 'date-fns';
 
 // See the Moment.js docs for the meaning of these formats:
 // https://momentjs.com/docs/#/displaying/format/
@@ -146,11 +146,11 @@ export class CashFlowComponent implements OnInit {
   }
 
   prevMonth() {
-    console.log(this.form.get('date').value);
+    this.form.get('date').setValue(subMonths(this.form.get('date').value, 1));
   }
 
   nextMonth() {
-    console.log(this.form.get('date').value);
+    this.form.get('date').setValue(addMonths(this.form.get('date').value, 1));
   }
 
   formatter(value: number): string {
