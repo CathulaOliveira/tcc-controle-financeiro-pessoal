@@ -14,17 +14,19 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
             List<Long> accountOriginIds,
             List<Long> accountDestinationIds
     );
-    List<Transaction> findByDateBetweenAndTypeInAndAccountOrigin_IdIn(
+    List<Transaction> findByDateBetweenAndTypeInAndAccountOrigin_IdInAndIsRecurringTransactionEquals(
             LocalDate dateStart,
             LocalDate dateFinish,
             List<TypeTransaction> type,
-            List<Long> accountOriginIds
+            List<Long> accountOriginIds,
+            boolean isRecurringTransaction
     );
-    List<Transaction> findByDateBetweenAndTypeInAndAccountDestination_IdIn(
+    List<Transaction> findByDateBetweenAndTypeInAndAccountDestination_IdInAndIsRecurringTransactionEquals(
             LocalDate dateStart,
             LocalDate dateFinish,
             List<TypeTransaction> type,
-            List<Long> accountDestinationIds
+            List<Long> accountDestinationIds,
+            boolean isRecurringTransaction
     );
     List<Transaction> findByAccountOrigin_User_IdOrAccountDestination_User_Id(
             Long accountOriginUserId, Long accountDestinationId

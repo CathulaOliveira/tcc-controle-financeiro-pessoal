@@ -20,7 +20,6 @@
                     <mat-datepicker #dp
                                     startView="multi-year"
                                     panelClass="example-month-picker">
-                                    (monthSelected)="setMonthAndYear($event, dp)"
                     </mat-datepicker>
                 </mat-form-field>  
                 <mat-icon fontIcon="arrow_right" class="date-margin" (click)="nextMonth()"></mat-icon>
@@ -28,6 +27,7 @@
                 <mat-form-field class="half-width" appearance="outline">
                     <mat-label>Conta</mat-label>
                     <mat-select formControlName="account" [compareWith]="objectComparisonFunction">
+                        <mat-option [value]="null"></mat-option>
                         <mat-option *ngFor="let option of accountOptions" [value]="option">
                             {{option.id}} - {{option.name}}
                         </mat-option>
@@ -37,6 +37,7 @@
                 <mat-form-field class="quarter-width" appearance="outline">
                     <mat-label>Tipo</mat-label>
                     <mat-select formControlName="type">
+                        <mat-option [value]="null"></mat-option>
                         <mat-option *ngFor="let option of typeOptions" [value]="option.value">
                             {{ option.label }}
                         </mat-option>
@@ -46,21 +47,6 @@
         
             <div class="scroll-table">
                 <table mat-table [dataSource]="dataSource">
-            
-                <ng-container matColumnDef="id">
-                    <th mat-header-cell *matHeaderCellDef> Identificador </th>
-                    <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-                </ng-container>
-            
-                <ng-container matColumnDef="date">
-                    <th mat-header-cell *matHeaderCellDef> Data </th>
-                    <td mat-cell *matCellDef="let element"> {{element.date | date:'dd/MM/yyyy'}} </td>
-                </ng-container>
-            
-                <ng-container matColumnDef="description">
-                    <th mat-header-cell *matHeaderCellDef> Descrição </th>
-                    <td mat-cell *matCellDef="let element"> {{element.description}} </td>
-                </ng-container>
             
                 <ng-container matColumnDef="type">
                     <th mat-header-cell *matHeaderCellDef> Tipo </th>
@@ -72,9 +58,24 @@
                     <td mat-cell *matCellDef="let element"> {{element.category.name}} </td>
                 </ng-container>
             
+                <ng-container matColumnDef="description">
+                    <th mat-header-cell *matHeaderCellDef> Descrição </th>
+                    <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+                </ng-container>
+            
+                <ng-container matColumnDef="date">
+                    <th mat-header-cell *matHeaderCellDef> Data de pagamento </th>
+                    <td mat-cell *matCellDef="let element"> {{element.datePaid | date:'dd/MM/yyyy'}} </td>
+                </ng-container>
+            
                 <ng-container matColumnDef="price">
-                    <th mat-header-cell *matHeaderCellDef> Valor </th>
+                    <th mat-header-cell *matHeaderCellDef> Valor Previsto </th>
                     <td mat-cell *matCellDef="let element"> {{element.price}} </td>
+                </ng-container>
+            
+                <ng-container matColumnDef="pricePaid">
+                    <th mat-header-cell *matHeaderCellDef> Valor do pagamento </th>
+                    <td mat-cell *matCellDef="let element"> {{element.pricePaid}} </td>
                 </ng-container>
             
                 <ng-container matColumnDef="status">
@@ -83,12 +84,12 @@
                 </ng-container>
                         
                 <colgroup>
-                    <col matColumnDef="id1" style="width: 15%;">
-                    <col matColumnDef="date2" style="width: 15%;">
-                    <col matColumnDef="description2" style="width: 20%;">
                     <col matColumnDef="type2" style="width: 15%;">
                     <col matColumnDef="category2" style="width: 15%;">
-                    <col matColumnDef="price2" style="width: 10%;">
+                    <col matColumnDef="description2" style="width: 20%;">
+                    <col matColumnDef="date2" style="width: 15%;">
+                    <col matColumnDef="price2" style="width: 12%;">
+                    <col matColumnDef="pricePaid2" style="width: 15%;">
                     <col matColumnDef="status2" style="width: 10%;">
                 </colgroup>
             

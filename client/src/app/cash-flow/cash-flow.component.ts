@@ -16,7 +16,7 @@ import { TransactionType } from '../transaction/models/transaction-type';
 import { CashFlowService } from './services/cash-flow.service';
 import { CashFlowFilter } from './models/cash-flow-filter';
 import { CashFlow } from './models/cash-flow';
-import { subMonths, addMonths  } from 'date-fns';
+import { subMonths, addMonths, monthsInYear  } from 'date-fns';
 
 // See the Moment.js docs for the meaning of these formats:
 // https://momentjs.com/docs/#/displaying/format/
@@ -54,11 +54,8 @@ export class CashFlowComponent implements OnInit {
   form: FormGroup;
   cashFlow: CashFlow = null;
   ELEMENT_DATA: RecurringTransaction[] = [];
-  displayedColumns: string[] = ['id', 'date', 'description', 'type', 'category', 'price', 'status'];
+  displayedColumns: string[] = ['type', 'category',  'description', 'date', 'price', 'pricePaid', 'status'];
   dataSource = new MatTableDataSource<RecurringTransaction>(this.ELEMENT_DATA);
-  date = new FormControl(moment());
-  account = new FormControl(null);
-  TYPE = new FormControl(null);
   accountOptions: Account[] = [];
   typeOptions = [
     { value: TransactionType.ENTRADA, label: 'Entrada' },
@@ -93,6 +90,10 @@ export class CashFlowComponent implements OnInit {
 
   changeForm() {
     this.form.valueChanges.subscribe((values) => {
+      if (moment.isMoment(values.date)) {
+        this.form.get('date').setValue(values.date.toDate());
+        values.date = values.date.toDate();
+      }
       this.listAll(values);
     });
   }
@@ -101,13 +102,13 @@ export class CashFlowComponent implements OnInit {
     let filter: CashFlowFilter = {
       month: null,
       year: null,
-      account: null,
-      type: null
+      accounts: null,
+      type: null,
     };
     if (values != null) {
-      filter.month = values.date?._i?.month + 1;
-      filter.year = values.date?._i?.year;
-      filter.account = [values.account?.id];
+      filter.month = values.date?.getMonth() + 1;
+      filter.year = values.date?.getFullYear();
+      filter.accounts = values.account ? [values.account?.id] : null;
       filter.type = values.type;
     }
     this.cashFlowService.findFilter(filter).subscribe( res => {
@@ -124,14 +125,6 @@ export class CashFlowComponent implements OnInit {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
-
-  setMonthAndYear(normalizedMonthAndYear: moment.Moment, datepicker: MatDatepicker<moment.Moment>) {
-    const ctrlValue = this.date.value!;
-    ctrlValue.month(normalizedMonthAndYear.month());
-    ctrlValue.year(normalizedMonthAndYear.year());
-    this.date.setValue(ctrlValue);
-    datepicker.close();
-  }
   
   getAccounts() {
     this.accountService.findByUserLogged().subscribe( res => {
@@ -146,6 +139,7 @@ export class CashFlowComponent implements OnInit {
   }
 
   prevMonth() {
+    const teste: Date = subMonths(this.form.get('date').value, 1);
     this.form.get('date').setValue(subMonths(this.form.get('date').value, 1));
   }
 

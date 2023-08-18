@@ -2,7 +2,10 @@ package br.edu.utfpr.service;
 
 import br.edu.utfpr.enums.PaymentStatus;
 import br.edu.utfpr.filter.CashFlowFilter;
-import br.edu.utfpr.model.*;
+import br.edu.utfpr.model.Account;
+import br.edu.utfpr.model.CashFlow;
+import br.edu.utfpr.model.RecurringTransaction;
+import br.edu.utfpr.model.Transaction;
 import br.edu.utfpr.service.impl.AccountServiceImpl;
 import br.edu.utfpr.service.impl.RecurringTransactionServiceImpl;
 import br.edu.utfpr.service.impl.TransactionServiceImpl;
@@ -52,6 +55,8 @@ public class CashFlowService {
                 Transaction transaction = transactionService.findByRecurringTransactionAndDateBetween(recurringTransaction.getId(), filter);
                 if (transaction != null) {
                     recurringTransaction.setPaymentStatus(PaymentStatus.EFETUADO);
+                    recurringTransaction.setPricePaid(transaction.getPrice());
+                    recurringTransaction.setDatePaid(transaction.getDate());
                 } else {
                     recurringTransaction.setPaymentStatus(PaymentStatus.PENDENTE);
                 }

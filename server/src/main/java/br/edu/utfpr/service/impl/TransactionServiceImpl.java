@@ -32,11 +32,12 @@ public class TransactionServiceImpl
 
     public BigDecimal calculateEntryByFilterBalance(CashFlowFilter filter) {
         List<Transaction> listTransactions = new ArrayList<>();
-        listTransactions.addAll(transactionRepository.findByDateBetweenAndTypeInAndAccountDestination_IdIn(
+        listTransactions.addAll(transactionRepository.findByDateBetweenAndTypeInAndAccountDestination_IdInAndIsRecurringTransactionEquals(
             filter.getDateStart(),
             filter.getDateFinish(),
             List.of(TypeTransaction.ENTRADA, TypeTransaction.TRANSFERENCIA),
-            filter.getAccounts()
+            filter.getAccounts(),
+            true
         ));
 
         return listTransactions.stream().map(Transaction::getPrice).reduce(BigDecimal.ZERO,BigDecimal::add);
@@ -44,11 +45,12 @@ public class TransactionServiceImpl
 
     public BigDecimal calculateOutputByFilterBalance(CashFlowFilter filter) {
         List<Transaction> listTransactions = new ArrayList<>();
-        listTransactions.addAll(transactionRepository.findByDateBetweenAndTypeInAndAccountOrigin_IdIn(
+        listTransactions.addAll(transactionRepository.findByDateBetweenAndTypeInAndAccountOrigin_IdInAndIsRecurringTransactionEquals(
                 filter.getDateStart(),
                 filter.getDateFinish(),
                 List.of(TypeTransaction.SAIDA, TypeTransaction.TRANSFERENCIA),
-                filter.getAccounts()
+                filter.getAccounts(),
+                true
         ));
         return listTransactions.stream().map(Transaction::getPrice).reduce(BigDecimal.ZERO,BigDecimal::add);
     }
