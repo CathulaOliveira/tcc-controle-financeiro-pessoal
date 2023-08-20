@@ -9,8 +9,10 @@ export interface RecurringTransaction {
     accountDestination: Account;
     category: Category;
     price: number;
+    pricePaid: number;
     description: String;
     type: TransactionType;
     dueDate: String;
+    datePaid: String;
     paymentStatus: PaymentStatus;
 }
