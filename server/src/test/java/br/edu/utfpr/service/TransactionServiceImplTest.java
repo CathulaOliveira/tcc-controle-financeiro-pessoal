@@ -85,7 +85,7 @@ public class TransactionServiceImplTest {
         filter.setMonth(""+LocalDate.now().getMonthValue());
         filter.setYear(""+LocalDate.now().getYear());
         filter.setAccounts(List.of(accountOrigin.getId()));
-        BigDecimal totalEntry = underTest.calculateEntryByFilterBalance(filter);
+        BigDecimal totalEntry = underTest.calculateEntryByCashFlowFilter(filter);
         assertThat(totalEntry).isEqualByComparingTo(new BigDecimal(100.00));
     }
 
@@ -108,45 +108,8 @@ public class TransactionServiceImplTest {
         filter.setMonth(""+LocalDate.now().getMonthValue());
         filter.setYear(""+LocalDate.now().getYear());
         filter.setAccounts(List.of(accountOrigin.getId()));
-        BigDecimal totalOutput = underTest.calculateOutputByFilterBalance(filter);
+        BigDecimal totalOutput = underTest.calculateOutputByCashFlowFilter(filter);
         assertThat(totalOutput).isEqualByComparingTo(new BigDecimal(50.00));
-    }
-
-    @Test
-    void transactionsByAccount() {
-        authenticate();
-        Category category = createCategoryValid();
-
-        Account accountOriginEntry = createAccountValid();
-        Transaction transactionEntry =
-                Transaction.builder()
-                        .description("Teste")
-                        .accountOrigin(accountOriginEntry)
-                        .category(category)
-                        .price(new BigDecimal(50.0))
-                        .date(LocalDate.now())
-                        .type(TypeTransaction.ENTRADA)
-                        .build();
-        underTest.save(transactionEntry);
-
-        Account accountOriginOutput = createAccountValid();
-        Transaction transactionOutput =
-                Transaction.builder()
-                        .description("Teste")
-                        .accountOrigin(accountOriginOutput)
-                        .category(category)
-                        .price(new BigDecimal(50.0))
-                        .date(LocalDate.now())
-                        .type(TypeTransaction.SAIDA)
-                        .build();
-        underTest.save(transactionOutput);
-
-        CashFlowFilter filter = new CashFlowFilter();
-        filter.setMonth(""+LocalDate.now().getMonthValue());
-        filter.setYear(""+LocalDate.now().getYear());
-        filter.setAccounts(List.of(accountOriginEntry.getId()));
-        List<Transaction> transactionsAccountEntry = underTest.listTransactionsByFilterBalance(filter);
-        assertThat(transactionsAccountEntry.size()).isEqualTo(1);
     }
 
     private Category createCategoryValid() {

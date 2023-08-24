@@ -2,6 +2,7 @@ package br.edu.utfpr.service.impl;
 
 import br.edu.utfpr.enums.TypeTransaction;
 import br.edu.utfpr.filter.CashFlowFilter;
+import br.edu.utfpr.filter.DashboardFilter;
 import br.edu.utfpr.model.Transaction;
 import br.edu.utfpr.model.User;
 import br.edu.utfpr.repository.TransactionRepository;
@@ -13,7 +14,6 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -30,7 +30,7 @@ public class TransactionServiceImpl
         return this.transactionRepository;
     }
 
-    public BigDecimal calculateEntryByFilterBalance(CashFlowFilter filter) {
+    public BigDecimal calculateEntryByCashFlowFilter(CashFlowFilter filter) {
         List<Transaction> listTransactions = new ArrayList<>();
         listTransactions.addAll(transactionRepository.findByDateBetweenAndTypeInAndAccountDestination_IdInAndIsRecurringTransactionEquals(
             filter.getDateStart(),
@@ -43,7 +43,7 @@ public class TransactionServiceImpl
         return listTransactions.stream().map(Transaction::getPrice).reduce(BigDecimal.ZERO,BigDecimal::add);
     }
 
-    public BigDecimal calculateOutputByFilterBalance(CashFlowFilter filter) {
+    public BigDecimal calculateOutputByCashFlowFilter(CashFlowFilter filter) {
         List<Transaction> listTransactions = new ArrayList<>();
         listTransactions.addAll(transactionRepository.findByDateBetweenAndTypeInAndAccountOrigin_IdInAndIsRecurringTransactionEquals(
                 filter.getDateStart(),
@@ -55,16 +55,27 @@ public class TransactionServiceImpl
         return listTransactions.stream().map(Transaction::getPrice).reduce(BigDecimal.ZERO,BigDecimal::add);
     }
 
-    public List<Transaction> listTransactionsByFilterBalance(CashFlowFilter filter) {
+    public BigDecimal calculateEntryByDashboardFilter(DashboardFilter filter) {
         List<Transaction> listTransactions = new ArrayList<>();
-        listTransactions.addAll(transactionRepository.findByDateBetweenAndAccountOrigin_IdInOrAndAccountDestination_IdIn(
+        listTransactions.addAll(transactionRepository.findByDateBetweenAndTypeInAndAccountDestination_IdIn(
                 filter.getDateStart(),
                 filter.getDateFinish(),
-                filter.getAccounts(),
+                List.of(TypeTransaction.ENTRADA, TypeTransaction.TRANSFERENCIA),
                 filter.getAccounts()
         ));
-        listTransactions.sort(Comparator.comparing(Transaction::getDate));
-        return listTransactions;
+
+        return listTransactions.stream().map(Transaction::getPrice).reduce(BigDecimal.ZERO,BigDecimal::add);
+    }
+
+    public BigDecimal calculateOutputByDashboardFilter(DashboardFilter filter) {
+        List<Transaction> listTransactions = new ArrayList<>();
+        listTransactions.addAll(transactionRepository.findByDateBetweenAndTypeInAndAccountOrigin_IdIn(
+                filter.getDateStart(),
+                filter.getDateFinish(),
+                List.of(TypeTransaction.SAIDA, TypeTransaction.TRANSFERENCIA),
+                filter.getAccounts()
+        ));
+        return listTransactions.stream().map(Transaction::getPrice).reduce(BigDecimal.ZERO,BigDecimal::add);
     }
 
     public List<Transaction> findByUserLogged() {

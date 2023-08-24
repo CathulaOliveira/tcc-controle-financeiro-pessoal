@@ -47,7 +47,7 @@ export class TransactionFormComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.createForm();
-    this.getCategoryes();
+    this.getCategories();
     this.getAccounts();
     this.getRecurringTransactions();
     this.getGoals();
@@ -201,7 +201,7 @@ export class TransactionFormComponent implements OnInit, OnDestroy {
     this.router.navigate(['transaction']);
   }
 
-  getCategoryes() {
+  getCategories() {
     this.categoryService.findAll().subscribe( res => {
       this.categoryOptions = res;
     }, erro => {

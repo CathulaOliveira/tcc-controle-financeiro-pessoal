@@ -16,7 +16,7 @@ public interface RecurringTransactionRepository extends JpaRepository<RecurringT
             List<Long> accountOriginUserIds, List<Long> accountDestinationIds
     );
 
-     @Query(value = "select rt from RecurringTransaction as rt where rt.type=:type and (rt.accountOrigin.id in (:accountOriginUserIds) or rt.accountDestination.id in (:accountDestinationIds))")
+    @Query(value = "select rt from RecurringTransaction as rt where rt.type=:type and (rt.accountOrigin.id in (:accountOriginUserIds) or rt.accountDestination.id in (:accountDestinationIds))")
     List<RecurringTransaction> findByTypeAndAccountOrigin_IdInOrAccountDestination_IdIn(
             TypeTransaction type, List<Long> accountOriginUserIds, List<Long> accountDestinationIds
     );

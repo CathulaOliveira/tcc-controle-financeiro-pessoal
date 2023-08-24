@@ -14,8 +14,11 @@ export class ChartsComponent implements OnInit {
   }
 
   desenharGraficos() {
+    // total gasto por categoria
     this.desenharGraficoPizza();
+    // total por tipo de transações
     this.desenharGraficoColunas();
+    // Desempenho no mes
     this.desenharGraficoLinhas();
   }
 

@@ -139,7 +139,6 @@ export class CashFlowComponent implements OnInit {
   }
 
   prevMonth() {
-    const teste: Date = subMonths(this.form.get('date').value, 1);
     this.form.get('date').setValue(subMonths(this.form.get('date').value, 1));
   }
 

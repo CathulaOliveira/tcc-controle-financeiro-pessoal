@@ -39,6 +39,10 @@ public class AccountServiceImpl
         return findOne(accountId).getBalance();
     }
 
+    public BigDecimal getBalanceByAccounts(List<Long> accountsId) {
+        return accountRepository.getBalanceByAccounts(accountsId);
+    }
+
     // culpa do Aspect
     @Override
     public Account save(Account entity) {

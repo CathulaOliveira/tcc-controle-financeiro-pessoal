@@ -11,20 +11,53 @@ img {
     margin-left: 15rem;
 }
 
-.half-width {
-  width: 35%;
-  margin-right: 2rem;
-}
-
-.quarter-width {
-  width: 30%;
+.filter-width {
+  width: 22%;
   margin-right: 2rem;
 }
 
 .date-width {
-  width: 20%;
+  width: 16%;
 }
 
 .date-margin {
   margin-right: 2rem;
+}
+
+.totalizer-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.totalizer-card {
+  width: 23%; /* Ajuste a largura conforme necessário */
+  border: 1px solid #ccc;
+  height: 70px;
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Espaço entre label e valor */
+}
+
+.totalizer-value {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 28px; /* Tamanho maior para o valor */
+  flex-grow: 1; /* Faz o valor ocupar espaço vertical disponível */
+}
+.total {
+  background-color: #7EB9DA;
+}
+
+.entry {
+  background-color: #7DCA71;
+}
+
+.out {
+  background-color: #FDA094;
+}
+
+.balance {
+  background-color: #f7e18c;
 }

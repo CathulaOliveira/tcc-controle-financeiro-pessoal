@@ -35,9 +35,9 @@ public class CashFlowService {
         cashFlow.setTransactions(transactions);
 
         BigDecimal totalEntradasPrevistas = recurringTransactionService.calculateEntryByFilterBalance(filter);
-        BigDecimal totalEntradasRealizadas = transactionService.calculateEntryByFilterBalance(filter);
+        BigDecimal totalEntradasRealizadas = transactionService.calculateEntryByCashFlowFilter(filter);
         BigDecimal totalSaidasPrevistas = recurringTransactionService.calculateOutputByFilterBalance(filter);
-        BigDecimal totalSaidasRealizadas = transactionService.calculateOutputByFilterBalance(filter);
+        BigDecimal totalSaidasRealizadas = transactionService.calculateOutputByCashFlowFilter(filter);
 
         cashFlow.setTotalEntradasPrevistas(totalEntradasPrevistas);
         cashFlow.setTotalEntradasRealizadas(totalEntradasRealizadas);

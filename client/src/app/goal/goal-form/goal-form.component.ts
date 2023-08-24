@@ -34,7 +34,7 @@ export class GoalFormComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.createForm();
-    this.getCategoryes();
+    this.getCategories();
     this.getTypeGoal();
     this.getItemSelected();
   }
@@ -114,7 +114,7 @@ export class GoalFormComponent implements OnInit, OnDestroy {
     this.router.navigate(['goal']);
   }
 
-  getCategoryes() {
+  getCategories() {
     this.categoryService.findAll().subscribe( res => {
       this.categoryOptions = res;
     }, erro => {
