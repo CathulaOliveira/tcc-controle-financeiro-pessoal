@@ -32,6 +32,10 @@ public class DashboardService {
         dashboard.setTotalSaidas(totalSaidas);
         dashboard.setTotalBalanco(totalEntradas.subtract(totalSaidas));
 
+        dashboard.setGraficoPizza(transactionService.countTransactionsByCategory(filter));
+        dashboard.setGraficoColuna(transactionService.sumTransactionsByType(filter));
+        dashboard.setGraficoBarra(transactionService.sumTransactionsByCategory(filter));
+
         return dashboard;
     }
 

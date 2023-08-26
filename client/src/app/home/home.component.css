@@ -12,12 +12,12 @@ img {
 }
 
 .filter-width {
-  width: 22%;
+  width: 70%;
   margin-right: 2rem;
 }
 
 .date-width {
-  width: 16%;
+  width: 20%;
 }
 
 .date-margin {
@@ -32,7 +32,7 @@ img {
 .totalizer-card {
   width: 23%; /* Ajuste a largura conforme necessário */
   border: 1px solid #ccc;
-  height: 70px;
+  height: 80px;
   padding: 6px;
   display: flex;
   flex-direction: column;

@@ -3,6 +3,7 @@ package br.edu.utfpr.service.impl;
 import br.edu.utfpr.enums.TypeTransaction;
 import br.edu.utfpr.filter.CashFlowFilter;
 import br.edu.utfpr.filter.DashboardFilter;
+import br.edu.utfpr.model.Chart;
 import br.edu.utfpr.model.Transaction;
 import br.edu.utfpr.model.User;
 import br.edu.utfpr.repository.TransactionRepository;
@@ -85,6 +86,18 @@ public class TransactionServiceImpl
 
     public Transaction findByRecurringTransactionAndDateBetween(Long id, CashFlowFilter filter) {
         return transactionRepository.findByRecurringTransaction_IdAndDateBetween(id, filter.getDateStart(), filter.getDateFinish());
+    }
+
+    public List<Chart> countTransactionsByCategory(DashboardFilter filter) {
+        return transactionRepository.countTransactionsByCategory(filter.getDateStart(), filter.getDateFinish(), filter.getAccounts(), filter.getAccounts());
+    }
+
+    public List<Chart> sumTransactionsByType(DashboardFilter filter) {
+        return transactionRepository.sumTransactionsByType(filter.getDateStart(), filter.getDateFinish(), filter.getAccounts(), filter.getAccounts());
+    }
+
+    public List<Chart> sumTransactionsByCategory(DashboardFilter filter) {
+        return transactionRepository.sumTransactionsByCategory(filter.getDateStart(), filter.getDateFinish(), filter.getAccounts(), filter.getAccounts());
     }
 
     // culpa do Aspect

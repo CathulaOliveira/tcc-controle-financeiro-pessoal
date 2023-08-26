@@ -135,9 +135,7 @@ export class HomeComponent implements OnInit {
       filter.categories = values.category ? [values.category?.id] : null;
       filter.type = values.type;
     }
-    console.log(filter);
     this.dashboardService.findFilter(filter).subscribe( res => {
-      console.log(res);
       this.dashboard = res;
     }, erro => {
       this.snackBar.open('Erro ao listar registros. ' + erro.message, 'snackbar-warning');

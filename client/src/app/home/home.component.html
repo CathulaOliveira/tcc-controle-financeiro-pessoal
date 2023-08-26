@@ -23,7 +23,7 @@
             </mat-select>
         </mat-form-field>
 
-        <mat-form-field class="filter-width" appearance="outline">
+        <!-- <mat-form-field class="filter-width" appearance="outline">
             <mat-label>Tipo</mat-label>
             <mat-select formControlName="type">
                 <mat-option [value]="null"></mat-option>
@@ -41,7 +41,7 @@
                     {{option.id}} - {{option.name}}
                 </mat-option>
             </mat-select>
-        </mat-form-field>
+        </mat-form-field> -->
     </form>
     <mat-card-content>
         <div class="totalizer-container">
@@ -62,7 +62,7 @@
                 <div>Balanço</div>
             </div>
         </div>
-        <app-charts></app-charts>
+        <app-charts [dadosGraficoPizza]="dashboard.graficoPizza" [dadosGraficoColuna]="dashboard.graficoColuna" [dadosGraficoBarra]="dashboard.graficoBarra"></app-charts>
     </mat-card-content>
 </mat-card>
   

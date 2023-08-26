@@ -14,5 +14,5 @@ public class Dashboard {
     private BigDecimal totalBalanco;
     private List<Chart> graficoPizza;
     private List<Chart> graficoColuna;
-    private List<Chart> graficoLinha;
+    private List<Chart> graficoBarra;
 }
