@@ -1,0 +1,5 @@
+.chart-container {
+    position: relative; /* Permite posicionar elementos filhos dentro */
+    width: 400px; /* Ajuste conforme necessário */
+    height: 300px; /* Ajuste conforme necessário */
+}
