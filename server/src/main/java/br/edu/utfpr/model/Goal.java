@@ -1,5 +1,6 @@
 package br.edu.utfpr.model;
 
+import br.edu.utfpr.enums.TypeTransaction;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -30,6 +31,10 @@ public class Goal {
     @NotNull
     @Size(max = 250)
     private String description;
+
+    @NotNull
+    @Column(name = "type_transaction_expected")
+    private TypeTransaction typeTransactionExpected;
 
     @NotNull
     @ManyToOne

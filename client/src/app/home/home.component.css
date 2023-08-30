@@ -12,7 +12,7 @@ img {
 }
 
 .filter-width {
-  width: 70%;
+  width: 65%;
   margin-right: 2rem;
 }
 
@@ -32,7 +32,7 @@ img {
 .totalizer-card {
   width: 23%; /* Ajuste a largura conforme necessário */
   border: 1px solid #ccc;
-  height: 80px;
+  height: 75px;
   padding: 6px;
   display: flex;
   flex-direction: column;

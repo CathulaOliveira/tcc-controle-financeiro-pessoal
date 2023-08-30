@@ -54,7 +54,9 @@ import { UserRegisterComponent } from './user/user-register/user-register.compon
 import { UserProfileComponent } from './user/user-profile/user-profile.component';
 import { PhoneMaskDirective } from './utils/phone-mask.directive';
 import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS, MAT_MOMENT_DATE_FORMATS } from '@angular/material-moment-adapter';
-import { ChartsComponent } from './charts/charts.component';
+import { HomeChartsComponent } from './home/home-charts/home-charts.component';
+import { GoalDashboardComponent } from './goal-dashboard/goal-dashboard.component';
+import { GoalChartsComponent } from './goal-dashboard/goal-charts/goal-charts.component';
 
 @NgModule({
   declarations: [
@@ -82,7 +84,9 @@ import { ChartsComponent } from './charts/charts.component';
     PaymentStatusOptionsPipe,
     UserProfileComponent,
     PhoneMaskDirective,
-    ChartsComponent,
+    HomeChartsComponent,
+    GoalDashboardComponent,
+    GoalChartsComponent
   ],
   imports: [
     BrowserModule,

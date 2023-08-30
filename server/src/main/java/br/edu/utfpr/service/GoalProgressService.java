@@ -1,7 +1,6 @@
 package br.edu.utfpr.service;
 
 import br.edu.utfpr.enums.TypeTransaction;
-import br.edu.utfpr.model.Account;
 import br.edu.utfpr.model.Goal;
 import br.edu.utfpr.model.Transaction;
 import lombok.RequiredArgsConstructor;
@@ -20,16 +19,16 @@ public class GoalProgressService {
             Goal goal = goalService.findOne(transaction.getGoal().getId());
             switch (transaction.getType()) {
                 case ENTRADA -> {
-                    if (goal.getType().getType().equals(TypeTransaction.ENTRADA)) {
+                    if (goal.getTypeTransactionExpected().equals(TypeTransaction.ENTRADA)) {
                         somaProgresso(transaction, goal);
-                    } else if (goal.getType().getType().equals(TypeTransaction.SAIDA)) {
+                    } else if (goal.getTypeTransactionExpected().equals(TypeTransaction.SAIDA)) {
                         subtraiProgresso(transaction, goal);
                     }
                 }
                 case SAIDA -> {
-                    if (goal.getType().getType().equals(TypeTransaction.ENTRADA)) {
+                    if (goal.getTypeTransactionExpected().equals(TypeTransaction.ENTRADA)) {
                         subtraiProgresso(transaction, goal);
-                    } else if (goal.getType().getType().equals(TypeTransaction.SAIDA)) {
+                    } else if (goal.getTypeTransactionExpected().equals(TypeTransaction.SAIDA)) {
                         somaProgresso(transaction, goal);
                     }
                 }
@@ -43,16 +42,16 @@ public class GoalProgressService {
             Goal goal = goalService.findOne(transaction.getGoal().getId());
             switch (transaction.getType()) {
                 case ENTRADA -> {
-                    if (goal.getType().getType().equals(TypeTransaction.ENTRADA)) {
+                    if (goal.getTypeTransactionExpected().equals(TypeTransaction.ENTRADA)) {
                         subtraiProgresso(transaction, goal);
-                    } else if (goal.getType().getType().equals(TypeTransaction.SAIDA)) {
+                    } else if (goal.getTypeTransactionExpected().equals(TypeTransaction.SAIDA)) {
                         somaProgresso(transaction, goal);
                     }
                 }
                 case SAIDA -> {
-                    if (goal.getType().getType().equals(TypeTransaction.ENTRADA)) {
+                    if (goal.getTypeTransactionExpected().equals(TypeTransaction.ENTRADA)) {
                         somaProgresso(transaction, goal);
-                    } else if (goal.getType().getType().equals(TypeTransaction.SAIDA)) {
+                    } else if (goal.getTypeTransactionExpected().equals(TypeTransaction.SAIDA)) {
                         subtraiProgresso(transaction, goal);
                     }
                 }

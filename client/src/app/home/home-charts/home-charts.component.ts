@@ -2,11 +2,11 @@ import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/cor
 import { ChartType } from 'angular-google-charts';
 
 @Component({
-  selector: 'app-charts',
-  templateUrl: './charts.component.html',
-  styleUrls: ['./charts.component.css']
+  selector: 'app-home-charts',
+  templateUrl: './home-charts.component.html',
+  styleUrls: ['./home-charts.component.css']
 })
-export class ChartsComponent implements OnInit, OnChanges {
+export class HomeChartsComponent implements OnInit, OnChanges {
   
   @Input() dadosGraficoPizza: any;
   @Input() dadosGraficoColuna: any;

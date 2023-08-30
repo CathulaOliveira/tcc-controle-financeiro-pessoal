@@ -30,6 +30,6 @@ public class TransactionAspectService {
     public void beforeTransactionDelete(JoinPoint joinPoint, Long id) {
         Transaction transaction = transactionService.findOne(id);
         balanceService.atualizarSaldoContaEmExclusaoDeTranferencia(transaction);
-        goalProgressService.atualizarProgressoMetaEmInclusaoDeTranferencia(transaction);
+        goalProgressService.atualizarProgressoMetaEmExclusaoDeTranferencia(transaction);
     }
 }

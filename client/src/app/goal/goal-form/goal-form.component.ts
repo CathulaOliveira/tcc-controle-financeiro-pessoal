@@ -9,6 +9,7 @@ import { Category } from 'src/app/category/models/cotegory';
 import { CategoryService } from 'src/app/category/services/category.service';
 import { TypeGoal } from 'src/app/type-goal/models/type-goal';
 import { TypeGoalService } from 'src/app/type-goal/services/type-goal.service';
+import { TransactionType } from 'src/app/transaction/models/transaction-type';
 
 @Component({
   selector: 'app-goal-form',
@@ -22,6 +23,10 @@ export class GoalFormComponent implements OnInit, OnDestroy {
   idRegistro = 'Novo registro';
   typeGoalOptions: TypeGoal[] = [];
   categoryOptions: Category[] = [];
+  typeTransactionOptions = [
+    { value: TransactionType.ENTRADA, label: 'Entrada' },
+    { value: TransactionType.SAIDA, label: 'Saída' },
+  ];
   
   constructor(
     private service: GoalService,
@@ -29,7 +34,6 @@ export class GoalFormComponent implements OnInit, OnDestroy {
     private typeGoalService: TypeGoalService,
     private snackBar: SnackbarService,
     private router: Router,
-    private cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit(): void {
@@ -51,7 +55,8 @@ export class GoalFormComponent implements OnInit, OnDestroy {
       category: new FormControl(null, Validators.required),
       startDate: new FormControl(null),
       endDate: new FormControl(null),
-      price: new FormControl(null)
+      price: new FormControl(null),
+      typeTransactionExpected: new FormControl(null, Validators.required),
     });
   }
 

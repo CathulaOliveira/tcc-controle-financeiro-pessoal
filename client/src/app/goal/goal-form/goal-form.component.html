@@ -46,6 +46,18 @@
               Categoria é obrigatório.
             </mat-error>
         </mat-form-field>
+        
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Tipo de transação esperada</mat-label>
+          <mat-select formControlName="typeTransactionExpected">
+            <mat-option *ngFor="let option of typeTransactionOptions" [value]="option.value">
+              {{ option.label }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="form.get('type').hasError('required')">
+            Tipo de transação esperada é obrigatório.
+          </mat-error>
+        </mat-form-field>
 
         <mat-form-field class="half-width" appearance="outline">
             <mat-label>Data de início</mat-label>

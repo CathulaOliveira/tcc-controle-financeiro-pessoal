@@ -7,10 +7,6 @@
     <mat-card-content>
         <div class="table-container container-color">
             <form class="form" [formGroup]="form">
-                <mat-form-field appearance="standard">
-                    <mat-label>Filtro</mat-label>
-                    <input matInput (keyup)="applyFilter($event)">
-                </mat-form-field>
 
                 <mat-icon fontIcon="arrow_left" (click)="prevMonth()"></mat-icon>
                 <mat-form-field class="date-width" appearance="outline">

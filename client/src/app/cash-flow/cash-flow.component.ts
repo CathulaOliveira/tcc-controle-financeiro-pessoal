@@ -130,7 +130,7 @@ export class CashFlowComponent implements OnInit {
     this.accountService.findByUserLogged().subscribe( res => {
       this.accountOptions = res;
     }, erro => {
-      this.snackBar.open('Erro ao listar Contas. ' + erro.message, 'snackbar-warning')
+      this.snackBar.open('Erro ao listar Contas Bancárias. ' + erro.message, 'snackbar-warning')
     });
   }
 

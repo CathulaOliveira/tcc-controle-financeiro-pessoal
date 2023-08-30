@@ -18,6 +18,7 @@ import { TypeGoalListComponent } from './type-goal/type-goal-list/type-goal-list
 import { TypeGoalFormComponent } from './type-goal/type-goal-form/type-goal-form.component';
 import { UserRegisterComponent } from './user/user-register/user-register.component';
 import { UserProfileComponent } from './user/user-profile/user-profile.component';
+import { GoalDashboardComponent } from './goal-dashboard/goal-dashboard.component';
 
 const routes: Routes = [
   {
@@ -35,6 +36,7 @@ const routes: Routes = [
       {path: 'category-form', component: CategoryFormComponent},
       {path: 'goal', component: GoalListComponent},
       {path: 'goal-form', component: GoalFormComponent},
+      {path: 'goal-dashboard', component: GoalDashboardComponent},
       {path: 'transaction', component: TransactionListComponent},
       {path: 'transaction-form', component: TransactionFormComponent},
       {path: 'transaction-recurring-form', component: TransactionRecurringFormComponent},

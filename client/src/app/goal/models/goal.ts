@@ -8,4 +8,5 @@ export interface Goal {
     startDate: String;
     endDate: String;
     price: number;
+    typeTransactionExpected: String;
 }

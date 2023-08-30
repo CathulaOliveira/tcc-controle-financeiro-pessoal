@@ -1,6 +1,6 @@
 .card {
     width: 95%;
-    height: 82%;
+    height: 80%;
     margin: .8rem auto; 
     background-color: rgb(235, 235, 235);
 }
@@ -13,10 +13,9 @@ table {
     width: 100%;
 }
 
-
 /* tamanho da grid alterar aqui para ajustar a tela */
 .scroll-table {
-    height: 250px;
+    height: 265px;
     overflow-y: auto;
 }
 
@@ -27,12 +26,11 @@ mat-form-field {
 .table-container {
     padding-left: 1rem;
     padding-right: 1rem;
-    margin-bottom: 10px;
+    padding-top: 1rem;
 }
 
 .list-container {
     margin-top: 10px;
-    margin-bottom: 10px;
 }
 
 .rotate-90 {
