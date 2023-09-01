@@ -1,0 +1,10 @@
+.card {
+    width: 95%;
+    height: 80%;
+    margin: .8rem auto; 
+    background-color: rgb(235, 235, 235);
+}
+
+.full-width {
+    width: 100%; 
+}

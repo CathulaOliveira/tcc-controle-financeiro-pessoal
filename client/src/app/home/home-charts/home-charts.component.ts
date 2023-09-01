@@ -1,5 +1,4 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { ChartType } from 'angular-google-charts';
 
 @Component({
   selector: 'app-home-charts',
@@ -43,7 +42,7 @@ export class HomeChartsComponent implements OnInit, OnChanges {
     data.addColumn('string', 'Categoria');
     data.addColumn('number', 'Quantidade de transações');
 
-    this.dadosGraficoPizza.forEach(item => {
+    this.dadosGraficoPizza?.forEach(item => {
       data.addRow([item.label, item.value]);
     });
   
@@ -61,7 +60,7 @@ export class HomeChartsComponent implements OnInit, OnChanges {
     data.addColumn('string', 'Tipo');
     data.addColumn('number', 'Valor');
 
-    this.dadosGraficoColuna.forEach(item => {
+    this.dadosGraficoColuna?.forEach(item => {
       data.addRow([item.label, item.valueDecimal]);
     });
 
@@ -102,7 +101,7 @@ export class HomeChartsComponent implements OnInit, OnChanges {
     data.addColumn('number', 'Total de Entradas');
     data.addColumn('number', 'Total de Saídas');
   
-    this.dadosGraficoBarra.forEach(item => {
+    this.dadosGraficoBarra?.forEach(item => {
       data.addRow([
         item.label,
         item.totalEntradas,

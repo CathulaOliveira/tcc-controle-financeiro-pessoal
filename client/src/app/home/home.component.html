@@ -46,23 +46,23 @@
     <mat-card-content>
         <div class="totalizer-container">
             <div class="totalizer-card total">
-                <div class="totalizer-value">R$ {{ dashboard.totalSaldo }}</div>
+                <div class="totalizer-value">R$ {{ dashboard?.totalSaldo }}</div>
                 <div>Saldo atual</div>
             </div>
             <div class="totalizer-card entry">
-                <div class="totalizer-value">R$ {{ dashboard.totalEntradas }}</div>
+                <div class="totalizer-value">R$ {{ dashboard?.totalEntradas }}</div>
                 <div>Entradas</div>
             </div>
             <div class="totalizer-card out">
-                <div class="totalizer-value">R$ {{ dashboard.totalSaidas }}</div>
+                <div class="totalizer-value">R$ {{ dashboard?.totalSaidas }}</div>
                 <div>Saídas</div>
             </div>
             <div class="totalizer-card balance">
-                <div class="totalizer-value">R$ {{ dashboard.totalBalanco }}</div>
+                <div class="totalizer-value">R$ {{ dashboard?.totalBalanco }}</div>
                 <div>Balanço</div>
             </div>
         </div>
-        <app-home-charts [dadosGraficoPizza]="dashboard.graficoPizza" [dadosGraficoColuna]="dashboard.graficoColuna" [dadosGraficoBarra]="dashboard.graficoBarra"></app-home-charts>
+        <app-home-charts [dadosGraficoPizza]="dashboard?.graficoPizza" [dadosGraficoColuna]="dashboard?.graficoColuna" [dadosGraficoBarra]="dashboard?.graficoBarra"></app-home-charts>
     </mat-card-content>
 </mat-card>
   

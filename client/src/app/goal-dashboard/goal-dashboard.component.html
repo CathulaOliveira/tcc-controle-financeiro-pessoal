@@ -1,1 +1,17 @@
-<p>goal-dashboard works!</p>
+<mat-card class="card mat-elevation-z8">
+    <form class="form" [formGroup]="form">        
+        <mat-form-field class="full-width" appearance="outline">
+            <mat-label>Meta</mat-label>
+            <mat-select formControlName="goal" [compareWith]="objectComparisonFunction">
+                <mat-option *ngFor="let option of goalOptions" [value]="option">
+                    {{option.id}} - {{option.description}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </form>
+    <mat-card-content>
+        <!-- <app-home-charts [dadosGraficoPizza]="dashboard.graficoPizza" [dadosGraficoColuna]="dashboard.graficoColuna" [dadosGraficoBarra]="dashboard.graficoBarra"></app-home-charts> -->
+        <app-goal-charts></app-goal-charts>
+    </mat-card-content>
+</mat-card>
+  
