@@ -57,6 +57,7 @@ import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS, MAT_MOMENT_DATE_FOR
 import { HomeChartsComponent } from './home/home-charts/home-charts.component';
 import { GoalDashboardComponent } from './goal-dashboard/goal-dashboard.component';
 import { GoalChartsComponent } from './goal-dashboard/goal-charts/goal-charts.component';
+import { GoogleChartsModule } from 'angular-google-charts';
 
 @NgModule({
   declarations: [
@@ -117,6 +118,7 @@ import { GoalChartsComponent } from './goal-dashboard/goal-charts/goal-charts.co
     MatGridListModule,
     MatTooltipModule,
     MatMenuModule,
+    GoogleChartsModule
   ],
   providers: [AuthInterceptorProvider,  
     {provide: MAT_DATE_LOCALE, useValue: 'pt-BR'}, 
