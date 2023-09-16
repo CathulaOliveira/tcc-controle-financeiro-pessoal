@@ -115,7 +115,7 @@ export class HomeChartsComponent implements OnInit, OnChanges {
       hAxis: { title: 'Valor' },
       seriesType: 'bars',
       series: { 1: { type: 'bars' } },
-      height: this.dadosGraficoPizza.length * 100 + 100 // Ajustar a altura com base no número de categorias
+      height: this.dadosGraficoPizza ? this.dadosGraficoPizza?.length * 100 + 100 : 0 // Ajustar a altura com base no número de categorias
     
     };
   

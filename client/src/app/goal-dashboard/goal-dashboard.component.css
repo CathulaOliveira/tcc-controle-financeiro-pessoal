@@ -8,3 +8,24 @@
 .full-width {
     width: 100%; 
 }
+
+.progress-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid #ccc;
+    padding: 16px;
+    border-radius: 4px;
+    margin-bottom: 12px;
+}
+
+.mat-progress-bar {
+    width: 100%;
+    margin-bottom: 8px;
+}
+
+.progress-label {
+    font-weight: bold;
+}
+
+  

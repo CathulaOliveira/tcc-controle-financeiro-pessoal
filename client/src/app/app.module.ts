@@ -58,6 +58,7 @@ import { HomeChartsComponent } from './home/home-charts/home-charts.component';
 import { GoalDashboardComponent } from './goal-dashboard/goal-dashboard.component';
 import { GoalChartsComponent } from './goal-dashboard/goal-charts/goal-charts.component';
 import { GoogleChartsModule } from 'angular-google-charts';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 @NgModule({
   declarations: [
@@ -118,7 +119,8 @@ import { GoogleChartsModule } from 'angular-google-charts';
     MatGridListModule,
     MatTooltipModule,
     MatMenuModule,
-    GoogleChartsModule
+    GoogleChartsModule,
+    MatProgressBarModule
   ],
   providers: [AuthInterceptorProvider,  
     {provide: MAT_DATE_LOCALE, useValue: 'pt-BR'}, 

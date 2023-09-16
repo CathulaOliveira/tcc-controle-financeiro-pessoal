@@ -13,6 +13,7 @@ export class GoalDashboardComponent implements OnInit {
 
   form: FormGroup;
   goalOptions: Goal[] = [];
+  progressValue = 40;
 
   constructor(
     private snackBar: SnackbarService,
