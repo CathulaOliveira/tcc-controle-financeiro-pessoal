@@ -5,6 +5,7 @@ import br.edu.utfpr.model.RecurringTransaction;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface RecurringTransactionRepository extends JpaRepository<RecurringTransaction, Long> {
@@ -28,5 +29,8 @@ public interface RecurringTransactionRepository extends JpaRepository<RecurringT
     List<RecurringTransaction> findByTypeInAndAccountDestination_IdIn(
             List<TypeTransaction> type,
             List<Long> accountDestinationIds
+    );
+    List<RecurringTransaction> findByDueDateEquals(
+            LocalDate date
     );
 }

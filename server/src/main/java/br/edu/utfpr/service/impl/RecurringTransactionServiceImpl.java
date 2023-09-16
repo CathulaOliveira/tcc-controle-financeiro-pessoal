@@ -12,6 +12,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,5 +67,9 @@ public class RecurringTransactionServiceImpl
                 filter.getAccounts()
         ));
         return listTransactions.stream().map(RecurringTransaction::getPrice).reduce(BigDecimal.ZERO,BigDecimal::add);
+    }
+
+    public List<RecurringTransaction> findByDueDate() {
+        return recurringTransactionRepository.findByDueDateEquals(LocalDate.now());
     }
 }

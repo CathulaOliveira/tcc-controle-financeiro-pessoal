@@ -57,7 +57,6 @@ public class RecurringTransaction {
     @Column(name = "due_date")
     private LocalDate dueDate;
 
-    @NotNull
     @Column(name = "date_paid")
     private LocalDate datePaid;
 

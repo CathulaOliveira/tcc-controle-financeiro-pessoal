@@ -2,9 +2,8 @@ package br.edu.utfpr;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
-@EnableAspectJAutoProxy
+//@EnableAspectJAutoProxy
 @SpringBootApplication
 public class ServerApplication {
 
