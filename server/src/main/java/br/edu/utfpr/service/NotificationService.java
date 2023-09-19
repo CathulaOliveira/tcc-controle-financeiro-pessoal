@@ -1,4 +1,4 @@
-package br.edu.utfpr.notification.service;
+package br.edu.utfpr.service;
 
 import br.edu.utfpr.model.RecurringTransaction;
 import br.edu.utfpr.notification.whatsapp.SendWhatsAppMessageService;

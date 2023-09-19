@@ -1,6 +1,6 @@
 package br.edu.utfpr.notification.schedule;
 
-import br.edu.utfpr.notification.service.NotificationService;
+import br.edu.utfpr.service.NotificationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
