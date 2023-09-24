@@ -2,18 +2,19 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { API_CONFIG } from 'src/app/config/api.config';
-import { CashFlow } from '../models/cash-flow';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CashFlowService {
+export class ReportService {
 
   constructor(
     private http: HttpClient,
   ) { }
 
-  findFilter(filter): Observable<CashFlow> {
-    return this.http.post<CashFlow>(`${API_CONFIG.baseUrl}/cash-flow`, filter)
+  generate(): Observable<Blob> {
+    return this.http.get(`${API_CONFIG.baseUrl}/report/generate`, {
+      responseType: 'blob'
+    });
   }
 }

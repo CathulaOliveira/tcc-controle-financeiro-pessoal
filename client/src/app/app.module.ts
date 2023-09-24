@@ -59,6 +59,7 @@ import { GoalDashboardComponent } from './goal-dashboard/goal-dashboard.componen
 import { GoalChartsComponent } from './goal-dashboard/goal-charts/goal-charts.component';
 import { GoogleChartsModule } from 'angular-google-charts';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { ReportComponent } from './report/report.component';
 
 @NgModule({
   declarations: [
@@ -88,7 +89,8 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
     PhoneMaskDirective,
     HomeChartsComponent,
     GoalDashboardComponent,
-    GoalChartsComponent
+    GoalChartsComponent,
+    ReportComponent
   ],
   imports: [
     BrowserModule,
