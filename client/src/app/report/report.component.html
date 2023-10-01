@@ -1,1 +1,58 @@
-<button (click)="generateReport()">Gerar Relatório</button>
+<mat-card class="card mat-elevation-z8">
+
+    <mat-card-header>
+        <mat-card-title>Relatórios</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+        <div class="table-container container-color">
+            <form class="form" [formGroup]="form">
+
+                <mat-form-field class="quarter-width" appearance="outline">
+                    <mat-label>Data inicial</mat-label>
+                    <input matInput [matDatepicker]="picker1" formControlName="dateInit">
+                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                    <mat-datepicker #picker1></mat-datepicker>
+                </mat-form-field>  
+                
+                <mat-form-field class="quarter-width" appearance="outline">
+                    <mat-label>Data final</mat-label>
+                    <input matInput [matDatepicker]="picker2" formControlName="dateFinish">
+                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                    <mat-datepicker #picker2></mat-datepicker>
+                </mat-form-field>  
+
+                <mat-form-field class="quarter-width" appearance="outline">
+                    <mat-label>Tipo</mat-label>
+                    <mat-select formControlName="type" multiple>
+                        <mat-option *ngFor="let option of typeOptions" [value]="option.value">
+                            {{ option.label }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Conta</mat-label>
+                    <mat-select formControlName="account" [compareWith]="objectComparisonFunction" multiple>
+                        <mat-option *ngFor="let option of accountOptions" [value]="option.id">
+                            {{option.id}} - {{option.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                
+                <mat-form-field appearance="outline">
+                    <mat-label>Categoria</mat-label>
+                    <mat-select formControlName="category" [compareWith]="objectComparisonFunction" multiple>
+                        <mat-option *ngFor="let option of categoryOptions" [value]="option.id">{{option.id}} - {{option.name}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                
+                <div class="button-container">
+                    <button mat-raised-button color="primary" (click)="generateReport()">Gerar Relatório</button>
+                    <div class="flex-spacer"></div>
+                    <button mat-raised-button color="primary" (click)="clearFilter()">Limpar filtros</button>
+                </div>
+            </form>
+        </div>  
+    </mat-card-content>
+  </mat-card>

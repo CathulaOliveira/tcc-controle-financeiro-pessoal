@@ -1,0 +1,33 @@
+.card {
+    width: 95%;
+    height: 80%;
+    margin: .8rem auto; 
+    background-color: rgb(235, 235, 235);
+}
+
+.container-color {
+    background-color: white;
+}
+ 
+mat-form-field {
+    width: 100%; 
+}
+  
+.table-container {
+    padding: 1rem;
+}
+
+.quarter-width {
+    width: 30%;
+    margin-right: 2rem;
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.flex-spacer {
+    flex: 1;
+}
