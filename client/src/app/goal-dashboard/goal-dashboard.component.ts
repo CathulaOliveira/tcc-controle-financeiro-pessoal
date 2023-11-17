@@ -3,6 +3,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Goal } from '../goal/models/goal';
 import { GoalService } from '../goal/services/goal.service';
 import { SnackbarService } from '../services/snackbar.service';
+import { GoalDashboardService } from './services/goal-dashboard.service';
+import { GoalDashboard } from './models/goal-dashboard';
 
 @Component({
   selector: 'app-goal-dashboard',
@@ -13,11 +15,13 @@ export class GoalDashboardComponent implements OnInit {
 
   form: FormGroup;
   goalOptions: Goal[] = [];
-  progressValue = 40;
+  progressValue = null;
+  dashboard: GoalDashboard;
 
   constructor(
     private snackBar: SnackbarService,
-    private goalService: GoalService
+    private goalService: GoalService,
+    private goalDashboardService: GoalDashboardService
   ) { }
 
   ngOnInit(): void {
@@ -52,25 +56,14 @@ export class GoalDashboardComponent implements OnInit {
   }
 
   listAll(values) {
-    // let filter: DashboardFilter = {
-    //   month: null,
-    //   year: null,
-    //   accounts: null,
-    //   categories: null,
-    //   type: null,
-    // };
-    // if (values != null) {
-    //   filter.month = values.date?.getMonth() + 1;
-    //   filter.year = values.date?.getFullYear();
-    //   filter.accounts = values.account ? [values.account?.id] : null;
-    //   filter.categories = values.category ? [values.category?.id] : null;
-    //   filter.type = values.type;
-    // }
-    // this.dashboardService.findFilter(filter).subscribe( res => {
-    //   this.dashboard = res;
-    // }, erro => {
-    //   this.snackBar.open('Erro ao listar registros. ' + erro.message, 'snackbar-warning');
-    // });
+    if (values != null && values.goal != null) {
+      this.goalDashboardService.findFilter(values.goal.id).subscribe( res => {
+        this.dashboard = res;
+        this.progressValue = res.percentage;
+      }, erro => {
+        this.snackBar.open('Erro ao listar registros. ' + erro.message, 'snackbar-warning');
+      });
+    }
   }
 
 

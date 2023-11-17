@@ -75,4 +75,7 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
             List<Long> accountOriginIds,
             List<Long> accountDestinationIds
     );
+
+    List<Transaction> findByGoal_Id(Long goalId);
+
 }

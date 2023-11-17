@@ -100,6 +100,10 @@ public class TransactionServiceImpl
         return transactionRepository.sumTransactionsByCategory(filter.getDateStart(), filter.getDateFinish(), filter.getAccounts(), filter.getAccounts());
     }
 
+    public List<Transaction> findByGoal(Long goalId) {
+        return transactionRepository.findByGoal_Id(goalId);
+    }
+
     // culpa do Aspect
     @Override
     public Transaction save(Transaction entity) {

@@ -13,10 +13,8 @@ public class ScheduleNotification {
 
     private final NotificationService notificationService;
 
-    @Scheduled(cron = "00 10 21 * * ?") // Agende a execução todos os dias às 8 da manhã
+    @Scheduled(cron = "00 47 22 * * ?") // Agende a execução todos os dias às 8 da manhã
     public void executarRotina() {
-        // Coloque aqui a lógica para buscar registros e aplicar a regra de negócio
-        System.out.println("Executando a rotina às 8 horas.");
         notificationService.buscarRecurringTransationNotification();
     }
 }
