@@ -22,7 +22,7 @@ public class GoalDashboardService {
 
         List<Transaction> transactions = transactionService.findByGoal(goalId);
         List<GoalTransaction> goalTransactions = transactions.stream()
-                .map(obj -> new GoalTransaction(obj.getDate(), obj.getPrice()))
+                .map(obj -> new GoalTransaction(obj.getDate(), obj.getPrice(), obj.getType(), goal.getTypeTransactionExpected()))
                 .collect(Collectors.toList());
 
         GoalDashboard goalDashboard = new GoalDashboard();

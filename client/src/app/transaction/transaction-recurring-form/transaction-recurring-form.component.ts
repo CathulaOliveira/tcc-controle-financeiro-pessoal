@@ -150,7 +150,7 @@ export class TransactionRecurringFormComponent implements OnInit, OnDestroy {
   }
 
   getCategories() {
-    this.categoryService.findAll().subscribe( res => {
+    this.categoryService.findByStatusAtivo().subscribe( res => {
       this.categoryOptions = res;
     }, erro => {
       this.snackBar.open('Erro ao listar Categorias. ' + erro.message, 'snackbar-warning');

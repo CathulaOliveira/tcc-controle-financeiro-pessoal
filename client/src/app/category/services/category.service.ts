@@ -20,6 +20,10 @@ export class CategoryService {
     return this.http.get<Category[]>(`${API_CONFIG.baseUrl}/categories`)
   }
 
+  findByStatusAtivo(): Observable<Category[]> {
+    return this.http.get<Category[]>(`${API_CONFIG.baseUrl}/categories/find-by-status-ativo`)
+  }
+
   save(category: Category): Observable<Category> {
     return this.http.post<Category>(`${API_CONFIG.baseUrl}/categories`, category)
   }

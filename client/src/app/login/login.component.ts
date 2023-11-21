@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit {
       this.router.navigate(['']);
       this.snackBar.open('Login realizado com sucesso.', 'snackbar-sucess');
     }, erro => {
-      this.snackBar.open('Erro ao realizar login.' + erro.message, 'snackbar-warning')
+      this.snackBar.open('Erro ao realizar login, verifique suas credenciais.', 'snackbar-warning')
     })
   }
 

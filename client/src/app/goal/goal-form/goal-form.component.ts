@@ -56,6 +56,7 @@ export class GoalFormComponent implements OnInit, OnDestroy {
       startDate: new FormControl(null),
       endDate: new FormControl(null),
       price: new FormControl(null),
+      progress: new FormControl(null),
       typeTransactionExpected: new FormControl(null, Validators.required),
     });
   }
@@ -120,7 +121,7 @@ export class GoalFormComponent implements OnInit, OnDestroy {
   }
 
   getCategories() {
-    this.categoryService.findAll().subscribe( res => {
+    this.categoryService.findByStatusAtivo().subscribe( res => {
       this.categoryOptions = res;
     }, erro => {
       this.snackBar.open('Erro ao listar Categorias. ' + erro.message, 'snackbar-warning');

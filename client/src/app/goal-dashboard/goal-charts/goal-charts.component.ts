@@ -18,7 +18,9 @@ export class GoalChartsComponent {
   loadDataAndDrawCharts() {
 
     this.dadosGrafico.startDate = new Date(this.dadosGrafico.startDate);
+    this.dadosGrafico.startDate.setDate(this.dadosGrafico.startDate.getDate() + 1);
     this.dadosGrafico.endDate = new Date(this.dadosGrafico.endDate);
+    this.dadosGrafico.endDate.setDate(this.dadosGrafico.endDate.getDate() + 1);
 
     const { metas, dataAtual, dataProjetada } = this.calcularDadosMensais(
       this.dadosGrafico.startDate,
@@ -44,19 +46,27 @@ export class GoalChartsComponent {
       const mes = mesAtual.toLocaleDateString('pt-BR', { month: 'long' });
 
       // Calcular a meta mensal com base no valor acumulado
-      const metaMensal = metaTotal / (this.diferencaDeMeses(termino, inicio) + 1);
+      const metaMensal = metaTotal / (this.diferencaDeMeses(termino, inicio));
 
       metas.push([mes, metaAcumulada]);
 
       // Calcular o valor atual para o mês
       const entradasSaidasNoMes = entradasSaidas.filter((item) => {
         const dataItem = new Date(item.data);
+        dataItem.setDate(dataItem.getDate() + 1);
         return (
           dataItem.getFullYear() === mesAtual.getFullYear() &&
           dataItem.getMonth() === mesAtual.getMonth()
         );
       });
-      const valorMesAtual = entradasSaidasNoMes.reduce((total, item) => total + item.valor, 0);
+      const valorMesAtual = entradasSaidasNoMes.reduce(function(total, item) {
+        let valorItem = item.valor;
+        if (item.typeTransaction != item.typeGoal) {
+          valorItem = -(item.valor);
+        }
+        console.log(valorItem);
+        return total + valorItem
+      }, 0);
       valorAtual += valorMesAtual;
 
       dataAtual.push([mes, valorAtual]);
