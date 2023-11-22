@@ -27,6 +27,7 @@ export class GoalFormComponent implements OnInit, OnDestroy {
     { value: TransactionType.ENTRADA, label: 'Entrada' },
     { value: TransactionType.SAIDA, label: 'Saída' },
   ];
+  averageValue = null;
   
   constructor(
     private service: GoalService,
@@ -41,6 +42,7 @@ export class GoalFormComponent implements OnInit, OnDestroy {
     this.getCategories();
     this.getTypeGoal();
     this.getItemSelected();
+    this.changeCategory();
   }
 
   ngOnDestroy(): void {
@@ -134,6 +136,17 @@ export class GoalFormComponent implements OnInit, OnDestroy {
     }, erro => {
       this.snackBar.open('Erro ao listar Tipos de Metas. ' + erro.message, 'snackbar-warning');
     });
+  }
+
+  
+  changeCategory() {
+    this.form.get('category').valueChanges.subscribe(value => {
+      if (value && value.id) {
+        this.service.getAverageValue(value.id).subscribe(res => {
+          this.averageValue = res;
+        })
+      }
+    })
   }
 
 }

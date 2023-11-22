@@ -5,9 +5,11 @@ import br.edu.utfpr.service.CrudService;
 import br.edu.utfpr.service.impl.GoalServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -25,5 +27,10 @@ public class GoalController extends CrudController<Goal, Long> {
     @GetMapping("find-by-user-logged")
     public List<Goal> findByUserLogged() {
         return this.goalService.findByUserLogged();
+    }
+
+    @GetMapping("get-average-value/{categoryId}")
+    public BigDecimal getAverageValue(@PathVariable Long categoryId) {
+        return this.goalService.getAverageValue(categoryId);
     }
 }

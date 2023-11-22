@@ -39,4 +39,8 @@ export class GoalService {
   setSelectedGoal(goal?: Goal) {
     this.selectedGoalSubject.next(goal);
   }
+
+  getAverageValue(categoryId: number): Observable<number> {
+    return this.http.get<number>(`${API_CONFIG.baseUrl}/goals/get-average-value/${categoryId}`)
+  }
 }

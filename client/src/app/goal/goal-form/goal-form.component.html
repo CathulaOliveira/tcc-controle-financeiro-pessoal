@@ -95,6 +95,8 @@
           matInput
           placeholder="100,00">
         </mat-form-field>
+
+        <mat-label *ngIf="averageValue">O valor médio lançado para esta categoria nos ultimos 3 meses foi de {{averageValue}}</mat-label>
       </form>
     </div>
 

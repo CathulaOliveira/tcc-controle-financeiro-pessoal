@@ -71,7 +71,7 @@ export class AccountListComponent implements OnInit {
       this.snackBar.open('Registro excluído com sucesso.', 'snackbar-sucess');
       this.listAll();
     }, erro => {
-      this.snackBar.open('Erro ao excluir registro. ' + erro.message, 'snackbar-warning')
+      this.snackBar.open('Não foi possível excluir este registro, pois possui vinculos dentro do sistema', 'snackbar-warning')
     })
   }
 

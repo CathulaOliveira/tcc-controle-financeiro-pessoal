@@ -80,7 +80,12 @@ public class CashFlowService {
         }
 
         filter.setDateStart(LocalDate.of(year, month, 1));
-        LocalDate dateFinish = LocalDate.of(year, month+1, 1);
+        LocalDate dateFinish = null;
+        if (month == 12) {
+            dateFinish = LocalDate.of(year, 1, 1);
+        }  else {
+            dateFinish = LocalDate.of(year, month+1, 1);
+        }
         filter.setDateFinish(dateFinish.minusDays(1l));
 
         if (filter.getAccounts() == null) {
