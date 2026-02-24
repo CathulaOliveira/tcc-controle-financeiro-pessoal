@@ -8,9 +8,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class SendWhatsAppMessageService {
 
-    public static final String ACCOUNT_SID = "AC439ca355818b7d1a7068c438617ec11d";
-    public static final String AUTH_TOKEN = "aa3cb7af2f51197f8a53331d98fe82d9";
-    public static final String PHONE_NUMBER_ORIGIN = "+15748918081";
+    public static final String ACCOUNT_SID = "account_sid";
+    public static final String AUTH_TOKEN = "auth_token";
+    public static final String PHONE_NUMBER_ORIGIN = "+origin";
 
     public void sendMsg(String msg, String phoneNumberDentination) {
         Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
